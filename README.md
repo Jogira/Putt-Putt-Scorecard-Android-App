@@ -11,7 +11,7 @@ The home screen is the central page of the app. This page allows users to start 
 # Game Screen
 ![alt text](https://cdn.discordapp.com/attachments/804034109462020136/806979163796930580/image2.png)
 
-The game screen is for recording scores of mini-golf games. This page keep strack of which player's turn it is, and allows the user to record scores for each player in the game as well as view and edit the scorecard for the game
+The game screen is for recording scores of mini-golf games. This page keeps track of which player's turn it is, and allows the user to record scores for each player in the game as well as view and edit the scorecard for the game
 
 # Stats Screen
 ![alt text](https://cdn.discordapp.com/attachments/804034109462020136/806979163332149318/image0.png)
