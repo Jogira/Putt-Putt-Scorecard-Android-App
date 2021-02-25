@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="Games"
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -65,30 +66,46 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <ScrollView
-        android:id="@+id/scrollView3"
-        android:layout_width="412dp"
-        android:layout_height="616dp"
-        android:layout_marginTop="15dp"
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/rounded_button"
+        android:backgroundTint="@color/colorSecondaryDark"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageButton
+            android:id="@+id/imageButton4"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorSecondaryDark"
+            app:srcCompat="@drawable/ic_home" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="408dp"
-        android:layout_height="612dp"
-        app:layout_constraintBottom_toBottomOf="@+id/scrollView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/scrollView3" >
+        <ImageButton
+            android:id="@+id/imageButton5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorSecondaryDark"
+            app:srcCompat="@drawable/ic_stats" />
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/playerImage"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:padding="6dp"
+            android:src="@drawable/sage_profile"
+            app:civ_border_color="#FFFFFF"
+            app:civ_border_width="2dp" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
