@@ -2,11 +2,21 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/homePage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    android:background="@color/colorPrimary"
+    tools:context=".MainActivity" >
 
     <TextView
         android:id="@+id/homePageTitle"
@@ -14,7 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="Games"
-        android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -22,163 +31,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <TextView
+        android:id="@+id/activeGamesTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal"
-        android:weightSum="1"
+        android:layout_marginTop="25dp"
+        android:gravity="left"
+        android:text="  Active"
+        android:textAlignment="textStart"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homePageTitle">
-
-        <TextView
-            android:id="@+id/activeGamesTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_weight="0.5"
-            android:background="@drawable/rounded_background"
-            android:backgroundTint="@color/colorSecondaryDark"
-            android:gravity="left"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:text=" Active"
-            android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:translationZ="5dp" />
-
-        <TextView
-            android:id="@+id/historyGamesTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_weight="0.5"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:text="History"
-            android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/bottomNavBar"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/nav_bar_background"
-        android:backgroundTint="@color/colorSecondaryDark"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:translationZ="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <ImageButton
-            android:id="@+id/homePageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="#00FFFFFF"
-            app:srcCompat="@drawable/ic_home" />
-
-        <ImageButton
-            android:id="@+id/statsPageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/colorSecondaryDark"
-            app:srcCompat="@drawable/ic_stats" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/settingsPageButton"
-            android:layout_width="58dp"
-            android:layout_height="58dp"
-            android:layout_weight="1"
-            android:padding="6dp"
-            android:src="@drawable/sage_profile"
-            app:civ_border_color="#FFFFFF"
-            app:civ_border_width="2dp" />
-
-    </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/newGameButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="3dp"
-        android:backgroundTint="#00FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_add" />
+        app:layout_constraintTop_toBottomOf="@+id/homePageTitle" />
 
     <ScrollView
-        android:id="@+id/gameScrollView"
-        android:layout_width="409dp"
-        android:layout_height="606dp"
-        android:layout_marginTop="25dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/homePageScrollView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/activeGamesTitle">
 
         <LinearLayout
-            android:id="@+id/gameScrollViewContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <LinearLayout
-                android:id="@+id/noGamesView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="visible">
-
-                <ImageView
-                    android:id="@+id/puttPointsLogo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="80dp"
-                    android:layout_marginBottom="20dp"
-                    app:srcCompat="@drawable/putt_points_logo" />
-
-                <TextView
-                    android:id="@+id/noGamesText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="You have no active games :/"
-                    android:textAlignment="center"
-                    android:textColor="#E6E6E6"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/noGamesButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="45dp"
-                    android:background="@drawable/rounded_background"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:text="Start a new game"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-        </LinearLayout>
+            android:orientation="vertical" />
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
