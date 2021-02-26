@@ -81,10 +81,12 @@
     <LinearLayout
         android:id="@+id/navBar"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="70dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="15dp"
+        android:background="@drawable/nav_bar_background"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -105,6 +107,17 @@
             android:layout_weight="1"
             android:backgroundTint="#00FFFFFF"
             app:srcCompat="@drawable/ic_stats" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/settingsPageButton"
+            android:layout_width="50dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:padding="4dp"
+            android:src="@drawable/sean_kingston_profile"
+            app:civ_border_color="#FFFFFF"
+            app:civ_border_width="2dp" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
