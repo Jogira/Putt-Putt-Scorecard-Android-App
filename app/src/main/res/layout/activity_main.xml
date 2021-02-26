@@ -48,7 +48,7 @@
         app:layout_constraintTop_toBottomOf="@+id/homePageTitle">
 
         <Button
-            android:id="@+id/activeGamesButotn"
+            android:id="@+id/activeGamesButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -77,6 +77,59 @@
             android:textStyle="bold" />
 
     </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/gamesScrollView"
+        android:layout_width="406dp"
+        android:layout_height="622dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gamesView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="70dp"
+                    app:srcCompat="@drawable/putt_points_logo" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="You have no active games :/"
+                    android:textAlignment="center"
+                    android:textColor="#E6E6E6"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/button5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/rounded_background"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="Start a new game"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/navBar"
