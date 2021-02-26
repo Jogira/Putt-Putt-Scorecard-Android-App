@@ -6,7 +6,7 @@
     android:id="@+id/historyView"
     android:layout_width="match_parent"
     android:layout_height="125dp"
-    android:background="@drawable/rounded_button"
+    android:background="@drawable/rounded_background"
     android:backgroundTint="@color/colorSecondaryDark"
     android:gravity="center"
     android:orientation="horizontal"
@@ -61,7 +61,7 @@
                 android:orientation="horizontal">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/playerImage"
+                    android:id="@+id/playerProfile"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:src="@drawable/sage_profile" />
