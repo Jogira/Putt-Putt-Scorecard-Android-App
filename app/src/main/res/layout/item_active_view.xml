@@ -6,8 +6,8 @@
     android:id="@+id/historyView"
     android:layout_width="match_parent"
     android:layout_height="115dp"
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="10dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
     android:background="@drawable/rounded_background"
     android:gravity="center_vertical"
     android:orientation="horizontal"
@@ -35,7 +35,7 @@
             app:srcCompat="@drawable/circle" />
 
         <TextView
-            android:id="@+id/currentHoleTextView"
+            android:id="@+id/activeGameCurrentHoleTextView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="5dp"
@@ -59,19 +59,31 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/activeGamePlayerImage"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:src="@drawable/sage_profile"
             android:translationZ="10dp" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/activeGamePLayerImage2"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:id="@+id/activeGamePlayer2Image"
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="-30dp"
             android:src="@drawable/sean_kingston_profile"
             android:translationZ="10dp" />
+
+        <TextView
+            android:id="@+id/morePlayersView"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:text="  . . ."
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -86,7 +98,7 @@
 
     <ImageButton
         android:id="@+id/resumeActiveGameButton"
-        android:layout_width="50dp"
+        android:layout_width="45dp"
         android:layout_height="match_parent"
         android:layout_marginStart="5dp"
         android:layout_weight=".13"

@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Games"
+        android:text="@string/home_page_title"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -28,6 +28,7 @@
         android:layout_marginTop="6dp"
         android:layout_marginEnd="2dp"
         android:backgroundTint="#00FFFFFF"
+        android:contentDescription="@string/new_game_content_desc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_add" />
@@ -44,14 +45,15 @@
 
         <Button
             android:id="@+id/activeGamesButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
             android:layout_weight="1"
             android:background="@drawable/rounded_background"
             android:backgroundTint="@color/colorSecondaryDark"
-            android:text="Active"
+            android:text="@string/active_games_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textColor="#ffffff"
             android:textSize="22sp"
@@ -59,13 +61,15 @@
 
         <Button
             android:id="@+id/pastGamesButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:layout_weight="1"
-            android:background="#00FFFFFF"
-            android:text="History"
+            android:background="@drawable/rounded_background"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:text="@string/past_games_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textColor="#FFFFFF"
             android:textSize="22sp"
@@ -89,6 +93,7 @@
             android:id="@+id/puttPointsLogo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/putt_points_logo_desc"
             app:srcCompat="@drawable/putt_points_logo" />
 
         <TextView
@@ -96,7 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="You have no active games :/"
+            android:text="@string/no_games_text"
             android:textAlignment="center"
             android:textColor="#E6E6E6"
             android:textSize="18sp"
@@ -111,14 +116,14 @@
             android:background="@drawable/rounded_background"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="Start a new game"
+            android:text="@string/start_new_game_text"
             android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <ScrollView
         android:id="@+id/gamesScrollView"
-        android:layout_width="406dp"
-        android:layout_height="622dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -126,9 +131,12 @@
         app:layout_constraintTop_toBottomOf="@+id/gamesView">
 
         <LinearLayout
+            android:id="@+id/gamesScrollViewContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:orientation="vertical">
 
         </LinearLayout>
     </ScrollView>
@@ -153,6 +161,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="#00FFFFFF"
+            android:contentDescription="@string/home_page_button"
             app:srcCompat="@drawable/ic_home" />
 
         <ImageButton
@@ -161,6 +170,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="#00FFFFFF"
+            android:contentDescription="@string/stats_page_button"
             app:srcCompat="@drawable/ic_stats" />
 
         <de.hdodenhof.circleimageview.CircleImageView

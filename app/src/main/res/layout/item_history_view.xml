@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/historyView"
     android:layout_width="match_parent"
-    android:layout_height="125dp"
+    android:layout_height="wrap_content"
     android:background="@drawable/rounded_background"
     android:backgroundTint="@color/colorSecondaryDark"
     android:gravity="center"
@@ -18,7 +18,7 @@
 
     <TableLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight=".75">
 
         <TableRow
@@ -29,9 +29,9 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/winnerPicture"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginBottom="15dp"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_marginBottom="20dp"
                 android:src="@drawable/sean_kingston_profile" />
 
             <TextView
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="15dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="15dp"
                 android:text="Sean Kingston Won!"
                 android:textColor="#FFFFFF"
                 android:textSize="22sp"
@@ -51,13 +51,14 @@
         <TableRow
             android:id="@+id/playerRowOne"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="5dp">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="3dp">
 
             <LinearLayout
                 android:id="@+id/playerScoreView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -84,7 +85,7 @@
             <LinearLayout
                 android:id="@+id/player2ScoreView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:orientation="horizontal">
 
