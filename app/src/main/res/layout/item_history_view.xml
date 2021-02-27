@@ -28,14 +28,14 @@
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/winnerPicture"
+                android:id="@+id/historyGameWinnerPicture"
                 android:layout_width="52dp"
                 android:layout_height="52dp"
                 android:layout_marginBottom="20dp"
                 android:src="@drawable/sean_kingston_profile" />
 
             <TextView
-                android:id="@+id/winnerTitle"
+                android:id="@+id/historyGameWinnerTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -62,7 +62,7 @@
                 android:orientation="horizontal">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/playerProfile"
+                    android:id="@+id/historyGamePlayer1Profile"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:src="@drawable/sage_profile" />
@@ -90,7 +90,7 @@
                 android:orientation="horizontal">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/player2Image"
+                    android:id="@+id/historyGamePlayer2Profile"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:src="@drawable/sean_kingston_profile" />
@@ -124,7 +124,7 @@
     </TableLayout>
 
     <Button
-        android:id="@+id/viewScoreCardButton"
+        android:id="@+id/historyGameViewScoreCardButton"
         android:layout_width="25dp"
         android:layout_height="35dp"
         android:background="@drawable/arrow_forward"

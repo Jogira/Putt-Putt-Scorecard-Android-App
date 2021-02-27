@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -110,21 +112,29 @@ public class MainActivity extends AppCompatActivity {
             noGamesView.setVisibility(View.VISIBLE);
 
         if(pageType == ACTIVE_GAMES) {
-
             //example active game
             View exampleActiveGame = View.inflate(this, R.layout.item_active_view, null);
             TextView currentHole = exampleActiveGame.findViewById(R.id.activeGameCurrentHoleTextView);
-            currentHole.setText("3");
+            currentHole.setText("2");
             gamesScrollViewContent.addView(exampleActiveGame);
+            playAnimation(exampleActiveGame, R.anim.quick_zoom);
         }
         else {
-
             //example history game
             View examplePastGame = View.inflate(this, R.layout.item_history_view, null);
-            examplePastGame.setMinimumHeight(200);
             gamesScrollViewContent.addView(examplePastGame);
+            playAnimation(examplePastGame, R.anim.quick_zoom);
         }
 
+    }
+
+    private void playAnimation(View v, int animationId) {
+        if(v != null) {
+            Animation animation = AnimationUtils.loadAnimation(this, animationId);
+            animation.setDuration(animation.getDuration());
+            animation.setFillAfter(true);
+            v.startAnimation(animation);
+        }
     }
 
 }
