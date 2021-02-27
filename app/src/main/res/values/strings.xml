@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Putt Points</string>
+    <string name="home_page_title">Games</string>
+    <string name="new_game_content_desc">Start a new game</string>
+    <string name="active_games_title">Active</string>
+    <string name="past_games_title">History</string>
+    <string name="putt_points_logo_desc">Putt Points logo</string>
+    <string name="no_games_text">You have no active games :/</string>
+    <string name="start_new_game_text">Start a new game</string>
+    <string name="home_page_button">Home page button</string>
+    <string name="stats_page_button">Stats page button</string>
+
+</resources>
