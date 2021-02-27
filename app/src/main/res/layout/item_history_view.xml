@@ -65,7 +65,7 @@
                     android:id="@+id/historyGamePlayer1Profile"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:src="@drawable/sage_profile" />
+                    android:src="@drawable/sage_thompson_profile" />
 
                 <TextView
                     android:id="@+id/playerScore"

@@ -22,8 +22,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MainActivity extends AppCompatActivity {
 
     private int currentGamePage = 0;
-    private int numActiveGames = 0;
-    private int numPastGames = 0;
+    private int numActiveGames = 2;
+    private int numPastGames = 6;
     private static final int PAST_GAMES = 1;
     private static final int ACTIVE_GAMES = 0;
     private ImageButton statsButton;
