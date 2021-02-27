@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout gamesScrollViewContent;
     private LinearLayout noGamesView;
     private TextView noGamesText;
+    private ImageButton newGameButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
         gamesScrollViewContent = findViewById(R.id.gamesScrollViewContent);
         noGamesView = findViewById(R.id.noGamesView);
         noGamesText = findViewById(R.id.noGamesText);
+
+        newGameButton = findViewById(R.id.newGameButton);
+
+
 
         activeGamesButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +87,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        newGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openAddPlayersPage();
+            }
+        });
+
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,7 +103,11 @@ public class MainActivity extends AppCompatActivity {
         populateGamesScrollView(ACTIVE_GAMES);
     }
 
-
+    private void openAddPlayersPage(){
+        Intent addPlayersPage = new Intent(this, AddPlayersActivity.class);
+        startActivity(addPlayersPage);
+        this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
+    }
 
     private void openStatsPage(){
         Intent statsPage = new Intent(this, StatsActivity.class);
