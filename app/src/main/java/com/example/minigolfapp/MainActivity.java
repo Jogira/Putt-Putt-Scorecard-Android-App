@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -20,8 +22,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MainActivity extends AppCompatActivity {
 
     private int currentGamePage = 0;
-    private int numActiveGames = 1;
-    private int numPastGames = 1;
+    private int numActiveGames = 2;
+    private int numPastGames = 6;
     private static final int PAST_GAMES = 1;
     private static final int ACTIVE_GAMES = 0;
     private ImageButton statsButton;
@@ -111,29 +113,47 @@ public class MainActivity extends AppCompatActivity {
         else
             noGamesView.setVisibility(View.VISIBLE);
 
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.bottomMargin = 25;
+
         if(pageType == ACTIVE_GAMES) {
             //example active game
-            View exampleActiveGame = View.inflate(this, R.layout.item_active_view, null);
-            TextView currentHole = exampleActiveGame.findViewById(R.id.activeGameCurrentHoleTextView);
-            currentHole.setText("2");
-            gamesScrollViewContent.addView(exampleActiveGame);
-            playAnimation(exampleActiveGame, R.anim.quick_zoom);
+            int delay = 0;
+            for (int i = 0; i < numActiveGames; i++) {
+                View exampleActiveGame = View.inflate(this, R.layout.item_active_view, null);
+                exampleActiveGame.setLayoutParams(params);
+                gamesScrollViewContent.addView(exampleActiveGame);
+                playAnimation(exampleActiveGame, R.anim.quick_zoom, delay);
+                delay += 25;
+            }
         }
         else {
             //example history game
-            View examplePastGame = View.inflate(this, R.layout.item_history_view, null);
-            gamesScrollViewContent.addView(examplePastGame);
-            playAnimation(examplePastGame, R.anim.quick_zoom);
+            int delay = 0;
+            for (int i = 0; i < numPastGames; i++) {
+                View examplePastGame = View.inflate(this, R.layout.item_history_view, null);
+                examplePastGame.setLayoutParams(params);
+                gamesScrollViewContent.addView(examplePastGame);
+                playAnimation(examplePastGame, R.anim.quick_zoom, delay);
+                delay += 25;
+            }
         }
 
     }
 
-    private void playAnimation(View v, int animationId) {
+    private void playAnimation(final View v, final int animationId, int delayMS) {
         if(v != null) {
-            Animation animation = AnimationUtils.loadAnimation(this, animationId);
-            animation.setDuration(animation.getDuration());
-            animation.setFillAfter(true);
-            v.startAnimation(animation);
+
+            new Handler().postDelayed(new Runnable()
+            {
+                @Override
+                public void run() {
+                    Animation animation = AnimationUtils.loadAnimation(MainActivity.this, animationId);
+                    animation.setDuration(animation.getDuration());
+                    animation.setFillAfter(true);
+                    v.startAnimation(animation);
+                }
+            }, delayMS);
         }
     }
 
