@@ -22,8 +22,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MainActivity extends AppCompatActivity {
 
     private int currentGamePage = 0;
-    private int numActiveGames = 2;
-    private int numPastGames = 6;
+    private int numActiveGames = 0;
+    private int numPastGames = 0;
     private static final int PAST_GAMES = 1;
     private static final int ACTIVE_GAMES = 0;
     private ImageButton statsButton;
@@ -88,9 +88,10 @@ public class MainActivity extends AppCompatActivity {
                 openSettingsPage();
             }
         });
-
         populateGamesScrollView(ACTIVE_GAMES);
     }
+
+
 
     private void openStatsPage(){
         Intent statsPage = new Intent(this, StatsActivity.class);
@@ -116,9 +117,9 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.bottomMargin = 25;
 
+        int delay = 0;
         if(pageType == ACTIVE_GAMES) {
             //example active game
-            int delay = 0;
             for (int i = 0; i < numActiveGames; i++) {
                 View exampleActiveGame = View.inflate(this, R.layout.item_active_view, null);
                 exampleActiveGame.setLayoutParams(params);
@@ -129,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             //example history game
-            int delay = 0;
             for (int i = 0; i < numPastGames; i++) {
                 View examplePastGame = View.inflate(this, R.layout.item_history_view, null);
                 examplePastGame.setLayoutParams(params);
