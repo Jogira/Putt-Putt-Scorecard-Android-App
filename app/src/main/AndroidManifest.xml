@@ -19,6 +19,7 @@
         <activity android:name=".SettingsActivity"/>
         <activity android:name=".AddPlayersActivity"/>
         <activity android:name=".AddPointsActivity"/>
+        <activity android:name=".ScoreCardActivity"/>
     </application>
 
 </manifest>
