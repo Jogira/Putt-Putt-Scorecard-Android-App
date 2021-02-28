@@ -8,8 +8,6 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 
 public class AddPlayersActivity extends AppCompatActivity
 {
@@ -41,6 +39,14 @@ public class AddPlayersActivity extends AppCompatActivity
                         }
                 });
 
+
+                createGame.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                                openPointsPage();
+                        }
+                });
+
                 player1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -54,6 +60,13 @@ public class AddPlayersActivity extends AppCompatActivity
                 startActivity(homePage);
                 this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
         }
+
+        private void openPointsPage(){
+                Intent addPointsPage = new Intent(this, AddPointsActivity.class);
+                startActivity(addPointsPage);
+                this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
+        }
+
 
         private void flipPlayerIcon(){
                 if (!flipped)
