@@ -1,17 +1,16 @@
 package com.example.minigolfapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -123,6 +122,22 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < numActiveGames; i++) {
                 View exampleActiveGame = View.inflate(this, R.layout.item_active_view, null);
                 exampleActiveGame.setLayoutParams(params);
+                final ImageButton resumeGameButton = exampleActiveGame.findViewById(R.id.resumeActiveGameButton);
+                final ImageButton deleteGameButton = exampleActiveGame.findViewById(R.id.deleteActiveGameButton);
+                resumeGameButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        playAnimation(resumeGameButton, R.anim.button_press_in,0);
+                        playAnimation(resumeGameButton, R.anim.button_press_out,100);
+                    }
+                });
+                deleteGameButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        playAnimation(deleteGameButton, R.anim.button_press_in,0);
+                        playAnimation(deleteGameButton, R.anim.button_press_out,100);
+                    }
+                });
                 gamesScrollViewContent.addView(exampleActiveGame);
                 playAnimation(exampleActiveGame, R.anim.quick_zoom, delay);
                 delay += 25;
@@ -133,6 +148,14 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < numPastGames; i++) {
                 View examplePastGame = View.inflate(this, R.layout.item_history_view, null);
                 examplePastGame.setLayoutParams(params);
+                final Button viewScoreCardButton = examplePastGame.findViewById(R.id.historyGameViewScoreCardButton);
+                viewScoreCardButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        playAnimation(viewScoreCardButton, R.anim.button_press_in,0);
+                        playAnimation(viewScoreCardButton, R.anim.button_press_out,100);
+                    }
+                });
                 gamesScrollViewContent.addView(examplePastGame);
                 playAnimation(examplePastGame, R.anim.quick_zoom, delay);
                 delay += 25;
@@ -143,7 +166,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void playAnimation(final View v, final int animationId, int delayMS) {
         if(v != null) {
-
             new Handler().postDelayed(new Runnable()
             {
                 @Override
