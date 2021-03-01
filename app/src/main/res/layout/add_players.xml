@@ -77,12 +77,14 @@
 
     <Button
         android:id="@+id/backX"
-        android:layout_width="41dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="16dp"
-        android:background="@android:drawable/ic_delete"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/ic_add"
+        android:backgroundTint="@color/colorAccentSecondary"
         android:fontFamily="casual"
+        android:rotation="45"
         android:textColor="#FF0000"
         android:textSize="24sp"
         android:visibility="visible"
@@ -93,7 +95,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="65dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/createGame"
@@ -104,13 +106,73 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="5dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/player1Slot"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:src="@drawable/sean_kingston_profile"
+                    tools:srcCompat="@android:drawable/list_selector_background" />
+
+                <TextView
+                    android:id="@+id/player1Name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Sean"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal|center_vertical"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/additionalPlayer"
+                    style="@style/Widget.AppCompat.ImageButton"
+                    android:layout_width="73dp"
+                    android:layout_height="73dp"
+                    android:background="@drawable/circle"
+                    android:contentDescription="TODO"
+                    android:scaleType="center"
+                    app:srcCompat="@drawable/ic_add" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="New"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
     </ScrollView>
 
     <Button
         android:id="@+id/createGame"
-        android:layout_width="319dp"
-        android:layout_height="57dp"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
         android:layout_marginStart="45dp"
         android:layout_marginEnd="45dp"
         android:layout_marginBottom="15dp"
@@ -118,46 +180,11 @@
         android:fontFamily="sans-serif-medium"
         android:text="Create game"
         android:textColor="#FFFFFF"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/navBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageButton
-        android:id="@+id/additionalPlayer"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="68dp"
-        android:background="@android:drawable/ic_input_add"
-        android:contentDescription="TODO"
-        android:scaleType="center"
-        app:layout_constraintStart_toEndOf="@+id/player1Slot"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="?attr/selectableItemBackground" />
-
-    <ImageButton
-        android:id="@+id/player1Slot"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="71dp"
-        android:layout_marginTop="69dp"
-        android:background="@drawable/sean_kingston_profile"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:srcCompat="@android:drawable/list_selector_background"
-        android:contentDescription="TODO" />
-
-    <TextView
-        android:id="@+id/player1Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="82dp"
-        android:layout_marginTop="11dp"
-        android:text="Sean"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/player1Slot" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

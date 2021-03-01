@@ -15,7 +15,7 @@ public class AddPlayersActivity extends AppCompatActivity
 {
         private Button backX;
         private Button createGame;
-        private ImageButton player1;
+        private CircleImageView player1;
         private ImageButton player2;
         private ImageButton player3;
         private ImageButton player4;
@@ -110,6 +110,7 @@ public class AddPlayersActivity extends AppCompatActivity
                 this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
         }
 
+        //create and add profile views dynamically from saved profiles
         private void populateProfileView(){
                 for(Player p : Player.players){
 
@@ -118,14 +119,12 @@ public class AddPlayersActivity extends AppCompatActivity
 
 
         private void flipPlayerIcon(){
-                if (!flipped)
-                {
-                        player1.setBackgroundResource(R.drawable.rounded_background);
+                if (!flipped) {
+                        player1.setImageResource(R.drawable.ic_checked_profile);
                         flipped = true;
                 }
-                else
-                {
-                        player1.setBackgroundResource(R.drawable.sean_kingston_profile);
+                else {
+                        player1.setImageResource(R.drawable.sean_kingston_profile);
                         flipped = false;
                 }
         }
