@@ -58,7 +58,7 @@ public class AddPlayersActivity extends AppCompatActivity
         private void goBackPage(){
                 Intent homePage = new Intent(this, MainActivity.class);
                 startActivity(homePage);
-                this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
+                this.overridePendingTransition(R.anim.new_page_no_anim, R.anim.slide_down);
         }
 
         private void openPointsPage(){

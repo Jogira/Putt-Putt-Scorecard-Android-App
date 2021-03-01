@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private CircleImageView settingsButton;
     private Button activeGamesButton;
     private Button pastGamesButton;
+    private ImageButton newGameButton;
     private LinearLayout gamesScrollViewContent;
     private LinearLayout noGamesView;
     private TextView noGamesText;
@@ -45,6 +46,16 @@ public class MainActivity extends AppCompatActivity {
         gamesScrollViewContent = findViewById(R.id.gamesScrollViewContent);
         noGamesView = findViewById(R.id.noGamesView);
         noGamesText = findViewById(R.id.noGamesText);
+        newGameButton = findViewById(R.id.newGameButton);
+
+        newGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                playAnimation(view, R.anim.button_press_in, 0);
+                playAnimation(view, R.anim.button_press_out, 100);
+                openNewGamePage();
+            }
+        });
 
         activeGamesButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +113,12 @@ public class MainActivity extends AppCompatActivity {
         Intent settingsPage = new Intent(this, SettingsActivity.class);
         startActivity(settingsPage);
         this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
+    }
+
+    private void openNewGamePage(){
+        Intent newGamePage = new Intent(this, AddPlayersActivity.class);
+        startActivity(newGamePage);
+        this.overridePendingTransition(R.anim.slide_up, R.anim.fade_in);
     }
 
     private void populateGamesScrollView(int pageType){
