@@ -19,6 +19,7 @@ public class AddPlayersActivity extends AppCompatActivity
         private ImageButton player4;
         private ImageButton player5;
         private ImageButton additionalPlayers;
+        private ImageButton home;
         private boolean flipped = false;
         private Game thisGame;
 
@@ -32,6 +33,7 @@ public class AddPlayersActivity extends AppCompatActivity
                 createGame = findViewById(R.id.createGame);
                 player1 = findViewById(R.id.player1Slot);
                 additionalPlayers = findViewById(R.id.additionalPlayer);
+                home = findViewById(R.id.homePageButton);
 
                 backX.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -52,6 +54,13 @@ public class AddPlayersActivity extends AppCompatActivity
                         @Override
                         public void onClick(View view) {
                                 flipPlayerIcon();
+                        }
+                });
+
+                home.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                                goBackPage();
                         }
                 });
         }
