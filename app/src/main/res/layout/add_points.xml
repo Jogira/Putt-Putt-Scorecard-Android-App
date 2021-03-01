@@ -10,10 +10,10 @@
 
     <LinearLayout
         android:id="@+id/navBar"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginBottom="15dp"
         android:background="@drawable/nav_bar_background"
         android:backgroundTint="@color/colorTertiaryDark"
@@ -28,84 +28,53 @@
             android:id="@+id/homePageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="25dp"
             android:layout_weight="1"
             android:backgroundTint="#00FFFFFF"
-            android:tint="#d9d9d9"
+            android:contentDescription="@string/home_page_button"
             app:srcCompat="@drawable/ic_home" />
 
         <ImageButton
             android:id="@+id/statsPageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1"
             android:backgroundTint="#00FFFFFF"
+            android:contentDescription="@string/stats_page_button"
             app:srcCompat="@drawable/ic_stats" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/settingsPageButton"
-            android:layout_width="50dp"
-            android:layout_height="58dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="20dp"
             android:layout_weight="1"
             android:padding="4dp"
             android:src="@drawable/sean_kingston_profile"
-            app:civ_border_color="@color/colorAccent"
-            app:civ_border_width="3dp" />
+            app:civ_border_color="#FFFFFF"
+            app:civ_border_width="2dp" />
 
     </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/decrementButton"
-        android:layout_width="51dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="51dp"
-        android:layout_marginBottom="331dp"
-        app:layout_constraintBottom_toTopOf="@+id/navBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/presence_busy" />
-
-    <ImageButton
-        android:id="@+id/incrementButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="47dp"
-        android:layout_marginBottom="334dp"
-        app:layout_constraintBottom_toTopOf="@+id/navBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
-
-    <TextView
-        android:id="@+id/scoreToAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="93dp"
-        android:layout_marginEnd="93dp"
-        android:layout_marginBottom="85dp"
-        android:text="0"
-        android:textColor="#FFFFFF"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/addScoreButton"
-        app:layout_constraintEnd_toStartOf="@+id/incrementButton"
-        app:layout_constraintStart_toEndOf="@+id/decrementButton" />
 
     <Button
         android:id="@+id/addScoreButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="124dp"
-        android:layout_marginBottom="200dp"
+        android:background="@drawable/rounded_background"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:text="Add score to card"
-        app:layout_constraintBottom_toTopOf="@+id/navBar"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/viewCard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="38dp"
-        android:layout_marginBottom="103dp"
-        android:text="View card"
-        app:layout_constraintBottom_toTopOf="@+id/incrementButton"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <TextView
         android:id="@+id/textView4"
@@ -121,16 +90,99 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/CurrentHole"
+    <Button
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="87dp"
-        android:layout_marginTop="121dp"
-        android:text="1"
-        android:textColor="#FDFDFD"
-        android:textSize="24sp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="@color/colorAccentSecondary"
+        android:text="End Game"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/navBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+        <TextView
+            android:id="@+id/CurrentHole"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight=".5"
+            android:text="1"
+            android:textAlignment="center"
+            android:textColor="#FDFDFD"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/viewCard"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight=".5"
+            android:background="@drawable/rounded_background"
+            android:text="View card"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <ImageButton
+            android:id="@+id/incrementButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight=".10"
+            app:srcCompat="@android:drawable/ic_input_add" />
+
+        <TextView
+            android:id="@+id/scoreToAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight=".8"
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="36sp" />
+
+        <ImageButton
+            android:id="@+id/decrementButton"
+            android:layout_width="51dp"
+            android:layout_height="54dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight=".1"
+            app:srcCompat="@android:drawable/presence_busy" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

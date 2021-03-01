@@ -6,6 +6,51 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
 
+    <LinearLayout
+        android:id="@+id/navBar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/nav_bar_background"
+        android:backgroundTint="@color/colorTertiaryDark"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:translationZ="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/homePageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#00FFFFFF"
+            android:tint="#d9d9d9"
+            app:srcCompat="@drawable/ic_home" />
+
+        <ImageButton
+            android:id="@+id/statsPageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#00FFFFFF"
+            app:srcCompat="@drawable/ic_stats" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/settingsPageButton"
+            android:layout_width="50dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:padding="4dp"
+            android:src="@drawable/sean_kingston_profile"
+            app:civ_border_color="@color/colorAccent"
+            app:civ_border_width="3dp" />
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -16,6 +61,7 @@
         android:text="Who's playing?"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,12 +89,12 @@
         android:layout_height="57dp"
         android:layout_marginStart="46dp"
         android:layout_marginEnd="46dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/rounded_background"
         android:fontFamily="sans-serif-medium"
         android:text="Create game"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/navBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
