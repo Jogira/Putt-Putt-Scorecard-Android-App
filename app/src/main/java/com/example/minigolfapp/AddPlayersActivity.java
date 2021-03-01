@@ -8,6 +8,8 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class AddPlayersActivity extends AppCompatActivity
 {
@@ -21,6 +23,7 @@ public class AddPlayersActivity extends AppCompatActivity
         private ImageButton additionalPlayers;
         private ImageButton home;
         private ImageButton statsPage;
+        private CircleImageView settingsPage;
         private boolean flipped = false;
         private Game thisGame;
 
@@ -36,6 +39,7 @@ public class AddPlayersActivity extends AppCompatActivity
                 additionalPlayers = findViewById(R.id.additionalPlayer);
                 home = findViewById(R.id.homePageButton);
                 statsPage = findViewById(R.id.statsPageButton);
+                settingsPage = findViewById(R.id.settingsPageButton);
 
                 backX.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -72,6 +76,14 @@ public class AddPlayersActivity extends AppCompatActivity
                                 toStatsPage();
                         }
                 });
+
+                settingsPage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                                toSettingsPage();
+                        }
+                });
+
         }
 
         private void goBackPage(){
@@ -83,6 +95,12 @@ public class AddPlayersActivity extends AppCompatActivity
         private void toStatsPage(){
                 Intent statsScreen = new Intent(this, StatsActivity.class);
                 startActivity(statsScreen);
+                this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
+        }
+
+        private void toSettingsPage(){
+                Intent settingsScreen = new Intent(this, SettingsActivity.class);
+                startActivity(settingsScreen);
                 this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
         }
 

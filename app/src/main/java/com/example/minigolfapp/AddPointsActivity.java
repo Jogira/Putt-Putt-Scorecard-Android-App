@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class AddPointsActivity extends AppCompatActivity
 {
@@ -17,6 +19,7 @@ public class AddPointsActivity extends AppCompatActivity
     private ImageButton home;
     private ImageButton statsPage;
     private TextView scoreToAdd;
+    private CircleImageView settingsPage;
     private Button openCard;
     private Button endGame;
 
@@ -33,6 +36,7 @@ public class AddPointsActivity extends AppCompatActivity
         scoreToAdd = findViewById(R.id.scoreToAdd);
         openCard = findViewById(R.id.viewCard);
         endGame = findViewById(R.id.endGame);
+        settingsPage = findViewById(R.id.settingsPageButton);
 
         increment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +63,13 @@ public class AddPointsActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 toStatsPage();
+            }
+        });
+
+        settingsPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toSettingsPage();
             }
         });
 
@@ -108,6 +119,13 @@ public class AddPointsActivity extends AppCompatActivity
         startActivity(homeScreen);
         this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
     }
+
+    private void toSettingsPage(){
+        Intent settingsScreen = new Intent(this, SettingsActivity.class);
+        startActivity(settingsScreen);
+        this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
+    }
+
 
     private void toStatsPage(){
         Intent statsScreen = new Intent(this, StatsActivity.class);
