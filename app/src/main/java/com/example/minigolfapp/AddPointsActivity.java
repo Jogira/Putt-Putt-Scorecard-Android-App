@@ -16,6 +16,7 @@ public class AddPointsActivity extends AppCompatActivity
     private ImageButton decrement;
     private TextView scoreToAdd;
     private Button openCard;
+    private Button endGame;
 
 
     @Override
@@ -27,6 +28,7 @@ public class AddPointsActivity extends AppCompatActivity
         decrement = findViewById(R.id.decrementButton);
         scoreToAdd = findViewById(R.id.scoreToAdd);
         openCard = findViewById(R.id.viewCard);
+        endGame = findViewById(R.id.endGame);
 
         increment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,6 +45,13 @@ public class AddPointsActivity extends AppCompatActivity
         });
 
         openCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openScorecard();
+            }
+        });
+
+        endGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openScorecard();
