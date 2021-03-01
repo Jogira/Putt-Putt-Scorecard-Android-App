@@ -75,29 +75,32 @@
         app:layout_constraintBottom_toTopOf="@+id/endGame"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/scoreLinearLayout" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="145dp"
+        android:layout_marginTop="30dp"
         android:text="Sean's Turn"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/endGame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
+        android:layout_width="225dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/rounded_background"
         android:backgroundTint="@color/colorAccentSecondary"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         android:text="End Game"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
@@ -109,10 +112,17 @@
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="@color/colorSecondaryDark"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:paddingTop="15dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="15dp"
         android:weightSum="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -122,13 +132,22 @@
             android:id="@+id/CurrentHole"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
+            android:layout_marginStart="3dp"
             android:layout_marginTop="0dp"
-            android:layout_weight=".5"
-            android:text="1"
-            android:textAlignment="center"
+            android:layout_weight=".33"
+            android:drawableStart="@drawable/circle"
+            android:text=" 1"
+            android:textAlignment="textStart"
             android:textColor="#FDFDFD"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/parView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight=".33"
+            android:orientation="vertical"></LinearLayout>
 
         <Button
             android:id="@+id/viewCard"
@@ -136,7 +155,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="0dp"
-            android:layout_weight=".5"
+            android:layout_weight=".33"
             android:background="@drawable/rounded_background"
             android:text="View card"
             android:textColor="#FFFFFF"
@@ -144,12 +163,13 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/scoreLinearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="35dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:weightSum="1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -159,11 +179,13 @@
         <ImageButton
             android:id="@+id/incrementButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="52dp"
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="0dp"
             android:layout_weight=".10"
-            app:srcCompat="@android:drawable/ic_input_add" />
+            android:background="@drawable/circle"
+            android:tint="@color/colorAccentSecondary"
+            app:srcCompat="@drawable/ic_add" />
 
         <TextView
             android:id="@+id/scoreToAdd"
@@ -176,15 +198,17 @@
             android:text="0"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
-            android:textSize="36sp" />
+            android:textSize="85dp"
+            android:textStyle="bold" />
 
         <ImageButton
             android:id="@+id/decrementButton"
-            android:layout_width="51dp"
-            android:layout_height="54dp"
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
             android:layout_marginStart="0dp"
             android:layout_marginBottom="0dp"
             android:layout_weight=".1"
+            android:background="@drawable/circle"
             app:srcCompat="@android:drawable/presence_busy" />
     </LinearLayout>
 
