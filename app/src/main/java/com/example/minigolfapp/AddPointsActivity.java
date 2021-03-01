@@ -14,6 +14,7 @@ public class AddPointsActivity extends AppCompatActivity
 {
     private ImageButton increment;
     private ImageButton decrement;
+    private ImageButton home;
     private TextView scoreToAdd;
     private Button openCard;
     private Button endGame;
@@ -26,6 +27,7 @@ public class AddPointsActivity extends AppCompatActivity
 
         increment = findViewById(R.id.incrementButton);
         decrement = findViewById(R.id.decrementButton);
+        home = findViewById(R.id.homePageButton);
         scoreToAdd = findViewById(R.id.scoreToAdd);
         openCard = findViewById(R.id.viewCard);
         endGame = findViewById(R.id.endGame);
@@ -41,6 +43,13 @@ public class AddPointsActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 decrementScore();
+            }
+        });
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toHomeScreen();
             }
         });
 
@@ -82,6 +91,12 @@ public class AddPointsActivity extends AppCompatActivity
     private void openScorecard(){
         Intent scorecard = new Intent(this, ScoreCardActivity.class);
         startActivity(scorecard);
+        this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
+    }
+
+    private void toHomeScreen(){
+        Intent homeScreen = new Intent(this, MainActivity.class);
+        startActivity(homeScreen);
         this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
     }
 }

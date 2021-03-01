@@ -33,6 +33,7 @@
             android:layout_weight="1"
             android:backgroundTint="#00FFFFFF"
             android:contentDescription="@string/home_page_button"
+            android:tint="#FFFFFF"
             app:srcCompat="@drawable/ic_home" />
 
         <ImageButton
@@ -99,6 +100,7 @@
         android:backgroundTint="@color/colorAccentSecondary"
         android:text="End Game"
         android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/navBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -137,7 +139,8 @@
             android:layout_weight=".5"
             android:background="@drawable/rounded_background"
             android:text="View card"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout

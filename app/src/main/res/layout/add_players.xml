@@ -8,10 +8,10 @@
 
     <LinearLayout
         android:id="@+id/navBar"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginBottom="15dp"
         android:background="@drawable/nav_bar_background"
         android:backgroundTint="@color/colorTertiaryDark"
@@ -26,28 +26,37 @@
             android:id="@+id/homePageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="25dp"
             android:layout_weight="1"
             android:backgroundTint="#00FFFFFF"
-            android:tint="#d9d9d9"
+            android:contentDescription="@string/home_page_button"
+            android:tint="#FFFFFF"
             app:srcCompat="@drawable/ic_home" />
 
         <ImageButton
             android:id="@+id/statsPageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1"
             android:backgroundTint="#00FFFFFF"
+            android:contentDescription="@string/stats_page_button"
             app:srcCompat="@drawable/ic_stats" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/settingsPageButton"
-            android:layout_width="50dp"
-            android:layout_height="58dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="20dp"
             android:layout_weight="1"
             android:padding="4dp"
             android:src="@drawable/sean_kingston_profile"
-            app:civ_border_color="@color/colorAccent"
-            app:civ_border_width="3dp" />
+            app:civ_border_color="#FFFFFF"
+            app:civ_border_width="2dp" />
 
     </LinearLayout>
 
@@ -109,6 +118,7 @@
         android:fontFamily="sans-serif-medium"
         android:text="Create game"
         android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/navBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -117,16 +127,14 @@
         android:id="@+id/additionalPlayer"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="68dp"
-        android:layout_marginEnd="180dp"
-        android:layout_marginBottom="386dp"
         android:background="@android:drawable/ic_input_add"
+        android:contentDescription="TODO"
         android:scaleType="center"
-        app:layout_constraintBottom_toTopOf="@+id/createGame"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/player1Slot"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="?attr/selectableItemBackground"
-        android:contentDescription="TODO" />
+        app:srcCompat="?attr/selectableItemBackground" />
 
     <ImageButton
         android:id="@+id/player1Slot"
