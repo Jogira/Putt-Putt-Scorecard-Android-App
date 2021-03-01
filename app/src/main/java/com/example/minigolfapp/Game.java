@@ -8,12 +8,12 @@ public class Game {
     private int gameID;
     private boolean isActive;
     private boolean parsActive;
-    private ArrayList<String> players;
+    private ArrayList<Player> players;
     private int currentHole;
     private int numHoles;
     private int[] pars = null;
 
-    public Game(ArrayList<String> players, int numHoles, int[] pars){
+    public Game(ArrayList<Player> players, int numHoles, int[] pars){
         if(parsActive)
             this.pars = pars;
 
@@ -25,7 +25,7 @@ public class Game {
         currentHole = 1;
     }
 
-    public Game(ArrayList<String> players, int numHoles){
+    public Game(ArrayList<Player> players, int numHoles){
         if(parsActive)
             pars = new int[numHoles];
 
@@ -70,19 +70,19 @@ public class Game {
         this.parsActive = parsActive;
     }
 
-    public ArrayList<String> getPlayers() {
+    public ArrayList<Player> getPlayers() {
         return players;
     }
 
-    public void addPlayer(String playerID) {
-        this.players.add(playerID);
+    public void addPlayer(Player p) {
+        this.players.add(p);
     }
 
     public void removePlayer(String playerID) {
         this.players.remove(playerID);
     }
 
-    public void setPlayers(ArrayList<String> players) {
+    public void setPlayers(ArrayList<Player> players) {
         this.players = players;
     }
 }

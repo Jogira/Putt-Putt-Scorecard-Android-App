@@ -20,6 +20,7 @@ public class AddPlayersActivity extends AppCompatActivity
         private ImageButton player5;
         private ImageButton additionalPlayers;
         private boolean flipped = false;
+        private Game thisGame;
 
 
         @Override
@@ -65,6 +66,12 @@ public class AddPlayersActivity extends AppCompatActivity
                 Intent addPointsPage = new Intent(this, AddPointsActivity.class);
                 startActivity(addPointsPage);
                 this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
+        }
+
+        private void populateProfileView(){
+                for(Player p : Player.players){
+
+                }
         }
 
 
