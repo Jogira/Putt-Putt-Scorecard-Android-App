@@ -20,6 +20,7 @@ public class AddPlayersActivity extends AppCompatActivity
         private ImageButton player5;
         private ImageButton additionalPlayers;
         private ImageButton home;
+        private ImageButton statsPage;
         private boolean flipped = false;
         private Game thisGame;
 
@@ -34,6 +35,7 @@ public class AddPlayersActivity extends AppCompatActivity
                 player1 = findViewById(R.id.player1Slot);
                 additionalPlayers = findViewById(R.id.additionalPlayer);
                 home = findViewById(R.id.homePageButton);
+                statsPage = findViewById(R.id.statsPageButton);
 
                 backX.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -63,12 +65,25 @@ public class AddPlayersActivity extends AppCompatActivity
                                 goBackPage();
                         }
                 });
+
+                statsPage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                                toStatsPage();
+                        }
+                });
         }
 
         private void goBackPage(){
                 Intent homePage = new Intent(this, MainActivity.class);
                 startActivity(homePage);
                 this.overridePendingTransition(R.anim.new_page_no_anim, R.anim.slide_down);
+        }
+
+        private void toStatsPage(){
+                Intent statsScreen = new Intent(this, StatsActivity.class);
+                startActivity(statsScreen);
+                this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
         }
 
         private void openPointsPage(){

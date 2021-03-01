@@ -15,6 +15,7 @@ public class AddPointsActivity extends AppCompatActivity
     private ImageButton increment;
     private ImageButton decrement;
     private ImageButton home;
+    private ImageButton statsPage;
     private TextView scoreToAdd;
     private Button openCard;
     private Button endGame;
@@ -28,6 +29,7 @@ public class AddPointsActivity extends AppCompatActivity
         increment = findViewById(R.id.incrementButton);
         decrement = findViewById(R.id.decrementButton);
         home = findViewById(R.id.homePageButton);
+        statsPage = findViewById(R.id.statsPageButton);
         scoreToAdd = findViewById(R.id.scoreToAdd);
         openCard = findViewById(R.id.viewCard);
         endGame = findViewById(R.id.endGame);
@@ -50,6 +52,13 @@ public class AddPointsActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 toHomeScreen();
+            }
+        });
+
+        statsPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toStatsPage();
             }
         });
 
@@ -97,6 +106,12 @@ public class AddPointsActivity extends AppCompatActivity
     private void toHomeScreen(){
         Intent homeScreen = new Intent(this, MainActivity.class);
         startActivity(homeScreen);
+        this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
+    }
+
+    private void toStatsPage(){
+        Intent statsScreen = new Intent(this, StatsActivity.class);
+        startActivity(statsScreen);
         this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
     }
 }
