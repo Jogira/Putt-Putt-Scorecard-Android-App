@@ -34,9 +34,9 @@ public class AddPlayersActivity extends AppCompatActivity
                 setContentView(R.layout.add_players);
 
                 backX = findViewById(R.id.backX);
-                createGame = findViewById(R.id.createGame);
+                createGame = findViewById(R.id.createGameButton);
                 player1 = findViewById(R.id.player1Slot);
-                additionalPlayers = findViewById(R.id.additionalPlayer);
+                additionalPlayers = findViewById(R.id.newPlayerButton);
                 home = findViewById(R.id.homePageButton);
                 statsPage = findViewById(R.id.statsPageButton);
                 settingsPage = findViewById(R.id.settingsPageButton);

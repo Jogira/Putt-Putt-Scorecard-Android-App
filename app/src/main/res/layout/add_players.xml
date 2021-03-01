@@ -61,12 +61,10 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/whoIsPlayingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="83dp"
-        android:layout_marginEnd="108dp"
+        android:layout_marginTop="80dp"
         android:text="Who's playing?"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
@@ -92,16 +90,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
+        android:id="@+id/playerSelectionScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="65dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/createGame"
+        app:layout_constraintBottom_toTopOf="@+id/createGameButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/whoIsPlayingText">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -113,6 +112,7 @@
             android:paddingBottom="5dp">
 
             <LinearLayout
+                android:id="@+id/playerOneView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
@@ -139,13 +139,14 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/newPlayerView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal|center_vertical"
                 android:orientation="vertical">
 
                 <ImageButton
-                    android:id="@+id/additionalPlayer"
+                    android:id="@+id/newPlayerButton"
                     style="@style/Widget.AppCompat.ImageButton"
                     android:layout_width="73dp"
                     android:layout_height="73dp"
@@ -155,7 +156,7 @@
                     app:srcCompat="@drawable/ic_add" />
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/newPlayerTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
@@ -170,7 +171,7 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/createGame"
+        android:id="@+id/createGameButton"
         android:layout_width="0dp"
         android:layout_height="65dp"
         android:layout_marginStart="45dp"
