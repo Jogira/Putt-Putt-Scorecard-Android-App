@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -99,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         populateGamesScrollView(ACTIVE_GAMES);
+        createDefaultPlayers();
     }
 
 
@@ -119,6 +121,20 @@ public class MainActivity extends AppCompatActivity {
         Intent newGamePage = new Intent(this, AddPlayersActivity.class);
         startActivity(newGamePage);
         this.overridePendingTransition(R.anim.slide_up, R.anim.fade_in);
+    }
+
+    //just for demo purposes until we have save functionality
+    public void createDefaultPlayers(){
+        Drawable profileImage = getDrawable(R.drawable.sean_kingston_profile);
+        String playerName = "Sean Kingston";
+        Player sean = new Player(playerName, profileImage);
+
+        Drawable profileImage2 = getDrawable(R.drawable.sage_thompson_profile);
+        String playerName2 = "Sean Kingston";
+        Player sage = new Player(playerName2, profileImage2);
+
+        Player.players.add(sean);
+        Player.players.add(sage);
     }
 
     private void populateGamesScrollView(int pageType){
