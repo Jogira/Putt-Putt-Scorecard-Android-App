@@ -3,43 +3,43 @@ package com.example.minigolfapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TableLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.gridlayout.widget.GridLayout;
+
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class AddPlayersActivity extends AppCompatActivity
-{
-        private Button backX;
-        private Button createGame;
-        private CircleImageView player1;
-        private ImageButton player2;
-        private ImageButton player3;
-        private ImageButton player4;
-        private ImageButton player5;
-        private ImageButton additionalPlayers;
-        private ImageButton home;
-        private ImageButton statsPage;
-        private CircleImageView settingsPage;
-        private boolean flipped = false;
-        private Game thisGame;
+public class AddPlayersActivity extends AppCompatActivity {
 
+        private GridLayout playerSelectionContentView;
+        private ArrayList<Boolean> flipped = new ArrayList<>();
+        private Game thisGame;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.add_players);
 
-                backX = findViewById(R.id.backX);
-                createGame = findViewById(R.id.createGameButton);
-                player1 = findViewById(R.id.player1Slot);
-                additionalPlayers = findViewById(R.id.newPlayerButton);
-                home = findViewById(R.id.homePageButton);
-                statsPage = findViewById(R.id.statsPageButton);
-                settingsPage = findViewById(R.id.settingsPageButton);
+                Button backX = findViewById(R.id.backX);
+                Button createGame = findViewById(R.id.createGameButton);
+              //  player1 = findViewById(R.id.player1Slot);
+                ImageButton additionalPlayers = findViewById(R.id.newPlayerButton);
+                ImageButton home = findViewById(R.id.homePageButton);
+                ImageButton statsPage = findViewById(R.id.statsPageButton);
+                CircleImageView settingsPage = findViewById(R.id.settingsPageButton);
+                playerSelectionContentView = findViewById(R.id.playerSelectionContentView);
 
                 backX.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -56,12 +56,12 @@ public class AddPlayersActivity extends AppCompatActivity
                         }
                 });
 
-                player1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                                flipPlayerIcon();
-                        }
-                });
+//                player1.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                                flipPlayerIcon();
+//                        }
+//                });
 
                 home.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -83,8 +83,10 @@ public class AddPlayersActivity extends AppCompatActivity
                                 toSettingsPage();
                         }
                 });
-
+                populateProfileView();
         }
+
+
 
         private void goBackPage(){
                 Intent homePage = new Intent(this, MainActivity.class);
@@ -111,21 +113,46 @@ public class AddPlayersActivity extends AppCompatActivity
         }
 
         //create and add profile views dynamically from saved profiles
+        //currently creates views from DEMO profiles made in MainActivity
         private void populateProfileView(){
-                for(Player p : Player.players){
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.setMargins(75, 0, 75, 45);
+                playerSelectionContentView.setColumnCount(3);
+                int index = 0;
 
+                for(Player p : Player.players){
+                        View exampleProfile = View.inflate(this, R.layout.player_profile_view, null);
+                        TextView nameView = exampleProfile.findViewById(R.id.playerNameView);
+                        final CircleImageView profilePictureView = exampleProfile.findViewById(R.id.playerImageView);
+                        nameView.setText(p.getName());
+                        profilePictureView.setImageDrawable(p.getPlayerProfileImage());
+
+                        profilePictureView.setTag(index);
+                        profilePictureView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                        flipPlayerIcon((CircleImageView) view);
+                                }
+                        });
+                        playerSelectionContentView.addView(exampleProfile, index, params);
+                        flipped.add(false);
+                        index++;
                 }
+
+
         }
 
 
-        private void flipPlayerIcon(){
-                if (!flipped) {
-                        player1.setImageResource(R.drawable.ic_checked_profile);
-                        flipped = true;
+        private void flipPlayerIcon(CircleImageView v){
+                int buttonIndex = (int)v.getTag();
+
+                if (!flipped.get(buttonIndex)) {
+                        v.setImageResource(R.drawable.ic_checked_profile);
+                        flipped.set(buttonIndex, true);
                 }
                 else {
-                        player1.setImageResource(R.drawable.sean_kingston_profile);
-                        flipped = false;
+                        v.setImageDrawable(Player.players.get(buttonIndex).getPlayerProfileImage());
+                        flipped.set(buttonIndex, false);
                 }
         }
 }

@@ -126,12 +126,19 @@ public class MainActivity extends AppCompatActivity {
     //just for demo purposes until we have save functionality
     public void createDefaultPlayers(){
         Drawable profileImage = getDrawable(R.drawable.sean_kingston_profile);
-        String playerName = "Sean Kingston";
+        String playerName = "Sean";
         Player sean = new Player(playerName, profileImage);
 
         Drawable profileImage2 = getDrawable(R.drawable.sage_thompson_profile);
-        String playerName2 = "Sean Kingston";
+        String playerName2 = "Sage";
         Player sage = new Player(playerName2, profileImage2);
+
+        for(int i = 0; i < 1; i++) {
+            Drawable image = getDrawable(R.drawable.ic_person);
+            String name = "John";
+            Player player = new Player(name, image);
+            Player.players.add(player);
+        }
 
         Player.players.add(sean);
         Player.players.add(sage);
