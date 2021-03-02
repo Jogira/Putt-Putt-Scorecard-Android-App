@@ -2,9 +2,12 @@ package com.example.minigolfapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -132,6 +135,8 @@ public class AddPlayersActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                         flipPlayerIcon((CircleImageView) view);
+                                        playAnimation(profilePictureView, R.anim.button_press_in, 0);
+                                        playAnimation(profilePictureView, R.anim.button_press_out, 100);
                                 }
                         });
                         playerSelectionContentView.addView(exampleProfile, index, params);
@@ -142,6 +147,20 @@ public class AddPlayersActivity extends AppCompatActivity {
 
         }
 
+        private void playAnimation(final View v, final int animationId, int delayMS) {
+                if(v != null) {
+                        new Handler().postDelayed(new Runnable()
+                        {
+                                @Override
+                                public void run() {
+                                        Animation animation = AnimationUtils.loadAnimation(AddPlayersActivity.this, animationId);
+                                        animation.setDuration(animation.getDuration());
+                                        animation.setFillAfter(true);
+                                        v.startAnimation(animation);
+                                }
+                        }, delayMS);
+                }
+        }
 
         private void flipPlayerIcon(CircleImageView v){
                 int buttonIndex = (int)v.getTag();

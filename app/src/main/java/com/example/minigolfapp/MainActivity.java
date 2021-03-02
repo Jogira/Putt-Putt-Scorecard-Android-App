@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout gamesScrollViewContent;
     private LinearLayout noGamesView;
     private TextView noGamesText;
+    private static boolean playersCreated = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +101,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         populateGamesScrollView(ACTIVE_GAMES);
-        createDefaultPlayers();
+
+        if(!playersCreated)
+            createDefaultPlayers();
     }
 
 
@@ -124,7 +127,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //just for demo purposes until we have save functionality
-    public void createDefaultPlayers(){
+    public void createDefaultPlayers() {
+        playersCreated = true;
         Drawable profileImage = getDrawable(R.drawable.sean_kingston_profile);
         String playerName = "Sean";
         Player sean = new Player(playerName, profileImage);
