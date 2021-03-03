@@ -132,4 +132,5 @@ public class AddPointsActivity extends AppCompatActivity
         startActivity(statsScreen);
         this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
     }
+
 }
