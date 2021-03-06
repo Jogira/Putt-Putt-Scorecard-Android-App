@@ -29,6 +29,7 @@ public class AddPlayersActivity extends AppCompatActivity {
         private GridLayout playerSelectionContentView;
         private ArrayList<Boolean> flipped = new ArrayList<>();
         private Game thisGame;
+        private ArrayList<Player> players;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +38,12 @@ public class AddPlayersActivity extends AppCompatActivity {
 
                 Button backX = findViewById(R.id.backX);
                 Button createGame = findViewById(R.id.createGameButton);
-              //  player1 = findViewById(R.id.player1Slot);
                 ImageButton additionalPlayers = findViewById(R.id.newPlayerButton);
                 ImageButton home = findViewById(R.id.homePageButton);
                 ImageButton statsPage = findViewById(R.id.statsPageButton);
                 CircleImageView settingsPage = findViewById(R.id.settingsPageButton);
                 playerSelectionContentView = findViewById(R.id.playerSelectionContentView);
+                players = new ArrayList<>();
 
                 backX.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -58,13 +59,6 @@ public class AddPlayersActivity extends AppCompatActivity {
                                 openPointsPage();
                         }
                 });
-
-//                player1.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                                flipPlayerIcon();
-//                        }
-//                });
 
                 home.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -89,8 +83,6 @@ public class AddPlayersActivity extends AppCompatActivity {
                 populateProfileView();
         }
 
-
-
         private void goBackPage(){
                 Intent homePage = new Intent(this, MainActivity.class);
                 startActivity(homePage);
@@ -112,6 +104,7 @@ public class AddPlayersActivity extends AppCompatActivity {
         private void openPointsPage(){
                 Intent addPointsPage = new Intent(this, AddPointsActivity.class);
                 startActivity(addPointsPage);
+                thisGame = new Game(players, 18);
                 this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
         }
 
@@ -143,8 +136,6 @@ public class AddPlayersActivity extends AppCompatActivity {
                         flipped.add(false);
                         index++;
                 }
-
-
         }
 
         private void playAnimation(final View v, final int animationId, int delayMS) {
@@ -168,10 +159,12 @@ public class AddPlayersActivity extends AppCompatActivity {
                 if (!flipped.get(buttonIndex)) {
                         v.setImageResource(R.drawable.ic_checked_profile);
                         flipped.set(buttonIndex, true);
+                        players.add(Player.players.get(buttonIndex));
                 }
                 else {
                         v.setImageDrawable(Player.players.get(buttonIndex).getPlayerProfileImage());
                         flipped.set(buttonIndex, false);
+                        players.remove(Player.players.get(buttonIndex));
                 }
         }
 }
