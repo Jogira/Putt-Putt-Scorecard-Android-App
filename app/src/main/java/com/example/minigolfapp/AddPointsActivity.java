@@ -1,7 +1,10 @@
 package com.example.minigolfapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.TestLooperManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -9,30 +12,50 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.opencsv.CSVWriter;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static java.lang.String.valueOf;
 
-public class AddPointsActivity extends AppCompatActivity
-{
+
+public class AddPointsActivity extends AppCompatActivity {
     private ImageButton increment;
     private ImageButton decrement;
     private ImageButton home;
     private ImageButton statsPage;
     private TextView scoreToAdd;
+    private TextView curr;
     private CircleImageView settingsPage;
     private Button openCard;
     private Button endGame;
+    private Button addScore;
+    private String num;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_points);
-
+        Intent intent = getIntent();
+        final String fileName = intent.getStringExtra("fileName");
+        num = intent.getStringExtra("holeNumber"); //Passed as string set to int before iterating.
+        curr = findViewById(R.id.CurrentHole);
         increment = findViewById(R.id.incrementButton);
         decrement = findViewById(R.id.decrementButton);
         home = findViewById(R.id.homePageButton);
         statsPage = findViewById(R.id.statsPageButton);
+        addScore = findViewById(R.id.addScoreButton);
         scoreToAdd = findViewById(R.id.scoreToAdd);
         openCard = findViewById(R.id.viewCard);
         endGame = findViewById(R.id.endGame);
@@ -73,6 +96,48 @@ public class AddPointsActivity extends AppCompatActivity
             }
         });
 
+        addScore.setOnClickListener(new View.OnClickListener() {
+            private static final String TAG = "AddPointsActivity";
+
+            @Override
+            public void onClick(View view) {
+                String lines = "";
+                StringBuilder newStr = new StringBuilder();
+                int newNum = Integer.parseInt(num);
+                newNum++;
+                String nums = String.valueOf(newNum);
+                num = nums;
+                curr.setText(nums);
+                newStr.append(nums).append(",").append(scoreToAdd.getText()).append("\n");
+                Log.d(TAG, "Test:" + newStr);
+                try {
+
+
+                    FileOutputStream out = openFileOutput(fileName, Context.MODE_APPEND);
+                    out.write(newStr.toString().getBytes());
+                    out.close();
+
+
+                    FileInputStream fileInputStream = openFileInput(fileName);
+                    InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+
+                    BufferedReader bufferedReader = new BufferedReader((inputStreamReader));
+                    StringBuffer stringBuffer = new StringBuffer();
+                    while ((lines = bufferedReader.readLine()) != null) {
+                        stringBuffer.append(lines).append("\n");
+
+//                        Log.d(TAG,"Reach here:"+lines);
+
+                    }
+                    Log.d(TAG, "Reach here:" + stringBuffer.toString());
+                    inputStreamReader.close();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         openCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,46 +153,43 @@ public class AddPointsActivity extends AppCompatActivity
         });
 
 
-
     }
 
 
-    private void incrementScore()
-    {
+    private void incrementScore() {
         int score = Integer.parseInt(scoreToAdd.getText().toString().trim());
         score++;
-        String incrementedScore = String.valueOf(score);
+        String incrementedScore = valueOf(score);
         scoreToAdd.setText(incrementedScore);
     }
 
-    private void decrementScore()
-    {
+    private void decrementScore() {
         int score = Integer.parseInt(scoreToAdd.getText().toString().trim());
         score--;
-        String decrementedScore = String.valueOf(score);
+        String decrementedScore = valueOf(score);
         scoreToAdd.setText(decrementedScore);
     }
 
-    private void openScorecard(){
+    private void openScorecard() {
         Intent scorecard = new Intent(this, ScoreCardActivity.class);
         startActivity(scorecard);
         this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
     }
 
-    private void toHomeScreen(){
+    private void toHomeScreen() {
         Intent homeScreen = new Intent(this, MainActivity.class);
         startActivity(homeScreen);
         this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
     }
 
-    private void toSettingsPage(){
+    private void toSettingsPage() {
         Intent settingsScreen = new Intent(this, SettingsActivity.class);
         startActivity(settingsScreen);
         this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
     }
 
 
-    private void toStatsPage(){
+    private void toStatsPage() {
         Intent statsScreen = new Intent(this, StatsActivity.class);
         startActivity(statsScreen);
         this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);

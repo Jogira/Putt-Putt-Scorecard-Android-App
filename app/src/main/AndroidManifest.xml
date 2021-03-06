@@ -15,11 +15,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StatsActivity"/>
-        <activity android:name=".SettingsActivity"/>
-        <activity android:name=".AddPlayersActivity"/>
-        <activity android:name=".AddPointsActivity"/>
-        <activity android:name=".ScoreCardActivity"/>
+        <activity android:name=".StatsActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".AddPlayersActivity" />
+        <activity android:name=".AddPointsActivity" />
+        <activity android:name=".ScoreCardActivity" />
+        <provider
+            android:authorities="com.example.minigolfapp.FileProvider"
+            android:name="androidx.core.content.FileProvider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
     </application>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>
