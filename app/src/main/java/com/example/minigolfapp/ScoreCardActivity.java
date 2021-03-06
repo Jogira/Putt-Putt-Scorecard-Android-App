@@ -110,8 +110,8 @@ public class ScoreCardActivity extends AppCompatActivity {
             String lines = "";
             FileInputStream fileInputStream = openFileInput(filename);
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-            BufferedReader bufferedReader = new BufferedReader((inputStreamReader));
             StringBuffer stringBuffer = new StringBuffer();
+                BufferedReader bufferedReader = new BufferedReader((inputStreamReader));
             while ((lines = bufferedReader.readLine()) != null) {
                 stringBuffer.append(lines).append("\n");
             }

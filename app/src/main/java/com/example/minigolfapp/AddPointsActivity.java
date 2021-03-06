@@ -102,6 +102,7 @@ public class AddPointsActivity extends AppCompatActivity {
                 int newNum = Integer.parseInt(num);
                 newNum++;
                 String nums = String.valueOf(newNum);
+                String temp = String.valueOf(newNum++);
 
                 num = nums;
                 curr.setText(nums);
