@@ -121,7 +121,7 @@ public class ScoreCardActivity extends AppCompatActivity {
             //here, you will fetch scores from csv and update appropriately
 //            score.setText("1");
             Log.d(TAG, "numbersent: " + currentHole);
-            String str = setscore(currentHole);
+            String str = setscore(currentHole-1);
             score.setText(str);
         }
     }

@@ -1,0 +1,347 @@
+Index: app/src/main/java/com/example/minigolfapp/AddPointsActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.minigolfapp;\n\nimport android.content.Context;\nimport android.content.Intent;\nimport android.os.Bundle;\nimport android.os.TestLooperManager;\nimport android.util.Log;\nimport android.view.View;\nimport android.widget.Button;\nimport android.widget.ImageButton;\nimport android.widget.TextView;\n\nimport androidx.appcompat.app.AppCompatActivity;\n\nimport com.opencsv.CSVWriter;\n\nimport java.io.BufferedReader;\nimport java.io.FileInputStream;\nimport java.io.FileOutputStream;\nimport java.io.FileWriter;\nimport java.io.IOException;\nimport java.io.InputStream;\nimport java.io.InputStreamReader;\nimport java.util.ArrayList;\nimport java.util.List;\n\nimport de.hdodenhof.circleimageview.CircleImageView;\n\nimport static java.lang.String.valueOf;\n\n\npublic class AddPointsActivity extends AppCompatActivity {\n\n    private TextView scoreToAdd;\n    private TextView curr;\n    private String num;\n    private String fileName;\n\n    @Override\n    protected void onCreate(Bundle savedInstanceState) {\n\n        super.onCreate(savedInstanceState);\n        setContentView(R.layout.add_points);\n\n        Intent intent = getIntent();\n        fileName = intent.getStringExtra(\"fileName\");\n        num = intent.getStringExtra(\"holeNumber\"); //Passed as string set to int before iterating.\n\n        curr = findViewById(R.id.CurrentHole);\n        ImageButton increment = findViewById(R.id.incrementButton);\n        ImageButton decrement = findViewById(R.id.decrementButton);\n        ImageButton home = findViewById(R.id.homePageButton);\n        ImageButton statsPage = findViewById(R.id.statsPageButton);\n        Button addScore = findViewById(R.id.addScoreButton);\n        scoreToAdd = findViewById(R.id.scoreToAdd);\n        Button openCard = findViewById(R.id.viewCard);\n        Button endGame = findViewById(R.id.endGame);\n        CircleImageView settingsPage = findViewById(R.id.settingsPageButton);\n\n        increment.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View view) {\n                incrementScore();\n            }\n        });\n\n        decrement.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View view) {\n                decrementScore();\n            }\n        });\n\n        home.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View view) {\n                toHomeScreen();\n            }\n        });\n\n        statsPage.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View view) {\n                toStatsPage();\n            }\n        });\n\n        settingsPage.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View view) {\n                toSettingsPage();\n            }\n        });\n\n        addScore.setOnClickListener(new View.OnClickListener() {\n            private static final String TAG = \"AddPointsActivity\";\n\n            @Override\n            public void onClick(View view) {\n                String lines = \"\";\n                StringBuilder newStr = new StringBuilder();\n                int newNum = Integer.parseInt(num);\n                newNum++;\n                String nums = String.valueOf(newNum);\n\n                num = nums;\n                curr.setText(nums);\n                newStr.append(nums).append(\",\").append(scoreToAdd.getText()).append(\"\\n\");\n                Log.d(TAG, \"Test:\" + newStr);\n                try {\n\n                    FileOutputStream out = openFileOutput(fileName, Context.MODE_APPEND);\n                    out.write(newStr.toString().getBytes());\n                    out.close();\n\n\n                    FileInputStream fileInputStream = openFileInput(fileName);\n                    InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);\n\n                    BufferedReader bufferedReader = new BufferedReader((inputStreamReader));\n                    StringBuffer stringBuffer = new StringBuffer();\n                    while ((lines = bufferedReader.readLine()) != null) {\n                        stringBuffer.append(lines).append(\"\\n\");\n\n//                        Log.d(TAG,\"Reach here:\"+lines);\n\n                    }\n                    Log.d(TAG, \"Reach here:\" + stringBuffer.toString());\n                    inputStreamReader.close();\n\n                } catch (IOException e) {\n                    e.printStackTrace();\n                }\n\n            }\n        });\n\n        openCard.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View view) {\n\n                openScorecard();\n            }\n        });\n\n        endGame.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View view) {\n                openScorecard();\n            }\n        });\n    }\n\n\n    private void incrementScore() {\n        int score = Integer.parseInt(scoreToAdd.getText().toString().trim());\n        score++;\n        String incrementedScore = valueOf(score);\n        scoreToAdd.setText(incrementedScore);\n    }\n\n    private void decrementScore() {\n        int score = Integer.parseInt(scoreToAdd.getText().toString().trim());\n        score--;\n        String decrementedScore = valueOf(score);\n        scoreToAdd.setText(decrementedScore);\n    }\n\n    private void openScorecard() {\n        Intent scorecard = new Intent(this, ScoreCardActivity.class);\n        scorecard.putExtra(\"fileName\", fileName);\n        startActivity(scorecard);\n        this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);\n    }\n\n    private void toHomeScreen() {\n        Intent homeScreen = new Intent(this, MainActivity.class);\n        startActivity(homeScreen);\n        this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);\n    }\n\n    private void toSettingsPage() {\n        Intent settingsScreen = new Intent(this, SettingsActivity.class);\n        startActivity(settingsScreen);\n        this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);\n    }\n\n\n    private void toStatsPage() {\n        Intent statsScreen = new Intent(this, StatsActivity.class);\n        startActivity(statsScreen);\n        this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);\n    }\n\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/minigolfapp/AddPointsActivity.java	(revision 93279c3bf5e3cdb49ef40041a78c9f5a8b2df3b3)
++++ app/src/main/java/com/example/minigolfapp/AddPointsActivity.java	(date 1615000304000)
+@@ -3,7 +3,6 @@
+ import android.content.Context;
+ import android.content.Intent;
+ import android.os.Bundle;
+-import android.os.TestLooperManager;
+ import android.util.Log;
+ import android.view.View;
+ import android.widget.Button;
+@@ -17,15 +16,12 @@
+ import java.io.BufferedReader;
+ import java.io.FileInputStream;
+ import java.io.FileOutputStream;
+-import java.io.FileWriter;
+ import java.io.IOException;
+-import java.io.InputStream;
+ import java.io.InputStreamReader;
+-import java.util.ArrayList;
+-import java.util.List;
+ 
+ import de.hdodenhof.circleimageview.CircleImageView;
+ 
++import static com.example.minigolfapp.AddPlayersActivity.players;
+ import static java.lang.String.valueOf;
+ 
+ 
+@@ -35,6 +31,10 @@
+     private TextView curr;
+     private String num;
+     private String fileName;
++    private Game thisGame;
++    private int currentPlayerTurn = 0;
++    private CircleImageView currentPlayerImage;
++    private TextView currentPlayerName;
+ 
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+@@ -56,6 +56,13 @@
+         Button openCard = findViewById(R.id.viewCard);
+         Button endGame = findViewById(R.id.endGame);
+         CircleImageView settingsPage = findViewById(R.id.settingsPageButton);
++        currentPlayerImage = findViewById(R.id.gameViewPlayerTurnImageView);
++        currentPlayerName = findViewById(R.id.gameViewPlayerTurnTextView);
++
++        thisGame = new Game(players, 18);
++
++        currentPlayerName.setText(thisGame.getPlayers().get(currentPlayerTurn).getName() + "'s turn");
++        currentPlayerImage.setImageDrawable(thisGame.getPlayers().get(currentPlayerTurn).getPlayerProfileImage());
+ 
+         increment.setOnClickListener(new View.OnClickListener() {
+             @Override
+@@ -131,25 +138,47 @@
+                 } catch (IOException e) {
+                     e.printStackTrace();
+                 }
++                incrementPlayerTurn();
+ 
+             }
++
+         });
+ 
+         openCard.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+-
+-                openScorecard();
++                openScorecard(false, thisGame.getCurrentHole());
+             }
+         });
+ 
+         endGame.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+-                openScorecard();
++                openScorecard(true, thisGame.getCurrentHole());
+             }
+         });
+     }
++
++
++    public void incrementPlayerTurn() {
++        int numPlayers = thisGame.getPlayers().size();
++
++        if(currentPlayerTurn < numPlayers - 1)
++            currentPlayerTurn++;
++        else {
++            currentPlayerTurn = 0;
++            thisGame.setCurrentHole(thisGame.getCurrentHole() + 1);
++
++            if(thisGame.getCurrentHole() == thisGame.getNumHoles()) {
++                thisGame.setActive(false);
++                openScorecard(true, thisGame.getCurrentHole());
++            }
++
++        }
++
++        currentPlayerName.setText(thisGame.getPlayers().get(currentPlayerTurn).getName() + "'s turn");
++        currentPlayerImage.setImageDrawable(thisGame.getPlayers().get(currentPlayerTurn).getPlayerProfileImage());
++    }
+ 
+ 
+     private void incrementScore() {
+@@ -166,9 +195,11 @@
+         scoreToAdd.setText(decrementedScore);
+     }
+ 
+-    private void openScorecard() {
++    private void openScorecard(boolean gameFinished, int currentHole) {
+         Intent scorecard = new Intent(this, ScoreCardActivity.class);
+         scorecard.putExtra("fileName", fileName);
++        scorecard.putExtra("gameFinished", gameFinished);
++        scorecard.putExtra("currentHole", currentHole);
+         startActivity(scorecard);
+         this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
+     }
+Index: app/src/main/res/layout/add_points.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\n    xmlns:tools=\"http://schemas.android.com/tools\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    android:background=\"@color/colorPrimary\"\n    android:translationZ=\"15dp\">\n\n\n    <LinearLayout\n        android:id=\"@+id/navBar\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:layout_marginStart=\"5dp\"\n        android:layout_marginEnd=\"5dp\"\n        android:layout_marginBottom=\"15dp\"\n        android:background=\"@drawable/nav_bar_background\"\n        android:backgroundTint=\"@color/colorTertiaryDark\"\n        android:gravity=\"center_vertical\"\n        android:orientation=\"horizontal\"\n        android:translationZ=\"15dp\"\n        app:layout_constraintBottom_toBottomOf=\"parent\"\n        app:layout_constraintEnd_toEndOf=\"parent\"\n        app:layout_constraintStart_toStartOf=\"parent\">\n\n        <ImageButton\n            android:id=\"@+id/homePageButton\"\n            android:layout_width=\"wrap_content\"\n            android:layout_height=\"wrap_content\"\n            android:layout_marginStart=\"10dp\"\n            android:layout_marginEnd=\"25dp\"\n            android:layout_weight=\"1\"\n            android:backgroundTint=\"#00FFFFFF\"\n            android:contentDescription=\"@string/home_page_button\"\n            android:tint=\"#FFFFFF\"\n            app:srcCompat=\"@drawable/ic_home\" />\n\n        <ImageButton\n            android:id=\"@+id/statsPageButton\"\n            android:layout_width=\"wrap_content\"\n            android:layout_height=\"wrap_content\"\n            android:layout_marginTop=\"5dp\"\n            android:layout_marginEnd=\"15dp\"\n            android:layout_marginBottom=\"5dp\"\n            android:layout_weight=\"1\"\n            android:backgroundTint=\"#00FFFFFF\"\n            android:contentDescription=\"@string/stats_page_button\"\n            app:srcCompat=\"@drawable/ic_stats\" />\n\n        <de.hdodenhof.circleimageview.CircleImageView\n            android:id=\"@+id/settingsPageButton\"\n            android:layout_width=\"56dp\"\n            android:layout_height=\"56dp\"\n            android:layout_marginStart=\"15dp\"\n            android:layout_marginEnd=\"20dp\"\n            android:layout_weight=\"1\"\n            android:padding=\"4dp\"\n            android:src=\"@drawable/sean_kingston_profile\"\n            app:civ_border_color=\"#FFFFFF\"\n            app:civ_border_width=\"2dp\" />\n\n    </LinearLayout>\n\n    <LinearLayout\n        android:id=\"@+id/currentPlayerView\"\n        android:layout_width=\"wrap_content\"\n        android:layout_height=\"wrap_content\"\n        android:layout_marginTop=\"16dp\"\n        android:gravity=\"center_vertical\"\n        android:orientation=\"horizontal\"\n        app:layout_constraintEnd_toEndOf=\"parent\"\n        app:layout_constraintStart_toStartOf=\"parent\"\n        app:layout_constraintTop_toTopOf=\"parent\">\n\n        <de.hdodenhof.circleimageview.CircleImageView\n            android:id=\"@+id/activeGamePlayer2Image\"\n            android:layout_width=\"40dp\"\n            android:layout_height=\"40dp\"\n            android:layout_marginEnd=\"10dp\"\n            android:src=\"@drawable/sean_kingston_profile\"\n            android:translationZ=\"3dp\" />\n\n        <TextView\n            android:id=\"@+id/gameViewPlayerTurn\"\n            android:layout_width=\"wrap_content\"\n            android:layout_height=\"wrap_content\"\n            android:text=\"Sean's Turn\"\n            android:textColor=\"#FFFFFF\"\n            android:textSize=\"26sp\"\n            android:textStyle=\"bold\" />\n    </LinearLayout>\n\n\n    <Button\n        android:id=\"@+id/endGame\"\n        android:layout_width=\"225dp\"\n        android:layout_height=\"55dp\"\n        android:layout_marginStart=\"5dp\"\n        android:layout_marginEnd=\"5dp\"\n        android:layout_marginBottom=\"15dp\"\n        android:background=\"@drawable/rounded_background\"\n        android:backgroundTint=\"@color/colorAccentSecondary\"\n        android:paddingStart=\"20dp\"\n        android:paddingEnd=\"20dp\"\n        android:text=\"End Game\"\n        android:textColor=\"#FFFFFF\"\n        android:textStyle=\"bold\"\n        app:layout_constraintBottom_toTopOf=\"@+id/navBar\"\n        app:layout_constraintEnd_toEndOf=\"parent\"\n        app:layout_constraintStart_toStartOf=\"parent\" />\n\n    <LinearLayout\n        android:id=\"@+id/gameViewTopBar\"\n        android:layout_width=\"0dp\"\n        android:layout_height=\"wrap_content\"\n        android:layout_marginStart=\"40dp\"\n        android:layout_marginTop=\"30dp\"\n        android:layout_marginEnd=\"40dp\"\n        android:background=\"@drawable/rounded_background\"\n        android:backgroundTint=\"@color/colorSecondaryDark\"\n        android:gravity=\"center_vertical\"\n        android:orientation=\"horizontal\"\n        android:paddingStart=\"10dp\"\n        android:paddingTop=\"15dp\"\n        android:paddingEnd=\"10dp\"\n        android:paddingBottom=\"15dp\"\n        android:weightSum=\"1\"\n        app:layout_constraintEnd_toEndOf=\"parent\"\n        app:layout_constraintStart_toStartOf=\"parent\"\n        app:layout_constraintTop_toBottomOf=\"@+id/currentPlayerView\">\n\n        <TextView\n            android:id=\"@+id/CurrentHole\"\n            android:layout_width=\"wrap_content\"\n            android:layout_height=\"wrap_content\"\n            android:layout_marginStart=\"15dp\"\n            android:layout_marginTop=\"0dp\"\n            android:layout_weight=\".25\"\n            android:drawableStart=\"@drawable/circle\"\n            android:text=\" 1\"\n            android:textAlignment=\"textStart\"\n            android:textColor=\"#FDFDFD\"\n            android:textSize=\"24sp\"\n            android:textStyle=\"bold\" />\n\n        <LinearLayout\n            android:id=\"@+id/parView\"\n            android:layout_width=\"wrap_content\"\n            android:layout_height=\"match_parent\"\n            android:layout_weight=\".5\"\n            android:gravity=\"center_vertical\"\n            android:orientation=\"vertical\"\n            android:visibility=\"visible\">\n\n            <TextView\n                android:id=\"@+id/parText\"\n                android:layout_width=\"match_parent\"\n                android:layout_height=\"wrap_content\"\n                android:text=\"No Pars\"\n                android:textAlignment=\"center\"\n                android:textColor=\"#d9d9d9\"\n                android:textSize=\"15dp\"\n                android:textStyle=\"bold\" />\n        </LinearLayout>\n\n        <Button\n            android:id=\"@+id/viewCard\"\n            android:layout_width=\"wrap_content\"\n            android:layout_height=\"wrap_content\"\n            android:layout_weight=\".25\"\n            android:background=\"@drawable/rounded_background\"\n            android:text=\"View card\"\n            android:textColor=\"#FFFFFF\"\n            android:textStyle=\"bold\" />\n\n    </LinearLayout>\n\n    <LinearLayout\n        android:id=\"@+id/gameViewMainContent\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"wrap_content\"\n        android:layout_marginStart=\"20dp\"\n        android:layout_marginTop=\"15dp\"\n        android:layout_marginEnd=\"20dp\"\n        android:layout_marginBottom=\"15dp\"\n        android:background=\"@drawable/rounded_background\"\n        android:backgroundTint=\"@color/colorSecondaryDark\"\n        android:gravity=\"center_horizontal\"\n        android:orientation=\"vertical\"\n        android:paddingTop=\"15dp\"\n        android:paddingBottom=\"20dp\"\n        app:layout_constraintBottom_toTopOf=\"@+id/endGame\"\n        app:layout_constraintEnd_toEndOf=\"parent\"\n        app:layout_constraintStart_toStartOf=\"parent\"\n        app:layout_constraintTop_toBottomOf=\"@+id/gameViewTopBar\"\n        app:layout_constraintVertical_bias=\"0.45\">\n\n        <TextView\n            android:id=\"@+id/gameViewScoreTitle\"\n            android:layout_width=\"match_parent\"\n            android:layout_height=\"wrap_content\"\n            android:text=\"Score\"\n            android:textAlignment=\"center\"\n            android:textColor=\"#d9d9d9\"\n            android:textSize=\"26sp\"\n            android:textStyle=\"bold\" />\n\n        <LinearLayout\n            android:id=\"@+id/scoreLinearLayout\"\n            android:layout_width=\"match_parent\"\n            android:layout_height=\"wrap_content\"\n            android:layout_marginStart=\"35dp\"\n            android:layout_marginEnd=\"35dp\"\n            android:gravity=\"center_horizontal|center_vertical\"\n            android:orientation=\"horizontal\"\n            android:weightSum=\"1\">\n\n            <ImageButton\n                android:id=\"@+id/incrementButton\"\n                android:layout_width=\"50dp\"\n                android:layout_height=\"50dp\"\n                android:layout_marginEnd=\"0dp\"\n                android:layout_marginBottom=\"0dp\"\n                android:background=\"@drawable/circle\"\n                android:backgroundTint=\"@color/colorAccentSecondary\"\n                app:srcCompat=\"@drawable/ic_add\" />\n\n            <TextView\n                android:id=\"@+id/scoreToAdd\"\n                android:layout_width=\"wrap_content\"\n                android:layout_height=\"wrap_content\"\n                android:layout_marginStart=\"0dp\"\n                android:layout_marginEnd=\"0dp\"\n                android:layout_marginBottom=\"0dp\"\n                android:layout_weight=\".9\"\n                android:text=\"0\"\n                android:textAlignment=\"center\"\n                android:textColor=\"#FFFFFF\"\n                android:textSize=\"100dp\"\n                android:textStyle=\"bold\" />\n\n            <ImageButton\n                android:id=\"@+id/decrementButton\"\n                android:layout_width=\"50dp\"\n                android:layout_height=\"50dp\"\n                android:layout_marginStart=\"0dp\"\n                android:layout_marginBottom=\"0dp\"\n                android:background=\"@drawable/circle\"\n                android:backgroundTint=\"@color/colorAccent\"\n                app:srcCompat=\"@drawable/ic_minus\" />\n        </LinearLayout>\n\n        <Button\n            android:id=\"@+id/addScoreButton\"\n            android:layout_width=\"wrap_content\"\n            android:layout_height=\"wrap_content\"\n            android:layout_marginTop=\"15dp\"\n            android:background=\"@drawable/rounded_background\"\n            android:paddingStart=\"10dp\"\n            android:paddingEnd=\"10dp\"\n            android:text=\"Add score to card\"\n            android:textColor=\"#FFFFFF\"\n            android:textStyle=\"bold\" />\n    </LinearLayout>\n\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/add_points.xml	(revision 93279c3bf5e3cdb49ef40041a78c9f5a8b2df3b3)
++++ app/src/main/res/layout/add_points.xml	(date 1614998937000)
+@@ -74,7 +74,7 @@
+         app:layout_constraintTop_toTopOf="parent">
+ 
+         <de.hdodenhof.circleimageview.CircleImageView
+-            android:id="@+id/activeGamePlayer2Image"
++            android:id="@+id/gameViewPlayerTurnImageView"
+             android:layout_width="40dp"
+             android:layout_height="40dp"
+             android:layout_marginEnd="10dp"
+@@ -82,7 +82,7 @@
+             android:translationZ="3dp" />
+ 
+         <TextView
+-            android:id="@+id/gameViewPlayerTurn"
++            android:id="@+id/gameViewPlayerTurnTextView"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Sean's Turn"
+Index: app/src/main/java/com/example/minigolfapp/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.minigolfapp;\n\nimport androidx.appcompat.app.AppCompatActivity;\n\nimport android.content.Intent;\nimport android.graphics.Color;\nimport android.graphics.drawable.Drawable;\nimport android.os.Bundle;\nimport android.os.Handler;\nimport android.view.View;\nimport android.view.ViewGroup;\nimport android.view.animation.Animation;\nimport android.view.animation.AnimationUtils;\nimport android.widget.Button;\nimport android.widget.ImageButton;\n\nimport android.widget.LinearLayout;\nimport android.widget.TextView;\n\nimport com.opencsv.CSVWriter;\n\n\nimport de.hdodenhof.circleimageview.CircleImageView;\n\npublic class MainActivity extends AppCompatActivity {\n\n    private int currentGamePage = 0;\n    private int numActiveGames = 2;\n    private int numPastGames = 6;\n    private static final int PAST_GAMES = 1;\n    private static final int ACTIVE_GAMES = 0;\n    private ImageButton statsButton;\n    private CircleImageView settingsButton;\n    private Button activeGamesButton;\n    private Button pastGamesButton;\n    private ImageButton newGameButton;\n    private LinearLayout gamesScrollViewContent;\n    private LinearLayout noGamesView;\n    private TextView noGamesText;\n    private static boolean playersCreated = false;\n\n    @Override\n    protected void onCreate(Bundle savedInstanceState) {\n        super.onCreate(savedInstanceState);\n        setContentView(R.layout.activity_main);\n\n        statsButton = findViewById(R.id.statsPageButton);\n        settingsButton = findViewById(R.id.settingsPageButton);\n        activeGamesButton = findViewById(R.id.activeGamesButton);\n        pastGamesButton = findViewById(R.id.pastGamesButton);\n        gamesScrollViewContent = findViewById(R.id.gamesScrollViewContent);\n        noGamesView = findViewById(R.id.noGamesView);\n        noGamesText = findViewById(R.id.noGamesText);\n        newGameButton = findViewById(R.id.newGameButton);\n\n        newGameButton.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View view) {\n                playAnimation(view, R.anim.button_press_in, 0);\n                playAnimation(view, R.anim.button_press_out, 100);\n\n\n                openNewGamePage();\n            }\n        });\n\n        activeGamesButton.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View view) {\n\n                if(currentGamePage != ACTIVE_GAMES)\n                    populateGamesScrollView(ACTIVE_GAMES);\n\n                currentGamePage = ACTIVE_GAMES;\n                activeGamesButton.getBackground().setTint(Color.parseColor(\"#2F2F2F\"));\n                pastGamesButton.getBackground().setTint(Color.parseColor(\"#141414\"));\n                noGamesText.setText(\"You have no active games :/\");\n            }\n        });\n\n        pastGamesButton.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View view) {\n\n                if(currentGamePage != PAST_GAMES)\n                    populateGamesScrollView(PAST_GAMES);\n\n                currentGamePage = PAST_GAMES;\n                activeGamesButton.getBackground().setTint(Color.parseColor(\"#141414\"));\n                pastGamesButton.getBackground().setTint(Color.parseColor(\"#2F2F2F\"));\n                noGamesText.setText(\"Your history is empty :/\");\n            }\n        });\n\n        statsButton.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View view) {\n                openStatsPage();\n            }\n        });\n\n        settingsButton.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View view) {\n                openSettingsPage();\n            }\n        });\n        populateGamesScrollView(ACTIVE_GAMES);\n\n        if(!playersCreated)\n            createDefaultPlayers();\n    }\n\n    private void openStatsPage(){\n        Intent statsPage = new Intent(this, StatsActivity.class);\n        startActivity(statsPage);\n        this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);\n    }\n\n    private void openSettingsPage(){\n        Intent settingsPage = new Intent(this, SettingsActivity.class);\n        startActivity(settingsPage);\n        this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);\n    }\n\n    private void openNewGamePage(){\n        Intent newGamePage = new Intent(this, AddPlayersActivity.class);\n        startActivity(newGamePage);\n        this.overridePendingTransition(R.anim.slide_up, R.anim.fade_in);\n    }\n\n    //just for demo purposes until we have save functionality\n    public void createDefaultPlayers() {\n        playersCreated = true;\n        Drawable profileImage = getDrawable(R.drawable.sean_kingston_profile);\n        String playerName = \"Sean\";\n        Player sean = new Player(playerName, profileImage);\n\n        Drawable profileImage2 = getDrawable(R.drawable.sage_thompson_profile);\n        String playerName2 = \"Sage\";\n        Player sage = new Player(playerName2, profileImage2);\n\n        for(int i = 0; i < 1; i++) {\n            Drawable image = getDrawable(R.drawable.ic_person);\n            String name = \"John\";\n            Player player = new Player(name, image);\n            Player.players.add(player);\n        }\n\n        Player.players.add(sean);\n        Player.players.add(sage);\n    }\n\n    private void populateGamesScrollView(int pageType){\n\n        gamesScrollViewContent.removeAllViews();\n\n        if(pageType == ACTIVE_GAMES && numActiveGames != 0 || pageType == PAST_GAMES && numPastGames != 0)\n            noGamesView.setVisibility(View.GONE);\n        else\n            noGamesView.setVisibility(View.VISIBLE);\n\n        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);\n        params.bottomMargin = 25;\n\n        int delay = 0;\n        if(pageType == ACTIVE_GAMES) {\n            //example active game\n            for (int i = 0; i < numActiveGames; i++) {\n                View exampleActiveGame = View.inflate(this, R.layout.item_active_view, null);\n                exampleActiveGame.setLayoutParams(params);\n                final ImageButton resumeGameButton = exampleActiveGame.findViewById(R.id.resumeActiveGameButton);\n                final ImageButton deleteGameButton = exampleActiveGame.findViewById(R.id.deleteActiveGameButton);\n                resumeGameButton.setOnClickListener(new View.OnClickListener() {\n                    @Override\n                    public void onClick(View view) {\n                        playAnimation(resumeGameButton, R.anim.button_press_in,0);\n                        playAnimation(resumeGameButton, R.anim.button_press_out,100);\n                    }\n                });\n                deleteGameButton.setOnClickListener(new View.OnClickListener() {\n                    @Override\n                    public void onClick(View view) {\n                        playAnimation(deleteGameButton, R.anim.button_press_in,0);\n                        playAnimation(deleteGameButton, R.anim.button_press_out,100);\n                    }\n                });\n                gamesScrollViewContent.addView(exampleActiveGame);\n                playAnimation(exampleActiveGame, R.anim.quick_zoom, delay);\n                delay += 25;\n            }\n        }\n        else {\n            //example history game\n            for (int i = 0; i < numPastGames; i++) {\n                View examplePastGame = View.inflate(this, R.layout.item_history_view, null);\n                examplePastGame.setLayoutParams(params);\n                final Button viewScoreCardButton = examplePastGame.findViewById(R.id.historyGameViewScoreCardButton);\n                viewScoreCardButton.setOnClickListener(new View.OnClickListener() {\n                    @Override\n                    public void onClick(View view) {\n                        playAnimation(viewScoreCardButton, R.anim.button_press_in,0);\n                        playAnimation(viewScoreCardButton, R.anim.button_press_out,100);\n                    }\n                });\n                gamesScrollViewContent.addView(examplePastGame);\n                playAnimation(examplePastGame, R.anim.quick_zoom, delay);\n                delay += 25;\n            }\n        }\n\n    }\n\n    private void playAnimation(final View v, final int animationId, int delayMS) {\n        if(v != null) {\n            new Handler().postDelayed(new Runnable()\n            {\n                @Override\n                public void run() {\n                    Animation animation = AnimationUtils.loadAnimation(MainActivity.this, animationId);\n                    animation.setDuration(animation.getDuration());\n                    animation.setFillAfter(true);\n                    v.startAnimation(animation);\n                }\n            }, delayMS);\n        }\n    }\n\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/minigolfapp/MainActivity.java	(revision 93279c3bf5e3cdb49ef40041a78c9f5a8b2df3b3)
++++ app/src/main/java/com/example/minigolfapp/MainActivity.java	(date 1614999954000)
+@@ -136,19 +136,19 @@
+         String playerName = "Sean";
+         Player sean = new Player(playerName, profileImage);
+ 
+-        Drawable profileImage2 = getDrawable(R.drawable.sage_thompson_profile);
+-        String playerName2 = "Sage";
+-        Player sage = new Player(playerName2, profileImage2);
++//        Drawable profileImage2 = getDrawable(R.drawable.sage_thompson_profile);
++//        String playerName2 = "Sage";
++//        Player sage = new Player(playerName2, profileImage2);
+ 
+-        for(int i = 0; i < 1; i++) {
+-            Drawable image = getDrawable(R.drawable.ic_person);
+-            String name = "John";
+-            Player player = new Player(name, image);
+-            Player.players.add(player);
+-        }
++//        for(int i = 0; i < 1; i++) {
++//            Drawable image = getDrawable(R.drawable.ic_person);
++//            String name = "John";
++//            Player player = new Player(name, image);
++//            Player.players.add(player);
++//        }
+ 
+         Player.players.add(sean);
+-        Player.players.add(sage);
++//        Player.players.add(sage);
+     }
+ 
+     private void populateGamesScrollView(int pageType){
+Index: app/src/main/java/com/example/minigolfapp/AddPlayersActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.minigolfapp;\n\nimport android.content.Context;\nimport android.content.Intent;\nimport android.os.Bundle;\nimport android.os.Handler;\nimport android.util.Log;\nimport android.view.View;\nimport android.view.ViewGroup;\nimport android.view.ViewTreeObserver;\nimport android.view.animation.Animation;\nimport android.view.animation.AnimationUtils;\nimport android.widget.Button;\nimport android.widget.GridView;\nimport android.widget.ImageButton;\nimport android.widget.LinearLayout;\nimport android.widget.ScrollView;\nimport android.widget.TableLayout;\nimport android.widget.TextView;\n\nimport androidx.appcompat.app.AppCompatActivity;\nimport androidx.core.content.FileProvider;\nimport androidx.gridlayout.widget.GridLayout;\n\nimport com.opencsv.CSVWriter;\n\nimport java.io.FileOutputStream;\nimport java.io.FileWriter;\nimport java.io.IOException;\nimport java.text.SimpleDateFormat;\nimport java.util.ArrayList;\nimport java.util.Date;\nimport java.util.List;\nimport java.util.Locale;\n\nimport de.hdodenhof.circleimageview.CircleImageView;\n\n\npublic class AddPlayersActivity extends AppCompatActivity {\n        private static final String TAG = \"AddPlayersActivity\";\n        private String mTimeStamp = new SimpleDateFormat(\"yyyyMMddHHmmss\", Locale.US).format(new Date());\n        private String usersName = \"\";\n        private GridLayout playerSelectionContentView;\n        private ArrayList<Boolean> flipped = new ArrayList<>();\n        private Game thisGame;\n\n        @Override\n        protected void onCreate(Bundle savedInstanceState) {\n                super.onCreate(savedInstanceState);\n                setContentView(R.layout.add_players);\n\n                Button backX = findViewById(R.id.backX);\n                Button createGame = findViewById(R.id.createGameButton);\n                //  player1 = findViewById(R.id.player1Slot);\n                ImageButton additionalPlayers = findViewById(R.id.newPlayerButton);\n                ImageButton home = findViewById(R.id.homePageButton);\n                ImageButton statsPage = findViewById(R.id.statsPageButton);\n                CircleImageView settingsPage = findViewById(R.id.settingsPageButton);\n                playerSelectionContentView = findViewById(R.id.playerSelectionContentView);\n\n                backX.setOnClickListener(new View.OnClickListener() {\n                        @Override\n                        public void onClick(View view) {\n                                goBackPage();\n                        }\n                });\n\n\n                createGame.setOnClickListener(new View.OnClickListener() {\n                        @Override\n                        public void onClick(View view) {\n                                String newstring = createNewFile();\n                                openPointsPage(newstring);\n                        }\n                });\n\n//                player1.setOnClickListener(new View.OnClickListener() {\n//                        @Override\n//                        public void onClick(View view) {\n//                                flipPlayerIcon();\n//                        }\n//                });\n\n                home.setOnClickListener(new View.OnClickListener() {\n                        @Override\n                        public void onClick(View view) {\n                                goBackPage();\n                        }\n                });\n\n                statsPage.setOnClickListener(new View.OnClickListener() {\n                        @Override\n                        public void onClick(View view) {\n                                toStatsPage();\n                        }\n                });\n\n                settingsPage.setOnClickListener(new View.OnClickListener() {\n                        @Override\n                        public void onClick(View view) {\n                                toSettingsPage();\n                        }\n                });\n                populateProfileView();\n        }\n\n        private String createNewFile() {\n                String directory = \"/scores\";\n                String timestamped = mTimeStamp;\n\n                StringBuilder header = new StringBuilder();\n                header.append(\"Hole,Sean\\n\");\n                Log.d(TAG, \"Please lemme know what is happening here?\");\n                try {\n                        FileOutputStream out = openFileOutput(\"score\"+ timestamped + \".csv\", Context.MODE_PRIVATE);\n                        out.write(header.toString().getBytes());\n                        out.close();\n//            CSVWriter writer = new CSVWriter(new FileWriter(\"score\" + timestamped + \".csv\"));\n//            List<String[]> h = new ArrayList<>();\n//            String[] header = new String[]{\"hole\", \"Sean\"};\n//            h.add(header);\n//            Log.d(TAG, \"Please lemme know what is happening here?\");\n//            writer.writeAll(h);\n//            writer.close();\n                } catch (IOException e) {\n                        e.printStackTrace();\n                }\n                return (\"score\" + timestamped + \".csv\");\n        }\n\n        private void goBackPage() {\n                Intent homePage = new Intent(this, MainActivity.class);\n                startActivity(homePage);\n                this.overridePendingTransition(R.anim.new_page_no_anim, R.anim.slide_down);\n        }\n\n        private void toStatsPage() {\n                Intent statsScreen = new Intent(this, StatsActivity.class);\n                startActivity(statsScreen);\n                this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);\n        }\n\n        private void toSettingsPage() {\n                Intent settingsScreen = new Intent(this, SettingsActivity.class);\n                startActivity(settingsScreen);\n                this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);\n        }\n\n        private void openPointsPage(String str) {\n                Intent addPointsPage = new Intent(this, AddPointsActivity.class);\n                addPointsPage.putExtra(\"fileName\", str);\n                String num = \"0\";\n                addPointsPage.putExtra(\"holeNumber\", num);\n                startActivity(addPointsPage);\n                this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);\n        }\n\n        //create and add profile views dynamically from saved profiles\n        //currently creates views from DEMO profiles made in MainActivity\n        private void populateProfileView() {\n                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);\n                params.setMargins(75, 0, 75, 45);\n                playerSelectionContentView.setColumnCount(3);\n                int index = 0;\n\n                for (Player p : Player.players) {\n                        View exampleProfile = View.inflate(this, R.layout.player_profile_view, null);\n                        TextView nameView = exampleProfile.findViewById(R.id.playerNameView);\n                        final CircleImageView profilePictureView = exampleProfile.findViewById(R.id.playerImageView);\n                        nameView.setText(p.getName());\n                        profilePictureView.setImageDrawable(p.getPlayerProfileImage());\n\n                        profilePictureView.setTag(index);\n                        profilePictureView.setOnClickListener(new View.OnClickListener() {\n                                @Override\n                                public void onClick(View view) {\n                                        flipPlayerIcon((CircleImageView) view);\n                                        playAnimation(profilePictureView, R.anim.button_press_in, 0);\n                                        playAnimation(profilePictureView, R.anim.button_press_out, 100);\n                                }\n                        });\n                        playerSelectionContentView.addView(exampleProfile, index, params);\n                        flipped.add(false);\n                        index++;\n                }\n\n\n        }\n\n        private void playAnimation(final View v, final int animationId, int delayMS) {\n                if (v != null) {\n                        new Handler().postDelayed(new Runnable() {\n                                @Override\n                                public void run() {\n                                        Animation animation = AnimationUtils.loadAnimation(AddPlayersActivity.this, animationId);\n                                        animation.setDuration(animation.getDuration());\n                                        animation.setFillAfter(true);\n                                        v.startAnimation(animation);\n                                }\n                        }, delayMS);\n                }\n        }\n\n        private void flipPlayerIcon(CircleImageView v) {\n                int buttonIndex = (int) v.getTag();\n\n                if (!flipped.get(buttonIndex)) {\n                        v.setImageResource(R.drawable.ic_checked_profile);\n                        flipped.set(buttonIndex, true);\n                } else {\n                        v.setImageDrawable(Player.players.get(buttonIndex).getPlayerProfileImage());\n                        flipped.set(buttonIndex, false);\n                }\n        }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/minigolfapp/AddPlayersActivity.java	(revision 93279c3bf5e3cdb49ef40041a78c9f5a8b2df3b3)
++++ app/src/main/java/com/example/minigolfapp/AddPlayersActivity.java	(date 1614998559000)
+@@ -7,30 +7,23 @@
+ import android.util.Log;
+ import android.view.View;
+ import android.view.ViewGroup;
+-import android.view.ViewTreeObserver;
+ import android.view.animation.Animation;
+ import android.view.animation.AnimationUtils;
+ import android.widget.Button;
+-import android.widget.GridView;
+ import android.widget.ImageButton;
+ import android.widget.LinearLayout;
+-import android.widget.ScrollView;
+-import android.widget.TableLayout;
+ import android.widget.TextView;
+ 
+ import androidx.appcompat.app.AppCompatActivity;
+-import androidx.core.content.FileProvider;
+ import androidx.gridlayout.widget.GridLayout;
+ 
+ import com.opencsv.CSVWriter;
+ 
+ import java.io.FileOutputStream;
+-import java.io.FileWriter;
+ import java.io.IOException;
+ import java.text.SimpleDateFormat;
+ import java.util.ArrayList;
+ import java.util.Date;
+-import java.util.List;
+ import java.util.Locale;
+ 
+ import de.hdodenhof.circleimageview.CircleImageView;
+@@ -42,7 +35,7 @@
+         private String usersName = "";
+         private GridLayout playerSelectionContentView;
+         private ArrayList<Boolean> flipped = new ArrayList<>();
+-        private Game thisGame;
++        public static ArrayList<Player> players;
+ 
+         @Override
+         protected void onCreate(Bundle savedInstanceState) {
+@@ -51,12 +44,12 @@
+ 
+                 Button backX = findViewById(R.id.backX);
+                 Button createGame = findViewById(R.id.createGameButton);
+-                //  player1 = findViewById(R.id.player1Slot);
+                 ImageButton additionalPlayers = findViewById(R.id.newPlayerButton);
+                 ImageButton home = findViewById(R.id.homePageButton);
+                 ImageButton statsPage = findViewById(R.id.statsPageButton);
+                 CircleImageView settingsPage = findViewById(R.id.settingsPageButton);
+                 playerSelectionContentView = findViewById(R.id.playerSelectionContentView);
++                players = new ArrayList<>();
+ 
+                 backX.setOnClickListener(new View.OnClickListener() {
+                         @Override
+@@ -74,13 +67,6 @@
+                         }
+                 });
+ 
+-//                player1.setOnClickListener(new View.OnClickListener() {
+-//                        @Override
+-//                        public void onClick(View view) {
+-//                                flipPlayerIcon();
+-//                        }
+-//                });
+-
+                 home.setOnClickListener(new View.OnClickListener() {
+                         @Override
+                         public void onClick(View view) {
+@@ -207,9 +193,12 @@
+                 if (!flipped.get(buttonIndex)) {
+                         v.setImageResource(R.drawable.ic_checked_profile);
+                         flipped.set(buttonIndex, true);
++                        players.add(Player.players.get(buttonIndex));
++
+                 } else {
+                         v.setImageDrawable(Player.players.get(buttonIndex).getPlayerProfileImage());
+                         flipped.set(buttonIndex, false);
++                        players.remove(Player.players.get(buttonIndex));
+                 }
+         }
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/example/minigolfapp/ScoreCardActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.minigolfapp;\n\nimport androidx.appcompat.app.AppCompatActivity;\nimport androidx.gridlayout.widget.GridLayout;\n\nimport android.graphics.drawable.Drawable;\nimport android.os.Bundle;\nimport android.view.View;\nimport android.view.ViewGroup;\nimport android.widget.Button;\nimport android.widget.LinearLayout;\nimport android.widget.SeekBar;\nimport android.widget.TextView;\n\nimport java.util.ArrayList;\n\nimport de.hdodenhof.circleimageview.CircleImageView;\n\npublic class ScoreCardActivity extends AppCompatActivity {\n\n    int numHoles = 18;\n    int currentHole = 1;\n    String[] playerNames = {\"Sean\", \"Sage\"};\n    private boolean inEditMode = false;\n    private LinearLayout scorecard;\n    private TextView holeNumberView;\n\n\n    @Override\n    protected void onCreate(Bundle savedInstanceState) {\n        super.onCreate(savedInstanceState);\n        setContentView(R.layout.scorecard_activity);\n\n        final Button scoreCardEditButton = findViewById(R.id.scorecardEditButton);\n        final Button doneButton = findViewById(R.id.exitScorecardButton);\n        scorecard = findViewById(R.id.scorecardPlayerView);\n        holeNumberView = findViewById(R.id.holeTitleTextView);\n        SeekBar holeSeekBar = findViewById(R.id.holeSeekBar);\n        holeSeekBar.setMax(numHoles);\n\n        holeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {\n            @Override\n            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {\n\n                if(i < numHoles)\n                    holeNumberView.setText(\"Hole \" + (i + 1));\n                else\n                    holeNumberView.setText(\"Total\");\n            }\n            @Override\n            public void onStartTrackingTouch(SeekBar seekBar) {}\n\n            @Override\n            public void onStopTrackingTouch(SeekBar seekBar) {\n                currentHole = seekBar.getProgress()+1;\n                updateScoreCard();\n            }\n        });\n\n        scoreCardEditButton.setOnClickListener(new View.OnClickListener() {\n            @Override\n            public void onClick(View view) {\n                if(inEditMode) {\n                    inEditMode = false;\n                    scoreCardEditButton.setText(\"Edit\");\n                    doneButton.setVisibility(View.VISIBLE);\n                }\n                else {\n                    inEditMode = true;\n                    scoreCardEditButton.setText(\"Editing\");\n                    doneButton.setVisibility(View.INVISIBLE);\n                }\n            }\n        });\n\n        populateScoreCardView();\n    }\n\n    public void updateScoreCard(){\n\n        //seekbar calls this method when its value is changed.\n        //this method should get current hole value, and pull score info from csv file (or preferably the game object) and update it\n        //below is an example on how to change the scores\n\n        for(int i = 0; i < scorecard.getChildCount(); i++) {\n            TextView score = scorecard.getChildAt(i).findViewById(R.id.scorecardRowPlayerScore);\n\n            //here, you will fetch scores from csv and update appropriately\n            score.setText(\"1\");\n        }\n    }\n\n    //initial population of scorecard\n    public void populateScoreCardView() {\n        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);\n        params.setMargins(0, 0, 0, 25);\n\n        for(int i = 0; i < playerNames.length; i++) {\n            View examplePlayerRow = View.inflate(this, R.layout.scorecard_row, null);\n            CircleImageView playerProfile = examplePlayerRow.findViewById(R.id.scorecardRowPlayerImageView);\n            Drawable b = getDrawable(R.drawable.ic_person);\n            playerProfile.setImageDrawable(b);\n            TextView playerName = examplePlayerRow.findViewById(R.id.scorecardRowPlayerName);\n            TextView playerScore = examplePlayerRow.findViewById(R.id.scorecardRowPlayerScore);\n\n            if(i == 0)\n                params.setMargins(0, 20, 0, 25);\n\n            playerName.setText(\"  \" + playerNames[i]);\n            playerScore.setText(\"N/A\");\n            scorecard.addView(examplePlayerRow, params);\n        }\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/minigolfapp/ScoreCardActivity.java	(revision 93279c3bf5e3cdb49ef40041a78c9f5a8b2df3b3)
++++ app/src/main/java/com/example/minigolfapp/ScoreCardActivity.java	(date 1615001063000)
+@@ -3,6 +3,7 @@
+ import androidx.appcompat.app.AppCompatActivity;
+ import androidx.gridlayout.widget.GridLayout;
+ 
++import android.content.Intent;
+ import android.graphics.drawable.Drawable;
+ import android.os.Bundle;
+ import android.view.View;
+@@ -19,11 +20,12 @@
+ public class ScoreCardActivity extends AppCompatActivity {
+ 
+     int numHoles = 18;
+-    int currentHole = 1;
+-    String[] playerNames = {"Sean", "Sage"};
++    int currentHole;
++    String[] playerNames = {"Sean"};
+     private boolean inEditMode = false;
+     private LinearLayout scorecard;
+     private TextView holeNumberView;
++    private boolean gameFinished;
+ 
+ 
+     @Override
+@@ -38,6 +40,11 @@
+         SeekBar holeSeekBar = findViewById(R.id.holeSeekBar);
+         holeSeekBar.setMax(numHoles);
+ 
++        gameFinished = getIntent().getBooleanExtra("gameFinished", false);
++        currentHole = getIntent().getIntExtra("currentHole", 1);
++        holeSeekBar.setProgress(currentHole);
++        holeNumberView.setText("Hole " + currentHole);
++
+         holeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+             @Override
+             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+@@ -73,6 +80,22 @@
+             }
+         });
+ 
++        doneButton.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View view) {
++                if(gameFinished){
++                    Intent homeScreen = new Intent(ScoreCardActivity.this, MainActivity.class);
++                    startActivity(homeScreen);
++                    ScoreCardActivity.this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
++                }
++                else {
++                    Intent gameScreen = new Intent(ScoreCardActivity.this, AddPointsActivity.class);
++                    startActivity(gameScreen);
++                    ScoreCardActivity.this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
++                }
++            }
++        });
++
+         populateScoreCardView();
+     }
+ 
