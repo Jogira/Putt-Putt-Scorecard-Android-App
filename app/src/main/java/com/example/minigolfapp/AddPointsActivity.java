@@ -1,5 +1,6 @@
 package com.example.minigolfapp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ public class AddPointsActivity extends AppCompatActivity {
     private CircleImageView currentPlayerImage;
     private TextView currentPlayerName;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -109,9 +111,11 @@ public class AddPointsActivity extends AppCompatActivity {
                 int newNum = Integer.parseInt(num);
                 newNum++;
                 String nums = String.valueOf(newNum);
-                String temp = String.valueOf(newNum++);
+                newNum++;
+                String temp = String.valueOf(newNum);
 
                 num = nums;
+                Log.d(TAG, "Set at: " + temp);
                 curr.setText(temp);
                 newStr.append(nums).append(",").append(scoreToAdd.getText()).append("\n");
                 Log.d(TAG, "Test:" + newStr);
