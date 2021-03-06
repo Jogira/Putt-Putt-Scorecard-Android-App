@@ -218,14 +218,14 @@
             android:weightSum="1">
 
             <ImageButton
-                android:id="@+id/incrementButton"
+                android:id="@+id/decrementButton"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginEnd="0dp"
+                android:layout_marginStart="0dp"
                 android:layout_marginBottom="0dp"
                 android:background="@drawable/circle"
                 android:backgroundTint="@color/colorAccentSecondary"
-                app:srcCompat="@drawable/ic_add" />
+                app:srcCompat="@drawable/ic_minus" />
 
             <TextView
                 android:id="@+id/scoreToAdd"
@@ -242,14 +242,14 @@
                 android:textStyle="bold" />
 
             <ImageButton
-                android:id="@+id/decrementButton"
+                android:id="@+id/incrementButton"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
                 android:layout_marginBottom="0dp"
                 android:background="@drawable/circle"
                 android:backgroundTint="@color/colorAccent"
-                app:srcCompat="@drawable/ic_minus" />
+                app:srcCompat="@drawable/ic_add" />
         </LinearLayout>
 
         <Button
