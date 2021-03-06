@@ -28,10 +28,11 @@ public class ScoreCardActivity extends AppCompatActivity {
     int numHoles = 18;
     int currentHole = 1;
     private String filename;
-    String[] playerNames = {"Sean", "Sage"};
+    ArrayList<Player> players = AddPlayersActivity.players;
     private boolean inEditMode = false;
     private LinearLayout scorecard;
     private TextView holeNumberView;
+    private boolean gameFinished;
 
 
     @Override
@@ -46,6 +47,11 @@ public class ScoreCardActivity extends AppCompatActivity {
         holeNumberView = findViewById(R.id.holeTitleTextView);
         SeekBar holeSeekBar = findViewById(R.id.holeSeekBar);
         holeSeekBar.setMax(numHoles);
+
+        gameFinished = getIntent().getBooleanExtra("gameFinished", false);
+        currentHole = getIntent().getIntExtra("currentHole", 1);
+        holeSeekBar.setProgress(currentHole);
+        holeNumberView.setText("Hole " + currentHole);
 
         holeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -83,7 +89,24 @@ public class ScoreCardActivity extends AppCompatActivity {
             }
         });
 
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(gameFinished){
+                    Intent homeScreen = new Intent(ScoreCardActivity.this, MainActivity.class);
+                    startActivity(homeScreen);
+                    ScoreCardActivity.this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
+                }
+                else {
+                    Intent gameScreen = new Intent(ScoreCardActivity.this, AddPointsActivity.class);
+                    startActivity(gameScreen);
+                    ScoreCardActivity.this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
+                }
+            }
+        });
+
         populateScoreCardView();
+        updateScoreCard();
     }
 
     public void updateScoreCard() {
@@ -97,8 +120,8 @@ public class ScoreCardActivity extends AppCompatActivity {
 
             //here, you will fetch scores from csv and update appropriately
 //            score.setText("1");
-            Log.d(TAG, "numbersent: " + i);
-            String str = setscore(i);
+            Log.d(TAG, "numbersent: " + currentHole);
+            String str = setscore(currentHole-1);
             score.setText(str);
         }
     }
@@ -110,8 +133,8 @@ public class ScoreCardActivity extends AppCompatActivity {
             String lines = "";
             FileInputStream fileInputStream = openFileInput(filename);
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-            BufferedReader bufferedReader = new BufferedReader((inputStreamReader));
             StringBuffer stringBuffer = new StringBuffer();
+            BufferedReader bufferedReader = new BufferedReader((inputStreamReader));
             while ((lines = bufferedReader.readLine()) != null) {
                 stringBuffer.append(lines).append("\n");
             }
@@ -139,18 +162,17 @@ public class ScoreCardActivity extends AppCompatActivity {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 0, 0, 25);
 
-        for (int i = 0; i < playerNames.length; i++) {
+        for (int i = 0; i < players.size(); i++) {
             View examplePlayerRow = View.inflate(this, R.layout.scorecard_row, null);
             CircleImageView playerProfile = examplePlayerRow.findViewById(R.id.scorecardRowPlayerImageView);
-            Drawable b = getDrawable(R.drawable.ic_person);
-            playerProfile.setImageDrawable(b);
+            playerProfile.setImageDrawable(players.get(i).getPlayerProfileImage());
             TextView playerName = examplePlayerRow.findViewById(R.id.scorecardRowPlayerName);
             TextView playerScore = examplePlayerRow.findViewById(R.id.scorecardRowPlayerScore);
 
             if (i == 0)
                 params.setMargins(0, 20, 0, 25);
 
-            playerName.setText("  " + playerNames[i]);
+            playerName.setText("  " + players.get(i).getName());
             playerScore.setText("N/A");
             scorecard.addView(examplePlayerRow, params);
         }

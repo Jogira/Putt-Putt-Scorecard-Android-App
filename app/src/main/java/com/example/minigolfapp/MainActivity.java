@@ -136,19 +136,19 @@ public class MainActivity extends AppCompatActivity {
         String playerName = "Sean";
         Player sean = new Player(playerName, profileImage);
 
-        Drawable profileImage2 = getDrawable(R.drawable.sage_thompson_profile);
-        String playerName2 = "Sage";
-        Player sage = new Player(playerName2, profileImage2);
+//        Drawable profileImage2 = getDrawable(R.drawable.sage_thompson_profile);
+//        String playerName2 = "Sage";
+//        Player sage = new Player(playerName2, profileImage2);
 
-        for(int i = 0; i < 1; i++) {
-            Drawable image = getDrawable(R.drawable.ic_person);
-            String name = "John";
-            Player player = new Player(name, image);
-            Player.players.add(player);
-        }
+//        for(int i = 0; i < 1; i++) {
+//            Drawable image = getDrawable(R.drawable.ic_person);
+//            String name = "John";
+//            Player player = new Player(name, image);
+//            Player.players.add(player);
+//        }
 
         Player.players.add(sean);
-        Player.players.add(sage);
+//        Player.players.add(sage);
     }
 
     private void populateGamesScrollView(int pageType){
