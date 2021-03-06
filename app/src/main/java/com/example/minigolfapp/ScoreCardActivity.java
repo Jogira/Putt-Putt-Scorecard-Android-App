@@ -50,7 +50,7 @@ public class ScoreCardActivity extends AppCompatActivity {
 
         gameFinished = getIntent().getBooleanExtra("gameFinished", false);
         currentHole = getIntent().getIntExtra("currentHole", 1);
-        holeSeekBar.setProgress(currentHole);
+        holeSeekBar.setProgress(currentHole-1);
         holeNumberView.setText("Hole " + currentHole);
 
         holeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -121,7 +121,7 @@ public class ScoreCardActivity extends AppCompatActivity {
             //here, you will fetch scores from csv and update appropriately
 //            score.setText("1");
             Log.d(TAG, "numbersent: " + currentHole);
-            String str = setscore(currentHole-1);
+            String str = setscore(currentHole);
             score.setText(str);
         }
     }
