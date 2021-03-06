@@ -105,7 +105,7 @@ public class AddPointsActivity extends AppCompatActivity {
                 String temp = String.valueOf(newNum++);
 
                 num = nums;
-                curr.setText(nums);
+                curr.setText(temp);
                 newStr.append(nums).append(",").append(scoreToAdd.getText()).append("\n");
                 Log.d(TAG, "Test:" + newStr);
                 try {
