@@ -28,7 +28,7 @@ public class AddPlayersActivity extends AppCompatActivity {
 
         private GridLayout playerSelectionContentView;
         private ArrayList<Boolean> flipped = new ArrayList<>();
-        private Game thisGame;
+        public static Game thisGame;
         private ArrayList<Player> players;
 
         @Override

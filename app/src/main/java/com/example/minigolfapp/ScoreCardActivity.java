@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ScoreCardActivity extends AppCompatActivity {
@@ -22,6 +24,7 @@ public class ScoreCardActivity extends AppCompatActivity {
     private boolean inEditMode = false;
     private LinearLayout scorecard;
     private TextView holeNumberView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +76,19 @@ public class ScoreCardActivity extends AppCompatActivity {
         populateScoreCardView();
     }
 
-    public void updateScoreCard(){}
+    public void updateScoreCard(){
+
+        //seekbar calls this method when its value is changed.
+        //this method should get current hole value, and pull score info from csv file (or preferably the game object) and update it
+        //below is an example on how to change the scores
+
+        for(int i = 0; i < scorecard.getChildCount(); i++) {
+            TextView score = scorecard.getChildAt(i).findViewById(R.id.scorecardRowPlayerScore);
+
+            //here, you will fetch scores from csv and update appropriately
+            score.setText("1");
+        }
+    }
 
     //initial population of scorecard
     public void populateScoreCardView() {

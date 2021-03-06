@@ -3,7 +3,6 @@ package com.example.minigolfapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -15,18 +14,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.opencsv.CSVWriter;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
