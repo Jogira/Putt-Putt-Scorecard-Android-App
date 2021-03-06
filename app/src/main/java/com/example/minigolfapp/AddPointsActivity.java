@@ -34,14 +34,16 @@ public class AddPointsActivity extends AppCompatActivity {
     private TextView scoreToAdd;
     private TextView curr;
     private String num;
+    private String fileName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_points);
 
         Intent intent = getIntent();
-        final String fileName = intent.getStringExtra("fileName");
+        fileName = intent.getStringExtra("fileName");
         num = intent.getStringExtra("holeNumber"); //Passed as string set to int before iterating.
 
         curr = findViewById(R.id.CurrentHole);
@@ -128,12 +130,14 @@ public class AddPointsActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
             }
         });
 
         openCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 openScorecard();
             }
         });
@@ -163,6 +167,7 @@ public class AddPointsActivity extends AppCompatActivity {
 
     private void openScorecard() {
         Intent scorecard = new Intent(this, ScoreCardActivity.class);
+        scorecard.putExtra("fileName", fileName);
         startActivity(scorecard);
         this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
     }

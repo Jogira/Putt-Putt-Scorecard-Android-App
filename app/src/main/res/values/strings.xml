@@ -9,5 +9,7 @@
     <string name="start_new_game_text">Start a new game</string>
     <string name="home_page_button">Home page button</string>
     <string name="stats_page_button">Stats page button</string>
+    <string name="enterscores">EnterScores</string>
+    <string name="scores">scores:</string>
 
 </resources>
