@@ -30,36 +30,30 @@ import static java.lang.String.valueOf;
 
 
 public class AddPointsActivity extends AppCompatActivity {
-    private ImageButton increment;
-    private ImageButton decrement;
-    private ImageButton home;
-    private ImageButton statsPage;
+
     private TextView scoreToAdd;
     private TextView curr;
-    private CircleImageView settingsPage;
-    private Button openCard;
-    private Button endGame;
-    private Button addScore;
     private String num;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_points);
+
         Intent intent = getIntent();
         final String fileName = intent.getStringExtra("fileName");
         num = intent.getStringExtra("holeNumber"); //Passed as string set to int before iterating.
+
         curr = findViewById(R.id.CurrentHole);
-        increment = findViewById(R.id.incrementButton);
-        decrement = findViewById(R.id.decrementButton);
-        home = findViewById(R.id.homePageButton);
-        statsPage = findViewById(R.id.statsPageButton);
-        addScore = findViewById(R.id.addScoreButton);
+        ImageButton increment = findViewById(R.id.incrementButton);
+        ImageButton decrement = findViewById(R.id.decrementButton);
+        ImageButton home = findViewById(R.id.homePageButton);
+        ImageButton statsPage = findViewById(R.id.statsPageButton);
+        Button addScore = findViewById(R.id.addScoreButton);
         scoreToAdd = findViewById(R.id.scoreToAdd);
-        openCard = findViewById(R.id.viewCard);
-        endGame = findViewById(R.id.endGame);
-        settingsPage = findViewById(R.id.settingsPageButton);
+        Button openCard = findViewById(R.id.viewCard);
+        Button endGame = findViewById(R.id.endGame);
+        CircleImageView settingsPage = findViewById(R.id.settingsPageButton);
 
         increment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +106,6 @@ public class AddPointsActivity extends AppCompatActivity {
                 Log.d(TAG, "Test:" + newStr);
                 try {
 
-
                     FileOutputStream out = openFileOutput(fileName, Context.MODE_APPEND);
                     out.write(newStr.toString().getBytes());
                     out.close();
@@ -151,8 +144,6 @@ public class AddPointsActivity extends AppCompatActivity {
                 openScorecard();
             }
         });
-
-
     }
 
 

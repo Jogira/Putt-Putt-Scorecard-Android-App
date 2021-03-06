@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scorecardRowView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_background"
+    android:backgroundTint="@color/colorSecondaryDark"
+    android:weightSum="1">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/scorecardRowPlayerImageView"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_weight="0.02"
+        android:translationZ="3dp" />
+
+    <TextView
+        android:id="@+id/scorecardRowPlayerName"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight=".78"
+        android:gravity="center_vertical"
+        android:text="Name"
+        android:textColor="#ffffff"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/scorecardRowPlayerScore"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight=".2"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="@color/colorTertiaryDark"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="#ffffff"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+
+
+</LinearLayout>

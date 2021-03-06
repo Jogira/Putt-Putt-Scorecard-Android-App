@@ -9,6 +9,7 @@ public class Game {
     private boolean isActive;
     private boolean parsActive;
     private ArrayList<Player> players;
+    private ArrayList<int[]> playerScores;
     private int currentHole;
     private int numHoles;
     private int[] pars = null;
@@ -19,6 +20,7 @@ public class Game {
 
         this.gameID = CURRENT_GAME_ID + 1;
         CURRENT_GAME_ID = gameID;
+        this.playerScores = new ArrayList<int[]>(players.size());
         this.players = players;
         this.numHoles = numHoles;
         isActive = true;
@@ -31,6 +33,7 @@ public class Game {
 
         this.gameID = CURRENT_GAME_ID + 1;
         CURRENT_GAME_ID = gameID;
+        this.playerScores = new ArrayList<>(players.size());
         this.players = players;
         this.numHoles = numHoles;
         isActive = true;

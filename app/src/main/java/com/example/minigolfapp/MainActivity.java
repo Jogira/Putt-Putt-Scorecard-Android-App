@@ -119,8 +119,6 @@ public class MainActivity extends AppCompatActivity {
             createDefaultPlayers();
     }
 
-
-
     private void openStatsPage(){
         Intent statsPage = new Intent(this, StatsActivity.class);
         startActivity(statsPage);
