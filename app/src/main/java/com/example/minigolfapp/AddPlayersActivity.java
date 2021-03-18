@@ -61,8 +61,7 @@ public class AddPlayersActivity extends AppCompatActivity {
                 createGame.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                                String newstring = createNewFile();
-                                openPointsPage(newstring);
+                                openPointsPage();
                         }
                 });
 
@@ -131,12 +130,9 @@ public class AddPlayersActivity extends AppCompatActivity {
                 this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
         }
 
-        private void openPointsPage(String str) {
+        private void openPointsPage() {
                 Intent addPointsPage = new Intent(this, AddPointsActivity.class);
-                addPointsPage.putExtra("fileName", str);
-                Game.currentGame = new Game(players, 18);
-               // String num = "0";
-              //  addPointsPage.putExtra("holeNumber", num);
+                Game.currentGame = new Game(players, 18, createNewFile());
                 startActivity(addPointsPage);
                 this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
         }

@@ -10,6 +10,7 @@ public class Game {
     private boolean parsActive;
     private ArrayList<Player> players;
     private ArrayList<int[]> playerScores;
+    private String fileName;
     private int currentHole;
     private int numHoles;
     public int currentPlayerTurn = 0;
@@ -30,7 +31,7 @@ public class Game {
         currentHole = 1;
     }
 
-    public Game(ArrayList<Player> players, int numHoles){
+    public Game(ArrayList<Player> players, int numHoles, String fileName){
         if(parsActive)
             pars = new int[numHoles];
 
@@ -39,6 +40,7 @@ public class Game {
         this.playerScores = new ArrayList<>(players.size());
         this.players = players;
         this.numHoles = numHoles;
+        this.fileName = fileName;
         isActive = true;
         currentHole = 1;
     }
@@ -62,6 +64,14 @@ public class Game {
     public void setActive(boolean active) {
         isActive = active;
         //if active = false, save game as csv file
+    }
+
+    public boolean getActive() {
+        return isActive;
+    }
+
+    public String getFileName(){
+        return this.fileName;
     }
 
     public void setPars(int[] pars) {

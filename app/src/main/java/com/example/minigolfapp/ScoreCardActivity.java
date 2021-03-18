@@ -3,6 +3,7 @@ package com.example.minigolfapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.gridlayout.widget.GridLayout;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -25,15 +26,16 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ScoreCardActivity extends AppCompatActivity {
 
     private static final String TAG = "ScoreCardActivity";
-    int currentHole = 1;
+    int currentHole = Game.currentGame.getCurrentHole();
     private String filename;
-    ArrayList<Player> players = Game.currentGame.getPlayers();
+    private final ArrayList<Player> players = Game.currentGame.getPlayers();
     private boolean inEditMode = false;
     private LinearLayout scorecard;
     private TextView holeNumberView;
     private boolean gameFinished;
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,14 +50,15 @@ public class ScoreCardActivity extends AppCompatActivity {
         holeSeekBar.setMax(Game.currentGame.getNumHoles());
 
         gameFinished = getIntent().getBooleanExtra("gameFinished", false);
-        currentHole = Game.currentGame.getCurrentHole();
-        holeSeekBar.setProgress(currentHole-1);
         holeNumberView.setText("Hole " + currentHole);
 
-        if(gameFinished) {
-            holeSeekBar.setProgress(Game.currentGame.getNumHoles()-1);
+        if(Game.currentGame.getCurrentHole() == Game.currentGame.getNumHoles()) {
+            Game.currentGame.setCurrentHole(Game.currentGame.getCurrentHole()+1);
+            currentHole = Game.currentGame.getCurrentHole();
             holeNumberView.setText("Total");
         }
+
+        holeSeekBar.setProgress(currentHole-1);
 
         holeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -124,15 +127,14 @@ public class ScoreCardActivity extends AppCompatActivity {
             TextView score = scorecard.getChildAt(i).findViewById(R.id.scorecardRowPlayerScore);
 
             //here, you will fetch scores from csv and update appropriately
-            Log.d(TAG, "number sent: " + (currentHole));
-            String str = setScore(currentHole);
-            score.setText(str);
+            Log.d(TAG, "number sent: " + currentHole);
+            score.setText(setScore(currentHole));
         }
     }
 
 
-    private String setScore(int i) {
-        String all = "";
+    private String setScore(int currentHole) {
+        String gameFile = "";
 
         try {
             String lines = "";
@@ -140,23 +142,37 @@ public class ScoreCardActivity extends AppCompatActivity {
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             StringBuilder stringBuffer = new StringBuilder();
             BufferedReader bufferedReader = new BufferedReader((inputStreamReader));
-            while ((lines = bufferedReader.readLine()) != null) {
+
+            while ((lines = bufferedReader.readLine()) != null)
                 stringBuffer.append(lines).append("\n");
-            }
+
             Log.d(TAG, "setScore:" + stringBuffer.toString());
             inputStreamReader.close();
-            all = stringBuffer.toString();
-        } catch (IOException e) {
-            e.printStackTrace();
+            gameFile = stringBuffer.toString();
+
         }
-        String[] finder = all.split("\n"); //parses the csv and grabs the number hole it is looking for
-        if (i >= finder.length){
+        catch (IOException e) { e.printStackTrace(); }
+
+        String[] finder = gameFile.split("\n"); //parses the csv and grabs the number hole it is looking for
+
+        if (currentHole >= finder.length && !Game.currentGame.getActive()) {
+            int total = 0;
+            for(int i = 1; i < finder.length; i++) {
+                String score = finder[i];
+                String[] stuff = score.split(",");
+                int scoreValue = Integer.parseInt(stuff[1]);
+                total += scoreValue;
+            }
+            return String.valueOf(total);
+        }
+
+        if (currentHole >= finder.length)
             return "N/A";
-        }
-        String score = finder[i];
+
+        String score = finder[currentHole];
         String[] stuff = score.split(",");
-        Log.d(TAG, "number Being inputted:" + i);
-        Log.d(TAG, "The line there:" + finder[i]);
+        Log.d(TAG, "number Being inputted:" + currentHole);
+        Log.d(TAG, "The line there:" + finder[currentHole]);
         score = stuff[1];
         Log.d(TAG, "The val that is being returned:" + score);
         return score;
@@ -177,7 +193,7 @@ public class ScoreCardActivity extends AppCompatActivity {
             if (i == 0)
                 params.setMargins(0, 20, 0, 25);
 
-            playerName.setText("  " + players.get(i).getName());
+            playerName.setText(" " + players.get(i).getName());
             playerScore.setText("N/A");
             scorecard.addView(examplePlayerRow, params);
         }

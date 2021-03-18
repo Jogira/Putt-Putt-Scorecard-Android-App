@@ -39,8 +39,7 @@ public class AddPointsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_points);
 
-        Intent intent = getIntent();
-        fileName = intent.getStringExtra("fileName");
+        fileName = Game.currentGame.getFileName();
 
         currentHoleTextView = findViewById(R.id.CurrentHole);
         ImageButton increment = findViewById(R.id.incrementButton);
