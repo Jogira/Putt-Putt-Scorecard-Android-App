@@ -40,8 +40,8 @@ public class ScoreCardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scorecard_activity);
-        Intent intent = getIntent();
-        filename = intent.getStringExtra("fileName");
+
+        filename = Game.currentGame.getFileName();
         final Button scoreCardEditButton = findViewById(R.id.scorecardEditButton);
         final Button doneButton = findViewById(R.id.exitScorecardButton);
         scorecard = findViewById(R.id.scorecardPlayerView);
@@ -99,15 +99,15 @@ public class ScoreCardActivity extends AppCompatActivity {
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(gameFinished){
+                if(gameFinished) {
                     Intent homeScreen = new Intent(ScoreCardActivity.this, MainActivity.class);
                     startActivity(homeScreen);
-                    ScoreCardActivity.this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
+                    ScoreCardActivity.this.overridePendingTransition(R.anim.new_page_no_anim, R.anim.slide_down);
                 }
                 else {
                     Intent gameScreen = new Intent(ScoreCardActivity.this, AddPointsActivity.class);
                     startActivity(gameScreen);
-                    ScoreCardActivity.this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
+                    ScoreCardActivity.this.overridePendingTransition(R.anim.new_page_no_anim, R.anim.slide_down);
                 }
             }
         });

@@ -48,7 +48,8 @@
                 android:progress="0"
                 android:progressBackgroundTint="@color/colorAccent"
                 android:progressBackgroundTintMode="add"
-                android:thumbTint="#FFFFFF" />
+                android:thumbTint="#FFFFFF"
+                android:tickMark="@drawable/tickmark" />
 
             <TextView
                 android:id="@+id/scorecardScoreTitle"

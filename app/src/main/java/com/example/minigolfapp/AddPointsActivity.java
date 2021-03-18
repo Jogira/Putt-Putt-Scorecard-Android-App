@@ -133,14 +133,14 @@ public class AddPointsActivity extends AppCompatActivity {
         openCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openScorecard(false, Game.currentGame.getCurrentHole());
+                openScorecard(false);
             }
         });
 
         endGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openScorecard(true, Game.currentGame.getCurrentHole());
+                openScorecard(true);
             }
         });
     }
@@ -155,7 +155,7 @@ public class AddPointsActivity extends AppCompatActivity {
         else {
             if(Game.currentGame.getCurrentHole() == Game.currentGame.getNumHoles()) {
                 Game.currentGame.setActive(false);
-                openScorecard(true, Game.currentGame.getCurrentHole());
+                openScorecard(true);
             }
             else {
                 Game.currentGame.setCurrentHole(Game.currentGame.getCurrentHole() + 1);
@@ -187,13 +187,11 @@ public class AddPointsActivity extends AppCompatActivity {
     }
 
 
-    private void openScorecard(boolean gameFinished, int currentHole) {
+    private void openScorecard(boolean gameFinished) {
         Intent scorecard = new Intent(this, ScoreCardActivity.class);
-        scorecard.putExtra("fileName", fileName);
         scorecard.putExtra("gameFinished", gameFinished);
-        scorecard.putExtra("currentHole", currentHole);
         startActivity(scorecard);
-        this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
+        this.overridePendingTransition(R.anim.slide_up, R.anim.fade_in);
     }
 
 
