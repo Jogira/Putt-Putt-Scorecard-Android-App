@@ -32,16 +32,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AddPlayersActivity extends AppCompatActivity {
         private static final String TAG = "AddPlayersActivity";
         private String mTimeStamp = new SimpleDateFormat("yyyyMMddHHmmss", Locale.US).format(new Date());
-        private String usersName = "";
         private GridLayout playerSelectionContentView;
         private ArrayList<Boolean> flipped = new ArrayList<>();
-        public static ArrayList<Player> players;
+        private ArrayList<Player> players;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.add_players);
-
+                Game.currentGame = null;
                 Button backX = findViewById(R.id.backX);
                 Button createGame = findViewById(R.id.createGameButton);
                 ImageButton additionalPlayers = findViewById(R.id.newPlayerButton);
@@ -135,8 +134,9 @@ public class AddPlayersActivity extends AppCompatActivity {
         private void openPointsPage(String str) {
                 Intent addPointsPage = new Intent(this, AddPointsActivity.class);
                 addPointsPage.putExtra("fileName", str);
-                String num = "0";
-                addPointsPage.putExtra("holeNumber", num);
+                Game.currentGame = new Game(players, 18);
+               // String num = "0";
+              //  addPointsPage.putExtra("holeNumber", num);
                 startActivity(addPointsPage);
                 this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
         }

@@ -25,10 +25,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ScoreCardActivity extends AppCompatActivity {
 
     private static final String TAG = "ScoreCardActivity";
-    int numHoles = 18;
     int currentHole = 1;
     private String filename;
-    ArrayList<Player> players = AddPlayersActivity.players;
+    ArrayList<Player> players = Game.currentGame.getPlayers();
     private boolean inEditMode = false;
     private LinearLayout scorecard;
     private TextView holeNumberView;
@@ -46,26 +45,30 @@ public class ScoreCardActivity extends AppCompatActivity {
         scorecard = findViewById(R.id.scorecardPlayerView);
         holeNumberView = findViewById(R.id.holeTitleTextView);
         SeekBar holeSeekBar = findViewById(R.id.holeSeekBar);
-        holeSeekBar.setMax(numHoles);
+        holeSeekBar.setMax(Game.currentGame.getNumHoles());
 
         gameFinished = getIntent().getBooleanExtra("gameFinished", false);
-        currentHole = getIntent().getIntExtra("currentHole", 1);
+        currentHole = Game.currentGame.getCurrentHole();
         holeSeekBar.setProgress(currentHole-1);
         holeNumberView.setText("Hole " + currentHole);
+
+        if(gameFinished) {
+            holeSeekBar.setProgress(Game.currentGame.getNumHoles()-1);
+            holeNumberView.setText("Total");
+        }
 
         holeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 
-                if (i < numHoles)
+                if (i < Game.currentGame.getNumHoles())
                     holeNumberView.setText("Hole " + (i + 1));
                 else
                     holeNumberView.setText("Total");
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
+            public void onStartTrackingTouch(SeekBar seekBar) {}
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -81,7 +84,8 @@ public class ScoreCardActivity extends AppCompatActivity {
                     inEditMode = false;
                     scoreCardEditButton.setText("Edit");
                     doneButton.setVisibility(View.VISIBLE);
-                } else {
+                }
+                else {
                     inEditMode = true;
                     scoreCardEditButton.setText("Editing");
                     doneButton.setVisibility(View.INVISIBLE);
@@ -109,9 +113,10 @@ public class ScoreCardActivity extends AppCompatActivity {
         updateScoreCard();
     }
 
+
     public void updateScoreCard() {
 
-        //seekbar calls this method when its value is changed.
+        //the SeekBar calls this method when its value is changed.
         //this method should get current hole value, and pull score info from csv file (or preferably the game object) and update it
         //below is an example on how to change the scores
 
@@ -119,21 +124,21 @@ public class ScoreCardActivity extends AppCompatActivity {
             TextView score = scorecard.getChildAt(i).findViewById(R.id.scorecardRowPlayerScore);
 
             //here, you will fetch scores from csv and update appropriately
-//            score.setText("1");
-            Log.d(TAG, "numbersent: " + currentHole);
-            String str = setscore(currentHole-1);
+            Log.d(TAG, "number sent: " + (currentHole));
+            String str = setScore(currentHole);
             score.setText(str);
         }
     }
 
-    private String setscore(int i) {
+
+    private String setScore(int i) {
         String all = "";
 
         try {
             String lines = "";
             FileInputStream fileInputStream = openFileInput(filename);
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-            StringBuffer stringBuffer = new StringBuffer();
+            StringBuilder stringBuffer = new StringBuilder();
             BufferedReader bufferedReader = new BufferedReader((inputStreamReader));
             while ((lines = bufferedReader.readLine()) != null) {
                 stringBuffer.append(lines).append("\n");
@@ -145,16 +150,16 @@ public class ScoreCardActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         String[] finder = all.split("\n"); //parses the csv and grabs the number hole it is looking for
-        if (i > finder.length){
+        if (i >= finder.length){
             return "N/A";
         }
-        String temp = finder[i];
-        String[] stuff = temp.split(",");
+        String score = finder[i];
+        String[] stuff = score.split(",");
         Log.d(TAG, "number Being inputted:" + i);
         Log.d(TAG, "The line there:" + finder[i]);
-        temp = stuff[1];
-        Log.d(TAG, "The val that is being returned:" + temp);
-        return temp;
+        score = stuff[1];
+        Log.d(TAG, "The val that is being returned:" + score);
+        return score;
     }
 
     //initial population of scorecard

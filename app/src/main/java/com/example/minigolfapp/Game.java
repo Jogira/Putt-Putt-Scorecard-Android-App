@@ -12,7 +12,10 @@ public class Game {
     private ArrayList<int[]> playerScores;
     private int currentHole;
     private int numHoles;
+    public int currentPlayerTurn = 0;
     private int[] pars = null;
+
+    public static Game currentGame = null;
 
     public Game(ArrayList<Player> players, int numHoles, int[] pars){
         if(parsActive)
@@ -20,7 +23,7 @@ public class Game {
 
         this.gameID = CURRENT_GAME_ID + 1;
         CURRENT_GAME_ID = gameID;
-        this.playerScores = new ArrayList<int[]>(players.size());
+        this.playerScores = new ArrayList<>(players.size());
         this.players = players;
         this.numHoles = numHoles;
         isActive = true;
