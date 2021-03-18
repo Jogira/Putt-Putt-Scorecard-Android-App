@@ -155,7 +155,7 @@ public class ScoreCardActivity extends AppCompatActivity {
 
         String[] finder = gameFile.split("\n"); //parses the csv and grabs the number hole it is looking for
 
-        if (currentHole >= finder.length && !Game.currentGame.getActive()) {
+        if (currentHole >= finder.length && (currentHole > Game.currentGame.getNumHoles())) {
             int total = 0;
             for(int i = 1; i < finder.length; i++) {
                 String score = finder[i];
