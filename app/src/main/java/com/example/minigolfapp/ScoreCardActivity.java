@@ -7,9 +7,12 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -83,6 +86,9 @@ public class ScoreCardActivity extends AppCompatActivity {
         scoreCardEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                playAnimation(view, R.anim.button_press_in,0);
+                playAnimation(view, R.anim.button_press_out,100);
+
                 if (inEditMode) {
                     inEditMode = false;
                     scoreCardEditButton.setText("Edit");
@@ -99,6 +105,9 @@ public class ScoreCardActivity extends AppCompatActivity {
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                playAnimation(view, R.anim.button_press_in,0);
+                playAnimation(view, R.anim.button_press_out,100);
+
                 if(gameFinished) {
                     Intent homeScreen = new Intent(ScoreCardActivity.this, MainActivity.class);
                     startActivity(homeScreen);
@@ -196,6 +205,22 @@ public class ScoreCardActivity extends AppCompatActivity {
             playerName.setText(" " + players.get(i).getName());
             playerScore.setText("N/A");
             scorecard.addView(examplePlayerRow, params);
+        }
+    }
+
+
+    private void playAnimation(final View v, final int animationId, int delayMS) {
+        if(v != null) {
+            new Handler().postDelayed(new Runnable()
+            {
+                @Override
+                public void run() {
+                    Animation animation = AnimationUtils.loadAnimation(ScoreCardActivity.this, animationId);
+                    animation.setDuration(animation.getDuration());
+                    animation.setFillAfter(true);
+                    v.startAnimation(animation);
+                }
+            }, delayMS);
         }
     }
 }

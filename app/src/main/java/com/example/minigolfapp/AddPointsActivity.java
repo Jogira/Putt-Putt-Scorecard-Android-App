@@ -4,8 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -27,7 +30,7 @@ public class AddPointsActivity extends AppCompatActivity {
 
     private TextView scoreToAdd;
     private TextView currentHoleTextView;
-    private String fileName;
+    private final String fileName = Game.currentGame.getFileName();
     private int currentPlayerTurn = Game.currentGame.currentPlayerTurn;
     private CircleImageView currentPlayerImage;
     private TextView currentPlayerName;
@@ -38,8 +41,6 @@ public class AddPointsActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_points);
-
-        fileName = Game.currentGame.getFileName();
 
         currentHoleTextView = findViewById(R.id.CurrentHole);
         ImageButton increment = findViewById(R.id.incrementButton);
@@ -62,6 +63,8 @@ public class AddPointsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 incrementScore();
+                playAnimation(view, R.anim.button_press_in,0);
+                playAnimation(view, R.anim.button_press_out,100);
             }
         });
 
@@ -69,6 +72,8 @@ public class AddPointsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 decrementScore();
+                playAnimation(view, R.anim.button_press_in,0);
+                playAnimation(view, R.anim.button_press_out,100);
             }
         });
 
@@ -98,6 +103,9 @@ public class AddPointsActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+                playAnimation(view, R.anim.button_press_in_subtle,0);
+                playAnimation(view, R.anim.button_press_out_subtle,100);
+
                 String lines = "";
                 StringBuilder newStr = new StringBuilder();
 
@@ -133,6 +141,8 @@ public class AddPointsActivity extends AppCompatActivity {
         openCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                playAnimation(view, R.anim.button_press_in_subtle,0);
+                playAnimation(view, R.anim.button_press_out_subtle,100);
                 openScorecard(false);
             }
         });
@@ -140,6 +150,8 @@ public class AddPointsActivity extends AppCompatActivity {
         endGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                playAnimation(view, R.anim.button_press_in_subtle,0);
+                playAnimation(view, R.anim.button_press_out_subtle,100);
                 openScorecard(true);
             }
         });
@@ -213,6 +225,22 @@ public class AddPointsActivity extends AppCompatActivity {
         Intent statsScreen = new Intent(this, StatsActivity.class);
         startActivity(statsScreen);
         this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
+    }
+
+
+    private void playAnimation(final View v, final int animationId, int delayMS) {
+        if(v != null) {
+            new Handler().postDelayed(new Runnable()
+            {
+                @Override
+                public void run() {
+                    Animation animation = AnimationUtils.loadAnimation(AddPointsActivity.this, animationId);
+                    animation.setDuration(animation.getDuration());
+                    animation.setFillAfter(true);
+                    v.startAnimation(animation);
+                }
+            }, delayMS);
+        }
     }
 
 }
