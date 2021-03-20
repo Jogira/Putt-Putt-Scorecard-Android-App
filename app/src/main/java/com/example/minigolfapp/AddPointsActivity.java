@@ -63,8 +63,7 @@ public class AddPointsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 incrementScore();
-                playAnimation(view, R.anim.button_press_in,0);
-                playAnimation(view, R.anim.button_press_out,100);
+                AnimationController.buttonPress(AddPointsActivity.this, view);
             }
         });
 
@@ -72,8 +71,7 @@ public class AddPointsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 decrementScore();
-                playAnimation(view, R.anim.button_press_in,0);
-                playAnimation(view, R.anim.button_press_out,100);
+                AnimationController.buttonPress(AddPointsActivity.this, view);
             }
         });
 
@@ -103,8 +101,7 @@ public class AddPointsActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                playAnimation(view, R.anim.button_press_in_subtle,0);
-                playAnimation(view, R.anim.button_press_out_subtle,100);
+                AnimationController.buttonPressSubtle(AddPointsActivity.this, view);
 
                 String lines = "";
                 StringBuilder newStr = new StringBuilder();
@@ -141,8 +138,7 @@ public class AddPointsActivity extends AppCompatActivity {
         openCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                playAnimation(view, R.anim.button_press_in_subtle,0);
-                playAnimation(view, R.anim.button_press_out_subtle,100);
+                AnimationController.buttonPressSubtle(AddPointsActivity.this, view);
                 openScorecard(false);
             }
         });
@@ -150,8 +146,7 @@ public class AddPointsActivity extends AppCompatActivity {
         endGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                playAnimation(view, R.anim.button_press_in_subtle,0);
-                playAnimation(view, R.anim.button_press_out_subtle,100);
+                AnimationController.buttonPressSubtle(AddPointsActivity.this, view);
                 openScorecard(true);
             }
         });
@@ -225,22 +220,6 @@ public class AddPointsActivity extends AppCompatActivity {
         Intent statsScreen = new Intent(this, StatsActivity.class);
         startActivity(statsScreen);
         this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
-    }
-
-
-    private void playAnimation(final View v, final int animationId, int delayMS) {
-        if(v != null) {
-            new Handler().postDelayed(new Runnable()
-            {
-                @Override
-                public void run() {
-                    Animation animation = AnimationUtils.loadAnimation(AddPointsActivity.this, animationId);
-                    animation.setDuration(animation.getDuration());
-                    animation.setFillAfter(true);
-                    v.startAnimation(animation);
-                }
-            }, delayMS);
-        }
     }
 
 }

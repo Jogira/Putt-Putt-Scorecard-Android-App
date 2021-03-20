@@ -6,18 +6,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.opencsv.CSVWriter;
 
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -29,11 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private int numPastGames = 6;
     private static final int PAST_GAMES = 1;
     private static final int ACTIVE_GAMES = 0;
-    private ImageButton statsButton;
-    private CircleImageView settingsButton;
     private Button activeGamesButton;
     private Button pastGamesButton;
-    private ImageButton newGameButton;
     private LinearLayout gamesScrollViewContent;
     private LinearLayout noGamesView;
     private TextView noGamesText;
@@ -44,22 +36,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        statsButton = findViewById(R.id.statsPageButton);
-        settingsButton = findViewById(R.id.settingsPageButton);
+        ImageButton statsButton = findViewById(R.id.statsPageButton);
+        CircleImageView settingsButton = findViewById(R.id.settingsPageButton);
         activeGamesButton = findViewById(R.id.activeGamesButton);
         pastGamesButton = findViewById(R.id.pastGamesButton);
         gamesScrollViewContent = findViewById(R.id.gamesScrollViewContent);
         noGamesView = findViewById(R.id.noGamesView);
         noGamesText = findViewById(R.id.noGamesText);
-        newGameButton = findViewById(R.id.newGameButton);
+        ImageButton newGameButton = findViewById(R.id.newGameButton);
 
         newGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                playAnimation(view, R.anim.button_press_in, 0);
-                playAnimation(view, R.anim.button_press_out, 100);
-
-
+                AnimationController.buttonPress(MainActivity.this, view);
                 openNewGamePage();
             }
         });
@@ -140,13 +129,6 @@ public class MainActivity extends AppCompatActivity {
 //        String playerName2 = "Sage";
 //        Player sage = new Player(playerName2, profileImage2);
 
-//        for(int i = 0; i < 1; i++) {
-//            Drawable image = getDrawable(R.drawable.ic_person);
-//            String name = "John";
-//            Player player = new Player(name, image);
-//            Player.players.add(player);
-//        }
-
         Player.players.add(sean);
 //        Player.players.add(sage);
     }
@@ -174,19 +156,17 @@ public class MainActivity extends AppCompatActivity {
                 resumeGameButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        playAnimation(resumeGameButton, R.anim.button_press_in,0);
-                        playAnimation(resumeGameButton, R.anim.button_press_out,100);
+                        AnimationController.buttonPress(MainActivity.this, view);
                     }
                 });
                 deleteGameButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        playAnimation(deleteGameButton, R.anim.button_press_in,0);
-                        playAnimation(deleteGameButton, R.anim.button_press_out,100);
+                        AnimationController.buttonPress(MainActivity.this, view);
                     }
                 });
                 gamesScrollViewContent.addView(exampleActiveGame);
-                playAnimation(exampleActiveGame, R.anim.quick_zoom, delay);
+                AnimationController.playAnimation(MainActivity.this, exampleActiveGame, R.anim.quick_zoom, delay);
                 delay += 25;
             }
         }
@@ -199,31 +179,15 @@ public class MainActivity extends AppCompatActivity {
                 viewScoreCardButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        playAnimation(viewScoreCardButton, R.anim.button_press_in,0);
-                        playAnimation(viewScoreCardButton, R.anim.button_press_out,100);
+                        AnimationController.buttonPress(MainActivity.this, viewScoreCardButton);
                     }
                 });
                 gamesScrollViewContent.addView(examplePastGame);
-                playAnimation(examplePastGame, R.anim.quick_zoom, delay);
+                AnimationController.playAnimation(MainActivity.this, examplePastGame, R.anim.quick_zoom, delay);
                 delay += 25;
             }
         }
 
-    }
-
-    private void playAnimation(final View v, final int animationId, int delayMS) {
-        if(v != null) {
-            new Handler().postDelayed(new Runnable()
-            {
-                @Override
-                public void run() {
-                    Animation animation = AnimationUtils.loadAnimation(MainActivity.this, animationId);
-                    animation.setDuration(animation.getDuration());
-                    animation.setFillAfter(true);
-                    v.startAnimation(animation);
-                }
-            }, delayMS);
-        }
     }
 
 }

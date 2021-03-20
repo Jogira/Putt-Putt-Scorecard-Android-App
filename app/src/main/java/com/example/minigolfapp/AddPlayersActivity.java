@@ -57,10 +57,18 @@ public class AddPlayersActivity extends AppCompatActivity {
                         }
                 });
 
+                additionalPlayers.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                                AnimationController.buttonPress(AddPlayersActivity.this, view);
+                        }
+                });
+
 
                 createGame.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                                AnimationController.buttonPressSubtle(AddPlayersActivity.this, view);
                                 openPointsPage();
                         }
                 });
@@ -134,7 +142,7 @@ public class AddPlayersActivity extends AppCompatActivity {
                 Intent addPointsPage = new Intent(this, AddPointsActivity.class);
                 Game.currentGame = new Game(players, 18, createNewFile());
                 startActivity(addPointsPage);
-                this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
+                this.overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
         }
 
         //create and add profile views dynamically from saved profiles
