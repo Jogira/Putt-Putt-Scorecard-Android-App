@@ -3,14 +3,18 @@ package com.example.minigolfapp;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,8 +36,8 @@ public class AddPointsActivity extends AppCompatActivity {
     private TextView currentHoleTextView;
     private final String fileName = Game.currentGame.getFileName();
     private int currentPlayerTurn = Game.currentGame.currentPlayerTurn;
-    private CircleImageView currentPlayerImage;
     private TextView currentPlayerName;
+    private LinearLayout playerIconView;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -52,12 +56,12 @@ public class AddPointsActivity extends AppCompatActivity {
         Button openCard = findViewById(R.id.viewCard);
         Button endGame = findViewById(R.id.endGame);
         CircleImageView settingsPage = findViewById(R.id.settingsPageButton);
-        currentPlayerImage = findViewById(R.id.gameViewPlayerTurnImageView);
+        playerIconView = findViewById(R.id.playerIconView);
         currentPlayerName = findViewById(R.id.gameViewPlayerTurnTextView);
 
         currentHoleTextView.setText(String.valueOf(Game.currentGame.getCurrentHole()));
         currentPlayerName.setText(Game.currentGame.getPlayers().get(currentPlayerTurn).getName() + "'s turn");
-        currentPlayerImage.setImageDrawable(Game.currentGame.getPlayers().get(currentPlayerTurn).getPlayerProfileImage());
+        currentPlayerTurn = Game.currentGame.currentPlayerTurn;
 
         increment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,6 +154,8 @@ public class AddPointsActivity extends AppCompatActivity {
                 openScorecard(true);
             }
         });
+
+        populatePlayerIconView();
     }
 
 
@@ -172,9 +178,64 @@ public class AddPointsActivity extends AppCompatActivity {
             currentPlayerTurn = 0;
         }
 
-        Game.currentGame.currentPlayerTurn = currentPlayerTurn;
-        currentPlayerName.setText(Game.currentGame.getPlayers().get(currentPlayerTurn).getName() + "'s turn");
-        currentPlayerImage.setImageDrawable(Game.currentGame.getPlayers().get(currentPlayerTurn).getPlayerProfileImage());
+        updatePlayerTurn(currentPlayerTurn);
+    }
+
+    //initial population of the player profile views in the top of the screen
+    private void populatePlayerIconView(){
+        playerIconView.removeAllViews();
+        for(int i = 0; i < Game.currentGame.getPlayers().size(); i++) {
+
+            final CircleImageView playerImageView = new CircleImageView(this);
+            playerImageView.setImageDrawable(Game.currentGame.getPlayers().get(i).getPlayerProfileImage());
+            playerImageView.setTag(i);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            params.width = 140;
+            params.height = 140;
+            params.setMarginStart(20);
+            params.setMarginEnd(20);
+            params.gravity = Gravity.CENTER_VERTICAL;
+            playerImageView.setBorderColor(Color.parseColor("#1CD371"));
+            playerImageView.setBorderWidth(0);
+
+            if(i == Game.currentGame.currentPlayerTurn) {
+                playerImageView.setBorderWidth(8);
+                params.height = 170;
+                params.width = 170;
+            }
+
+            playerImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v){
+                    updatePlayerTurn((Integer) v.getTag());
+                }
+            });
+            playerIconView.addView(playerImageView, params);
+        }
+    }
+
+
+    //updates view of players in top, also updates currentPlayerTurn int and Game.currentPlayerTurn
+    private void updatePlayerTurn(int index) {
+        for(int i = 0; i < playerIconView.getChildCount(); i++) {
+            CircleImageView playerProfile = (CircleImageView) playerIconView.getChildAt(i);
+            if(i == index) {
+                    playerProfile.setBorderWidth(8);
+                    currentPlayerTurn = i;
+                    Game.currentGame.currentPlayerTurn = currentPlayerTurn;
+                    currentPlayerName.setText(Game.currentGame.getPlayers().get(currentPlayerTurn).getName() + "'s turn");
+                    AnimationController.playAnimation(this, playerProfile, R.anim.scale_up);
+                    playerProfile.getLayoutParams().height = 170;
+                    playerProfile.getLayoutParams().width = 170;
+            }
+            else {
+                playerProfile.setBorderWidth(0);
+                AnimationController.playAnimation(this, playerProfile, R.anim.scale_down);
+                playerProfile.getLayoutParams().height = 140;
+                playerProfile.getLayoutParams().width = 140;
+            }
+            playerProfile.requestLayout();
+        }
     }
 
 

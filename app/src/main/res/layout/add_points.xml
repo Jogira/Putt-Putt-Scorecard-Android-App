@@ -8,6 +8,30 @@
     android:translationZ="15dp">
 
 
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameViewPlayerTurnTextView">
+
+        <LinearLayout
+            android:id="@+id/playerIconView"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/gameViewPlayerTurnImageView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/sean_kingston_profile"
+                android:translationZ="3dp" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
     <LinearLayout
         android:id="@+id/navBar"
         android:layout_width="wrap_content"
@@ -62,34 +86,18 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/currentPlayerView"
+    <TextView
+        android:id="@+id/gameViewPlayerTurnTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:text="Sean's Turn"
+        android:textColor="#FFFFFF"
+        android:textSize="23sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/gameViewPlayerTurnImageView"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/sean_kingston_profile"
-            android:translationZ="3dp" />
-
-        <TextView
-            android:id="@+id/gameViewPlayerTurnTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sean's Turn"
-            android:textColor="#FFFFFF"
-            android:textSize="26sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <Button
@@ -115,7 +123,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/rounded_background"
         android:backgroundTint="@color/colorSecondaryDark"
@@ -128,7 +136,7 @@
         android:weightSum="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currentPlayerView">
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView">
 
         <TextView
             android:id="@+id/CurrentHole"
@@ -136,8 +144,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="0dp"
+            android:layout_marginEnd="10dp"
             android:layout_weight=".25"
-            android:drawableStart="@drawable/circle"
+            android:drawableStart="@drawable/ic_hole"
             android:drawablePadding="6dp"
             android:text="1"
             android:textAlignment="textStart"
@@ -149,6 +158,7 @@
             android:id="@+id/parView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
             android:layout_weight=".5"
             android:gravity="center_vertical"
             android:orientation="vertical"
@@ -179,7 +189,7 @@
 
     <LinearLayout
         android:id="@+id/gameViewMainContent"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
@@ -195,7 +205,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gameViewTopBar"
-        app:layout_constraintVertical_bias="0.45">
+        app:layout_constraintVertical_bias="0.35000002">
 
         <TextView
             android:id="@+id/gameViewScoreTitle"
