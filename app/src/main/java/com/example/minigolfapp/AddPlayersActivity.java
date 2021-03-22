@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.gridlayout.widget.GridLayout;
@@ -35,6 +36,8 @@ public class AddPlayersActivity extends AppCompatActivity {
         private GridLayout playerSelectionContentView;
         private ArrayList<Boolean> flipped = new ArrayList<>();
         private ArrayList<Player> players;
+        private int numPlayers = 0;
+
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,7 @@ public class AddPlayersActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                                 AnimationController.buttonPress(AddPlayersActivity.this, view);
+
                         }
                 });
 
@@ -69,7 +73,19 @@ public class AddPlayersActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                                 AnimationController.buttonPressSubtle(AddPlayersActivity.this, view);
-                                openPointsPage();
+                                if(numPlayers < 1){
+                                        //toast
+                                        System.out.println("***************************************************************************************");
+                                        Context context = getApplicationContext();
+                                        CharSequence text = "Must select at least one player to create game";
+                                        int duration = Toast.LENGTH_SHORT;
+
+                                        Toast toast = Toast.makeText(context, text, duration);
+                                        toast.show();
+                                }else{
+                                        openPointsPage();
+                                }
+
                         }
                 });
 
@@ -198,11 +214,13 @@ public class AddPlayersActivity extends AppCompatActivity {
                         v.setImageResource(R.drawable.ic_checked_profile);
                         flipped.set(buttonIndex, true);
                         players.add(Player.players.get(buttonIndex));
+                        numPlayers++;
 
                 } else {
                         v.setImageDrawable(Player.players.get(buttonIndex).getPlayerProfileImage());
                         flipped.set(buttonIndex, false);
                         players.remove(Player.players.get(buttonIndex));
+                        numPlayers--;
                 }
         }
 }
