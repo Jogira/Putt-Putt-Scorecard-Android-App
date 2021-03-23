@@ -38,6 +38,7 @@ public class AddPointsActivity extends AppCompatActivity {
     private int currentPlayerTurn = Game.currentGame.currentPlayerTurn;
     private TextView currentPlayerName;
     private LinearLayout playerIconView;
+    private boolean parsOn = false;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -106,33 +107,34 @@ public class AddPointsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AnimationController.buttonPressSubtle(AddPointsActivity.this, view);
+                Game.currentGame.setPlayerScore(currentPlayerTurn, Integer.parseInt((String) scoreToAdd.getText()));
 
-                String lines = "";
-                StringBuilder newStr = new StringBuilder();
-
-                Log.d(TAG, "Set at: " + Game.currentGame.getCurrentHole());
-                newStr.append(Game.currentGame.getCurrentHole()).append(",").append(scoreToAdd.getText()).append("\n");
-                Log.d(TAG, "Test:" + newStr);
-
-                try {
-
-                    FileOutputStream out = openFileOutput(fileName, Context.MODE_APPEND);
-                    out.write(newStr.toString().getBytes());
-                    out.close();
-
-                    FileInputStream fileInputStream = openFileInput(fileName);
-                    InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-
-                    BufferedReader bufferedReader = new BufferedReader((inputStreamReader));
-                    StringBuffer stringBuffer = new StringBuffer();
-
-                    while ((lines = bufferedReader.readLine()) != null)
-                        stringBuffer.append(lines).append("\n");
-
-                    Log.d(TAG, "Reach here:" + stringBuffer.toString());
-                    inputStreamReader.close();
-                }
-                catch (IOException e) { e.printStackTrace(); }
+//                String lines = "";
+//                StringBuilder newStr = new StringBuilder();
+//
+//                Log.d(TAG, "Input: " + Game.currentGame.getCurrentHole());
+//                newStr.append(Game.currentGame.getCurrentHole()).append(",").append(scoreToAdd.getText()).append("\n");
+//                Log.d(TAG, "Output:" + newStr);
+//
+//                try {
+//
+//                    FileOutputStream out = openFileOutput(fileName, Context.MODE_APPEND);
+//                    out.write(newStr.toString().getBytes());
+//                    out.close();
+//
+//                    FileInputStream fileInputStream = openFileInput(fileName);
+//                    InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+//
+//                    BufferedReader bufferedReader = new BufferedReader((inputStreamReader));
+//                    StringBuffer stringBuffer = new StringBuffer();
+//
+//                    while ((lines = bufferedReader.readLine()) != null)
+//                        stringBuffer.append(lines).append("\n");
+//
+//                    //Log.d(TAG, "Reach here:" + stringBuffer.toString());
+//                    inputStreamReader.close();
+//                }
+//                catch (IOException e) { e.printStackTrace(); }
 
                 incrementPlayerTurn();
             }
@@ -249,7 +251,8 @@ public class AddPointsActivity extends AppCompatActivity {
 
     private void decrementScore() {
         int score = Integer.parseInt(scoreToAdd.getText().toString().trim());
-        score--;
+        if((score - 1) >= 0 || parsOn)
+            score--;
         String decrementedScore = valueOf(score);
         scoreToAdd.setText(decrementedScore);
     }
