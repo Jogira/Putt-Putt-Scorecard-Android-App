@@ -183,11 +183,11 @@ public class AddPointsActivity extends AppCompatActivity {
             currentPlayerTurn++;
 
         else {
-                Context context = getApplicationContext();
-                CharSequence text = "Must add score to card for ALL players!!!";
-                int duration = Toast.LENGTH_SHORT;
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+            Context context = getApplicationContext();
+            CharSequence text = "A player is missing a score!";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
             currentPlayerTurn = 0;
         }
 

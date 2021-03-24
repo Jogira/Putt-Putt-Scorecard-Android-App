@@ -12,11 +12,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -31,6 +26,7 @@ public class ScoreCardActivity extends AppCompatActivity {
     private LinearLayout scorecard;
     private TextView holeNumberView;
     private boolean gameFinished;
+    private int previousHole = 0;
 
 
     @SuppressLint("SetTextI18n")
@@ -42,9 +38,10 @@ public class ScoreCardActivity extends AppCompatActivity {
         filename = Game.currentGame.getFileName();
         final Button scoreCardEditButton = findViewById(R.id.scorecardEditButton);
         final Button doneButton = findViewById(R.id.exitScorecardButton);
+        final Button viewTotals = findViewById(R.id.viewTotalsButton);
         scorecard = findViewById(R.id.scorecardPlayerView);
         holeNumberView = findViewById(R.id.holeTitleTextView);
-        SeekBar holeSeekBar = findViewById(R.id.holeSeekBar);
+        final SeekBar holeSeekBar = findViewById(R.id.holeSeekBar);
         holeSeekBar.setMax(Game.currentGame.getNumHoles());
 
         gameFinished = getIntent().getBooleanExtra("gameFinished", false);
@@ -66,16 +63,17 @@ public class ScoreCardActivity extends AppCompatActivity {
                     holeNumberView.setText("Hole " + (i + 1));
                 else
                     holeNumberView.setText("Total");
+
+                viewTotals.setText("View Totals");
+                currentHole = seekBar.getProgress() + 1;
+                updateScoreCard();
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {}
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                currentHole = seekBar.getProgress() + 1;
-                updateScoreCard();
-            }
+            public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
         scoreCardEditButton.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +112,26 @@ public class ScoreCardActivity extends AppCompatActivity {
             }
         });
 
+        viewTotals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AnimationController.buttonPress(ScoreCardActivity.this, view);
+
+                if(currentHole == 19) {
+                    currentHole = previousHole;
+                    holeSeekBar.setProgress(currentHole-1);
+                    viewTotals.setText("View Totals");
+                }
+                else {
+                    previousHole = currentHole;
+                    currentHole = 19;
+                    holeSeekBar.setProgress(currentHole);
+                    viewTotals.setText("Hole " + previousHole);
+                }
+                updateScoreCard();
+            }
+        });
+
         populateScoreCardView();
         updateScoreCard();
     }
@@ -136,16 +154,16 @@ public class ScoreCardActivity extends AppCompatActivity {
     private String setScore(int currentHole, int player) {
         String gameFile = "";
 
-        if(currentHole < Game.currentGame.getNumHoles()) {
+        if(currentHole <= Game.currentGame.getNumHoles()) {
             if(currentHole > Game.currentGame.getCurrentHole())
-                return "N/A";
+                return "--";
 
             int[] playerScores = Game.currentGame.getPlayerScores().get(currentHole-1);
 
             if (playerScores[player] != Integer.MIN_VALUE)
                 return playerScores[player] + "";
             else
-                return "N/A";
+                return "--";
         }
         //for the "total" page
         else {

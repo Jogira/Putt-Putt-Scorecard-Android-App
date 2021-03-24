@@ -73,16 +73,15 @@ public class AddPlayersActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                                 AnimationController.buttonPressSubtle(AddPlayersActivity.this, view);
-                                if(numPlayers < 1){
-                                        //toast
-                                        //System.out.println("***************************************************************************************");
+                                if(numPlayers < 1) {
                                         Context context = getApplicationContext();
                                         CharSequence text = "Must select at least one player to create game";
                                         int duration = Toast.LENGTH_SHORT;
 
                                         Toast toast = Toast.makeText(context, text, duration);
                                         toast.show();
-                                }else{
+                                }
+                                else {
                                         openPointsPage();
                                 }
 

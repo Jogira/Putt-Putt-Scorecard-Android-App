@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Player {
 
-    private static int currentID = 0;
+    private static final int currentID = 0;
     private final int playerID;
     private Drawable playerProfileImage;
     private String name;

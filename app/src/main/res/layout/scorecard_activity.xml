@@ -27,34 +27,69 @@
             android:layout_margin="10dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/holeTitleTextView"
+            <LinearLayout
+                android:id="@+id/scorecardTopBar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="11dp"
-                android:layout_marginTop="3dp"
-                android:text="Hole 1"
-                android:textColor="#ffffff"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:background="@drawable/rounded_background"
+                android:backgroundTint="@color/colorTertiaryDark"
+                android:orientation="vertical"
+                android:paddingBottom="8dp">
 
-            <SeekBar
-                android:id="@+id/holeSeekBar"
-                style="@style/Widget.AppCompat.SeekBar"
-                android:layout_width="285dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:max="18"
-                android:progress="0"
-                android:progressDrawable="@drawable/seekbar"
-                android:thumb="@drawable/ic_golfball"
-                android:tickMark="@drawable/tickmark" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/holeTitleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="3dp"
+                        android:layout_weight="0.9"
+                        android:text="Hole 1"
+                        android:textColor="#ffffff"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/viewTotalsButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="0.09"
+                        android:background="@drawable/rounded_background"
+                        android:backgroundTint="#5F5F5F"
+                        android:text="View Totals"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="#ffffff"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <SeekBar
+                    android:id="@+id/holeSeekBar"
+                    style="@style/Widget.AppCompat.SeekBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginTop="6dp"
+                    android:max="18"
+                    android:progress="0"
+                    android:progressDrawable="@drawable/seekbar"
+                    android:thumb="@drawable/ic_golfball"
+                    android:tickMark="@drawable/tickmark" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/scorecardScoreTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="10dp"
                 android:text="Score"
                 android:textAlignment="textEnd"
@@ -100,4 +135,5 @@
         android:textColor="#ffffff"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
