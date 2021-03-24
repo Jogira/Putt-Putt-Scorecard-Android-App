@@ -28,7 +28,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/sean_kingston_profile"
-                android:translationZ="3dp" />
+                android:translationZ="4dp" />
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -168,7 +168,7 @@
                 android:id="@+id/parText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="No Pars"
+                android:text="Pars Off"
                 android:textAlignment="center"
                 android:textColor="#d9d9d9"
                 android:textSize="15dp"

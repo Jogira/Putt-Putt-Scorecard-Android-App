@@ -124,60 +124,82 @@ public class ScoreCardActivity extends AppCompatActivity {
         //the SeekBar calls this method when its value is changed.
         //this method should get current hole value, and pull score info from csv file (or preferably the game object) and update it
         //below is an example on how to change the scores
-
         for (int i = 0; i < scorecard.getChildCount(); i++) {
             TextView score = scorecard.getChildAt(i).findViewById(R.id.scorecardRowPlayerScore);
 
             //here, you will fetch scores from csv and update appropriately
-            Log.d(TAG, "number sent: " + currentHole);
-            score.setText(setScore(currentHole));
+            score.setText(setScore(currentHole, i));
         }
     }
 
 
-    private String setScore(int currentHole) {
+    private String setScore(int currentHole, int player) {
         String gameFile = "";
 
-        try {
-            String lines = "";
-            FileInputStream fileInputStream = openFileInput(filename);
-            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-            StringBuilder stringBuffer = new StringBuilder();
-            BufferedReader bufferedReader = new BufferedReader((inputStreamReader));
+        if(currentHole < Game.currentGame.getNumHoles()) {
+            if(currentHole > Game.currentGame.getCurrentHole())
+                return "N/A";
 
-            while ((lines = bufferedReader.readLine()) != null)
-                stringBuffer.append(lines).append("\n");
+            int[] playerScores = Game.currentGame.getPlayerScores().get(currentHole-1);
 
-            Log.d(TAG, "setScore:" + stringBuffer.toString());
-            inputStreamReader.close();
-            gameFile = stringBuffer.toString();
-
+            if (playerScores[player] != Integer.MIN_VALUE)
+                return playerScores[player] + "";
+            else
+                return "N/A";
         }
-        catch (IOException e) { e.printStackTrace(); }
-
-        String[] finder = gameFile.split("\n"); //parses the csv and grabs the number hole it is looking for
-
-        if (currentHole >= finder.length && (currentHole > Game.currentGame.getNumHoles())) {
+        //for the "total" page
+        else {
             int total = 0;
-            for(int i = 1; i < finder.length; i++) {
-                String score = finder[i];
-                String[] stuff = score.split(",");
-                int scoreValue = Integer.parseInt(stuff[1]);
-                total += scoreValue;
+
+            for(int i = 0; i < Game.currentGame.getNumHoles()-1; i++){
+                int[] playerScores = Game.currentGame.getPlayerScores().get(i);
+
+                if (playerScores[player] != Integer.MIN_VALUE)
+                    total += playerScores[player];
             }
-            return String.valueOf(total);
+            return total+"";
         }
 
-        if (currentHole >= finder.length)
-            return "N/A";
-
-        String score = finder[currentHole];
-        String[] stuff = score.split(",");
-        Log.d(TAG, "number Being inputted:" + currentHole);
-        Log.d(TAG, "The line there:" + finder[currentHole]);
-        score = stuff[1];
-        Log.d(TAG, "The val that is being returned:" + score);
-        return score;
+//        try {
+//            String lines = "";
+//            FileInputStream fileInputStream = openFileInput(filename);
+//            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+//            StringBuilder stringBuffer = new StringBuilder();
+//            BufferedReader bufferedReader = new BufferedReader((inputStreamReader));
+//
+//            while ((lines = bufferedReader.readLine()) != null)
+//                stringBuffer.append(lines).append("\n");
+//
+//            Log.d(TAG, "setScore:" + stringBuffer.toString());
+//            inputStreamReader.close();
+//            gameFile = stringBuffer.toString();
+//
+//        }
+//        catch (IOException e) { e.printStackTrace(); }
+//
+//        String[] finder = gameFile.split("\n"); //parses the csv and grabs the number hole it is looking for
+//
+//        if (currentHole >= finder.length && (currentHole > Game.currentGame.getNumHoles())) {
+//            int total = 0;
+//            for(int i = 1; i < finder.length; i++) {
+//                String score = finder[i];
+//                String[] stuff = score.split(",");
+//                int scoreValue = Integer.parseInt(stuff[1]);
+//                total += scoreValue;
+//            }
+//            return String.valueOf(total);
+//        }
+//
+//        if (currentHole >= finder.length)
+//            return "N/A";
+//
+//        String score = finder[currentHole];
+//        String[] stuff = score.split(",");
+//        Log.d(TAG, "number Being inputted:" + currentHole);
+//        Log.d(TAG, "The line there:" + finder[currentHole]);
+//        score = stuff[1];
+//        Log.d(TAG, "The val that is being returned:" + score);
+//        return score;
     }
 
     //initial population of scorecard

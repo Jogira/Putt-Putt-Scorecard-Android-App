@@ -118,6 +118,13 @@ public class AddPlayersActivity extends AppCompatActivity {
 
                 StringBuilder header = new StringBuilder();
                 header.append("Hole,Sean\n");
+
+//                for(int i = 0; i < Game.currentGame.getPlayers().size(); i++){
+//                        header.append(Game.currentGame.getPlayers().get(i));
+//                        if(i < Game.currentGame.getPlayers().size()-1)
+//                                header.append(",");
+//                }
+
                 Log.d(TAG, "Please lemme know what is happening here?");
                 try {
                         FileOutputStream out = openFileOutput("score"+ timestamped + ".csv", Context.MODE_PRIVATE);
@@ -156,7 +163,8 @@ public class AddPlayersActivity extends AppCompatActivity {
 
         private void openPointsPage() {
                 Intent addPointsPage = new Intent(this, AddPointsActivity.class);
-                Game.currentGame = new Game(players, 18, createNewFile());
+                Game.currentGame = new Game(players, 18, "score" + mTimeStamp + ".csv");
+                createNewFile();
                 startActivity(addPointsPage);
                 this.overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
         }

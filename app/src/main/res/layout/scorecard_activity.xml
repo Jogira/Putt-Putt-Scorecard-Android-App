@@ -31,7 +31,7 @@
                 android:id="@+id/holeTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="14dp"
+                android:layout_marginStart="11dp"
                 android:layout_marginTop="3dp"
                 android:text="Hole 1"
                 android:textColor="#ffffff"
@@ -41,14 +41,13 @@
             <SeekBar
                 android:id="@+id/holeSeekBar"
                 style="@style/Widget.AppCompat.SeekBar"
-                android:layout_width="265dp"
+                android:layout_width="285dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:max="18"
                 android:progress="0"
-                android:progressBackgroundTint="@color/colorAccent"
-                android:progressBackgroundTintMode="add"
-                android:thumbTint="#FFFFFF"
+                android:progressDrawable="@drawable/seekbar"
+                android:thumb="@drawable/ic_golfball"
                 android:tickMark="@drawable/tickmark" />
 
             <TextView
@@ -56,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:layout_marginEnd="11dp"
+                android:layout_marginEnd="10dp"
                 android:text="Score"
                 android:textAlignment="textEnd"
                 android:textColor="#ffffff"
@@ -67,6 +66,7 @@
                 android:id="@+id/scorecardPlayerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
                 android:orientation="vertical"></LinearLayout>
 
         </LinearLayout>
@@ -94,7 +94,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="25dp"
         android:background="@drawable/rounded_background"
-        android:backgroundTint="@color/colorAccentSecondary"
+        android:backgroundTint="@color/colorTertiaryDark"
         android:text="Edit"
         android:textAllCaps="false"
         android:textColor="#ffffff"
