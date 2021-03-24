@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,10 +25,12 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static java.lang.String.valueOf;
+import static java.sql.Types.NULL;
 
 
 public class AddPointsActivity extends AppCompatActivity {
@@ -164,10 +167,8 @@ public class AddPointsActivity extends AppCompatActivity {
     public void incrementPlayerTurn() {
         int numPlayers = Game.currentGame.getPlayers().size();
 
-        if(currentPlayerTurn < numPlayers - 1)
-            currentPlayerTurn++;
 
-        else {
+        if(holeFinished()){
             if(Game.currentGame.getCurrentHole() == Game.currentGame.getNumHoles()) {
                 Game.currentGame.setActive(false);
                 openScorecard(true);
@@ -175,12 +176,33 @@ public class AddPointsActivity extends AppCompatActivity {
             else {
                 Game.currentGame.setCurrentHole(Game.currentGame.getCurrentHole() + 1);
                 currentHoleTextView.setText(String.valueOf(Game.currentGame.getCurrentHole()));
+                currentPlayerTurn = 0;
             }
+        }
+        else if(currentPlayerTurn < numPlayers - 1)
+            currentPlayerTurn++;
 
+        else {
+                Context context = getApplicationContext();
+                CharSequence text = "Must add score to card for ALL players!!!";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
             currentPlayerTurn = 0;
         }
 
         updatePlayerTurn(currentPlayerTurn);
+    }
+
+    public boolean holeFinished(){
+        boolean finished = true;
+        int[] currentHole = Game.currentGame.getPlayerScores().get(Game.currentGame.getCurrentHole() - 1);
+        for(int x : currentHole){
+            if(x == Integer.MIN_VALUE){
+                finished = false;
+            }
+        }
+        return finished;
     }
 
     //initial population of the player profile views in the top of the screen
