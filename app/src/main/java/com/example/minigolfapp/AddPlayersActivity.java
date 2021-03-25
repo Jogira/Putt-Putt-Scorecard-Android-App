@@ -3,6 +3,7 @@ package com.example.minigolfapp;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -31,7 +32,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -53,6 +56,8 @@ public class AddPlayersActivity extends AppCompatActivity {
         private boolean addingNewPlayer = false;
         private Player newestPlayer;
         private int indexNewPlayer = 4;
+
+
 
 
         @Override
@@ -183,13 +188,36 @@ public class AddPlayersActivity extends AppCompatActivity {
                                                          public void onClick(View view) {
                                                                  EditText confirmedName = (EditText) namePopupView.findViewById(R.id.enterNamePopup);
                                                                  String playerName = confirmedName.getText().toString();
+                                                                 List<String> colors = new ArrayList<>();
+                                                                 colors.add("#e84e40"); //red
+                                                                 colors.add("#ec407a"); //pink
+                                                                 colors.add("#ab47bc"); //purple
+                                                                 colors.add("#7e57c2"); //deep purple
+                                                                 colors.add("#5c6bc0"); //indigo
+                                                                 colors.add("#26a69a"); //teal
+                                                                 colors.add("#2baf2b"); //green
+                                                                 colors.add("#fc9c6b"); //sunset orange
+                                                                 colors.add("#00f444"); //lime green
+                                                                 colors.add("#fbff00"); //rubber duck yellow
+                                                                 colors.add("#ffca28"); //amber
+                                                                 colors.add("#53C2C3"); //sky blue
+                                                                 colors.add("#DAAE19"); //gold
+                                                                 colors.add("#A9D47C"); //dead grass
+                                                                 colors.add("#D53046"); //rose red
+                                                                 colors.add("#007eff"); //deep blue
+                                                                 colors.add("#008c99"); //baja blast
+
+                                                                 Random n= new Random();
+                                                                 int color = n.nextInt(colors.size());
 //                                                                 CharSequence text = playerName + " was added.";
                                                                  Drawable profileImageNew = getDrawable(R.drawable.ic_person);
+                                                                 profileImageNew.setColorFilter(Color.parseColor(colors.get(color)), PorterDuff.Mode.MULTIPLY);
                                                                  newestPlayer = new Player(playerName, profileImageNew);
                                                                  Player.players.add(newestPlayer);
                                                                  addingNewPlayer = true;
                                                                  populateProfileView();
                                                                  addingNewPlayer = false;
+                                                                 colors.clear();
 //                                                                 Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
 //                                                                 toast.show();
                                                                  name.dismiss();
