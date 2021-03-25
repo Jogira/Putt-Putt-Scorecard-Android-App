@@ -69,6 +69,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textColor="#ffffff"
                         android:textStyle="bold" />
+
                 </LinearLayout>
 
                 <SeekBar
@@ -83,6 +84,7 @@
                     android:progressDrawable="@drawable/seekbar"
                     android:thumb="@drawable/ic_golfball"
                     android:tickMark="@drawable/tickmark" />
+
             </LinearLayout>
 
             <TextView

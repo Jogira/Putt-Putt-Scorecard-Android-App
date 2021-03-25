@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
             android:layout_marginStart="5dp"
-            app:srcCompat="@drawable/circle" />
+            app:srcCompat="@drawable/ic_hole" />
 
         <TextView
             android:id="@+id/activeGameCurrentHoleTextView"
@@ -40,6 +40,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="5dp"
             android:layout_marginBottom="3dp"
+            android:fontFamily="@font/american_typerwriter"
             android:gravity="left|center_vertical"
             android:text="1"
             android:textColor="#FFFFFF"
