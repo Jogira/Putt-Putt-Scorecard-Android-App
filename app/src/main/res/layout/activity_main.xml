@@ -5,7 +5,7 @@
     android:id="@+id/homePage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:attr/navigationBarColor"
+    android:background="?android:attr/colorPrimary"
     android:paddingRight="-20dp"
     tools:context=".MainActivity">
 
@@ -155,6 +155,7 @@
         android:translationZ="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        style="?android:attr/borderlessButtonStyle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -164,14 +165,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="0dp"
-            android:background="@drawable/nav_bar_background"
+            android:background="@drawable/dialog_bg"
             android:backgroundTint="@color/colorTertiaryDark"
             android:drawableRight="@drawable/ic_add"
             android:drawablePadding="-40dp"
+            style="?android:attr/borderlessButtonStyle"
             android:drawableTint="#03fc7f"
             android:fontFamily="@font/american_typerwriter"
             android:paddingStart="0dp"
             android:paddingEnd="50dp"
+            android:shadowColor="#FFF9F9"
             android:text="@string/start_new_game_text"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
