@@ -44,7 +44,7 @@ public class AddPlayersActivity extends AppCompatActivity {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.add_players);
                 Game.currentGame = null;
-                Button backX = findViewById(R.id.backX);
+                //Button backX = findViewById(R.id.backX);
                 Button createGame = findViewById(R.id.createGameButton);
                 ImageButton additionalPlayers = findViewById(R.id.newPlayerButton);
                 ImageButton home = findViewById(R.id.homePageButton);
@@ -53,12 +53,12 @@ public class AddPlayersActivity extends AppCompatActivity {
                 playerSelectionContentView = findViewById(R.id.playerSelectionContentView);
                 players = new ArrayList<>();
 
-                backX.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                                goBackPage();
-                        }
-                });
+//                backX.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                                goBackPage();
+//                        }
+//                });
 
                 additionalPlayers.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -75,7 +75,7 @@ public class AddPlayersActivity extends AppCompatActivity {
                                 AnimationController.buttonPressSubtle(AddPlayersActivity.this, view);
                                 if(numPlayers < 1) {
                                         Context context = getApplicationContext();
-                                        CharSequence text = "Must select at least one player to create game";
+                                        CharSequence text = "Must select at least one player to create game.";
                                         int duration = Toast.LENGTH_SHORT;
 
                                         Toast toast = Toast.makeText(context, text, duration);

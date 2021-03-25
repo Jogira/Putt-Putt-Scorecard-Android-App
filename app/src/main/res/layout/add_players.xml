@@ -74,22 +74,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.13" />
 
-    <Button
-        android:id="@+id/backX"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/ic_add"
-        android:backgroundTint="@color/colorAccentSecondary"
-        android:fontFamily="casual"
-        android:rotation="45"
-        android:textColor="#FF0000"
-        android:textSize="24sp"
-        android:visibility="visible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ScrollView
         android:id="@+id/playerSelectionScrollView"
         android:layout_width="0dp"

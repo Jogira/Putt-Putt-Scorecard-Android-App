@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout noGamesView;
     private TextView noGamesText;
     private static boolean playersCreated = false;
+    private Button newGameButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         gamesScrollViewContent = findViewById(R.id.gamesScrollViewContent);
         noGamesView = findViewById(R.id.noGamesView);
         noGamesText = findViewById(R.id.noGamesText);
-        ImageButton newGameButton = findViewById(R.id.newGameButton);
+        Button newGameButton = findViewById(R.id.newGameButton);
 
         newGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
