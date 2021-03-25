@@ -248,6 +248,7 @@ public class AddPointsActivity extends AppCompatActivity {
                     currentPlayerTurn = i;
                     Game.currentGame.currentPlayerTurn = currentPlayerTurn;
                     currentPlayerName.setText(Game.currentGame.getPlayers().get(currentPlayerTurn).getName() + "'s turn");
+                    scoreToAdd.setText("0");
                     AnimationController.playAnimation(this, playerProfile, R.anim.scale_up);
                     playerProfile.getLayoutParams().height = 170;
                     playerProfile.getLayoutParams().width = 170;
