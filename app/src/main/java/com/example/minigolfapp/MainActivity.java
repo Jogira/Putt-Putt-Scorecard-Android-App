@@ -134,9 +134,14 @@ public class MainActivity extends AppCompatActivity {
         String playerName3 = "John";
         Player john = new Player(playerName3, profileImage3);
 
+        Drawable profileImage4 = getDrawable(R.drawable.doge);
+        String playerName4 = "Glue";
+        Player doge = new Player(playerName4, profileImage4);
+
         Player.players.add(sean);
         Player.players.add(sage);
         Player.players.add(john);
+        Player.players.add(doge);
     }
 
     private void populateGamesScrollView(int pageType){
