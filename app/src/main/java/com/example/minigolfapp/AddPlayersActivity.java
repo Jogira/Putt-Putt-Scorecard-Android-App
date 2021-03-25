@@ -2,19 +2,24 @@ package com.example.minigolfapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.gridlayout.widget.GridLayout;
 
@@ -29,14 +34,21 @@ import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static android.view.Gravity.CENTER;
+
 
 public class AddPlayersActivity extends AppCompatActivity {
+        private AlertDialog.Builder nameBuilder;
+        private AlertDialog name;
+        private EditText playerName;
+        private Button confirm, cancel;
         private static final String TAG = "AddPlayersActivity";
         private String mTimeStamp = new SimpleDateFormat("yyyyMMddHHmmss", Locale.US).format(new Date());
         private GridLayout playerSelectionContentView;
         private ArrayList<Boolean> flipped = new ArrayList<>();
         private ArrayList<Player> players;
         private int numPlayers = 0;
+        private ImageButton newPlayer;
 
 
         @Override
@@ -64,6 +76,7 @@ public class AddPlayersActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                                 AnimationController.buttonPress(AddPlayersActivity.this, view);
+                                createNewName();
 
                         }
                 });
@@ -146,6 +159,42 @@ public class AddPlayersActivity extends AppCompatActivity {
                 Intent homePage = new Intent(this, MainActivity.class);
                 startActivity(homePage);
                 this.overridePendingTransition(R.anim.new_page_no_anim, R.anim.slide_down);
+        }
+
+        public void createNewName()
+        {
+                nameBuilder = new AlertDialog.Builder(this, R.style.CustomAlertDialog);
+                final View namePopupView = getLayoutInflater().inflate(R.layout.popup, null);
+                playerName = (EditText) namePopupView.findViewById(R.id.enterNamePopup);
+                cancel = (Button) namePopupView.findViewById(R.id.cancel_button);
+                confirm = (Button) namePopupView.findViewById(R.id.confirm_button);
+                nameBuilder.setView(namePopupView);
+                //name.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                name = nameBuilder.create();
+                name.show();
+
+                confirm.setOnClickListener(new View.OnClickListener(){
+
+                                                         @Override
+                                                         public void onClick(View view) {
+                                                                 EditText confirmedName = (EditText) namePopupView.findViewById(R.id.enterNamePopup);
+                                                                 String message = confirmedName.getText().toString();
+                                                                 CharSequence text = message + " was added.";
+
+                                                                 Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+                                                                 toast.show();
+                                                                 name.dismiss();
+                                                         }
+                                                 }
+                );
+
+                cancel.setOnClickListener(new View.OnClickListener(){
+                                                   @Override
+                                                   public void onClick(View view) {
+                                                           name.dismiss();
+                                                   }
+                                           }
+                );
         }
 
         private void toStatsPage() {
