@@ -167,7 +167,6 @@ public class AddPointsActivity extends AppCompatActivity {
     public void incrementPlayerTurn() {
         int numPlayers = Game.currentGame.getPlayers().size();
 
-
         if(holeFinished()){
             if(Game.currentGame.getCurrentHole() == Game.currentGame.getNumHoles()) {
                 Game.currentGame.setActive(false);
@@ -200,10 +199,12 @@ public class AddPointsActivity extends AppCompatActivity {
         for(int x : currentHole){
             if(x == Integer.MIN_VALUE){
                 finished = false;
+                break;
             }
         }
         return finished;
     }
+
 
     //initial population of the player profile views in the top of the screen
     private void populatePlayerIconView(){
@@ -240,6 +241,7 @@ public class AddPointsActivity extends AppCompatActivity {
 
 
     //updates view of players in top, also updates currentPlayerTurn int and Game.currentPlayerTurn
+    @SuppressLint("SetTextI18n")
     private void updatePlayerTurn(int index) {
         for(int i = 0; i < playerIconView.getChildCount(); i++) {
             CircleImageView playerProfile = (CircleImageView) playerIconView.getChildAt(i);

@@ -3,62 +3,113 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/dialog_bg"
-    android:orientation="vertical"
-    android:paddingTop="-30dp">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/enterNamePopup"
-        android:layout_width="259dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="150dp"
-        android:background="@null"
-        android:fontFamily="@font/american_typerwriter"
-        android:hint="Tap to enter name: "
-        android:inputType="textVisiblePassword"
-        android:paddingBottom="100dp"
-        android:textAlignment="center"
-        android:textColor="#DADADA"
-        android:textColorHint="#D6D6D6"
-        android:textStyle="italic"
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/dialog_bg"
+        android:backgroundTint="@color/colorSecondaryDark"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/confirm_button"
-        android:layout_width="120dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="135dp"
-        android:background="@drawable/rounded_background"
-        android:fontFamily="@font/american_typerwriter"
-        android:text="Confirm"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/enterNamePopup"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/addNewPlayerImageView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_person"
+            android:translationZ="3dp" />
 
-    <Button
-        android:id="@+id/cancel_button"
-        android:layout_width="120dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="135dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="50dp"
-        android:background="@drawable/rounded_background"
-        android:backgroundTint="#FF4747"
-        android:fontFamily="@font/american_typerwriter"
-        android:text="Cancel"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.133"
-        app:layout_constraintStart_toStartOf="@+id/enterNamePopup"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/button"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rounded_background"
+            android:backgroundTint="@color/colorTertiaryDark"
+            android:text="Edit"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="25dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/newPlayerNamePrompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="8dp"
+                android:text="Name"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/enterNamePopup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_background"
+                android:backgroundTint="@color/colorTertiaryDark"
+                android:fontFamily="@font/american_typerwriter"
+                android:hint="             "
+                android:inputType="textVisiblePassword"
+                android:padding="10dp"
+                android:textAlignment="center"
+                android:textColor="#DADADA"
+                android:textColorHint="#D6D6D6"
+                android:textStyle="italic" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:paddingBottom="15dp"
+            android:weightSum="1">
+
+            <Button
+                android:id="@+id/confirm_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_weight=".15"
+                android:background="@drawable/rounded_background"
+                android:fontFamily="@font/american_typerwriter"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="Confirm"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/cancel_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_weight=".15"
+                android:background="@drawable/rounded_background"
+                android:backgroundTint="@color/colorTertiaryDark"
+                android:fontFamily="@font/american_typerwriter"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="Cancel"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

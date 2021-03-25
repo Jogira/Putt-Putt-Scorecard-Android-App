@@ -42,23 +42,16 @@ import static android.view.Gravity.CENTER;
 
 
 public class AddPlayersActivity extends AppCompatActivity {
-        private AlertDialog.Builder nameBuilder;
         private AlertDialog name;
         private EditText playerName;
-        private Button confirm, cancel;
         private static final String TAG = "AddPlayersActivity";
         private String mTimeStamp = new SimpleDateFormat("yyyyMMddHHmmss", Locale.US).format(new Date());
         private GridLayout playerSelectionContentView;
-        private ArrayList<Boolean> flipped = new ArrayList<>();
+        private final ArrayList<Boolean> flipped = new ArrayList<>();
         private ArrayList<Player> players;
         private int numPlayers = 0;
         private ImageButton newPlayer;
-        private boolean addingNewPlayer = false;
         private Player newestPlayer;
-        private int indexNewPlayer = 4;
-
-
-
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +60,7 @@ public class AddPlayersActivity extends AppCompatActivity {
                 Game.currentGame = null;
                 //Button backX = findViewById(R.id.backX);
                 Button createGame = findViewById(R.id.createGameButton);
-                ImageButton additionalPlayers = findViewById(R.id.newPlayerButton);
+                //additionalPlayers = findViewById(R.id.newPlayerButton);
                 ImageButton home = findViewById(R.id.homePageButton);
                 ImageButton statsPage = findViewById(R.id.statsPageButton);
                 CircleImageView settingsPage = findViewById(R.id.settingsPageButton);
@@ -80,16 +73,6 @@ public class AddPlayersActivity extends AppCompatActivity {
 //                                goBackPage();
 //                        }
 //                });
-
-                additionalPlayers.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                                AnimationController.buttonPress(AddPlayersActivity.this, view);
-                                createNewName();
-
-                        }
-                });
-
 
                 createGame.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -164,19 +147,20 @@ public class AddPlayersActivity extends AppCompatActivity {
                 return ("score" + timestamped + ".csv");
         }
 
+
         private void goBackPage() {
                 Intent homePage = new Intent(this, MainActivity.class);
                 startActivity(homePage);
                 this.overridePendingTransition(R.anim.new_page_no_anim, R.anim.slide_down);
         }
 
-        public void createNewName()
-        {
-                nameBuilder = new AlertDialog.Builder(this, R.style.CustomAlertDialog);
+
+        public void createNewName() {
+                AlertDialog.Builder nameBuilder = new AlertDialog.Builder(this, R.style.CustomAlertDialog);
                 final View namePopupView = getLayoutInflater().inflate(R.layout.popup, null);
-                playerName = (EditText) namePopupView.findViewById(R.id.enterNamePopup);
-                cancel = (Button) namePopupView.findViewById(R.id.cancel_button);
-                confirm = (Button) namePopupView.findViewById(R.id.confirm_button);
+                playerName = namePopupView.findViewById(R.id.enterNamePopup);
+                Button cancel = namePopupView.findViewById(R.id.cancel_button);
+                Button confirm = namePopupView.findViewById(R.id.confirm_button);
                 nameBuilder.setView(namePopupView);
                 //name.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 name = nameBuilder.create();
@@ -184,54 +168,49 @@ public class AddPlayersActivity extends AppCompatActivity {
 
                 confirm.setOnClickListener(new View.OnClickListener(){
 
-                                                         @Override
-                                                         public void onClick(View view) {
-                                                                 EditText confirmedName = (EditText) namePopupView.findViewById(R.id.enterNamePopup);
-                                                                 String playerName = confirmedName.getText().toString();
-                                                                 List<String> colors = new ArrayList<>();
-                                                                 colors.add("#e84e40"); //red
-                                                                 colors.add("#ec407a"); //pink
-                                                                 colors.add("#ab47bc"); //purple
-                                                                 colors.add("#7e57c2"); //deep purple
-                                                                 colors.add("#5c6bc0"); //indigo
-                                                                 colors.add("#26a69a"); //teal
-                                                                 colors.add("#2baf2b"); //green
-                                                                 colors.add("#fc9c6b"); //sunset orange
-                                                                 colors.add("#00f444"); //lime green
-                                                                 colors.add("#fbff00"); //rubber duck yellow
-                                                                 colors.add("#ffca28"); //amber
-                                                                 colors.add("#53C2C3"); //sky blue
-                                                                 colors.add("#DAAE19"); //gold
-                                                                 colors.add("#A9D47C"); //dead grass
-                                                                 colors.add("#D53046"); //rose red
-                                                                 colors.add("#007eff"); //deep blue
-                                                                 colors.add("#008c99"); //baja blast
+                        @Override
+                        public void onClick(View view) {
+                                EditText confirmedName = namePopupView.findViewById(R.id.enterNamePopup);
+                                String playerName = confirmedName.getText().toString();
+                                List<String> colors = new ArrayList<>();
+                                colors.add("#e84e40"); //red
+                                colors.add("#ec407a"); //pink
+                                colors.add("#ab47bc"); //purple
+                                colors.add("#7e57c2"); //deep purple
+                                colors.add("#5c6bc0"); //indigo
+                                colors.add("#26a69a"); //teal
+                                colors.add("#2baf2b"); //green
+                                colors.add("#fc9c6b"); //sunset orange
+                                colors.add("#00f444"); //lime green
+                                colors.add("#fbff00"); //rubber duck yellow
+                                colors.add("#ffca28"); //amber
+                                colors.add("#53C2C3"); //sky blue
+                                colors.add("#DAAE19"); //gold
+                                colors.add("#A9D47C"); //dead grass
+                                colors.add("#D53046"); //rose red
+                                colors.add("#007eff"); //deep blue
+                                colors.add("#008c99"); //baja blast
 
-                                                                 Random n= new Random();
-                                                                 int color = n.nextInt(colors.size());
-//                                                                 CharSequence text = playerName + " was added.";
-                                                                 Drawable profileImageNew = getDrawable(R.drawable.ic_person);
-                                                                 profileImageNew.setColorFilter(Color.parseColor(colors.get(color)), PorterDuff.Mode.MULTIPLY);
-                                                                 newestPlayer = new Player(playerName, profileImageNew);
-                                                                 Player.players.add(newestPlayer);
-                                                                 addingNewPlayer = true;
-                                                                 populateProfileView();
-                                                                 addingNewPlayer = false;
-                                                                 colors.clear();
-//                                                                 Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
-//                                                                 toast.show();
-                                                                 name.dismiss();
-                                                         }
-                                                 }
-                );
+                                Random n= new Random();
+                                int color = n.nextInt(colors.size());
+                                Drawable profileImageNew = getDrawable(R.drawable.ic_person);
+                                profileImageNew.setColorFilter(Color.parseColor(colors.get(color)), PorterDuff.Mode.MULTIPLY);
+                                newestPlayer = new Player(playerName, profileImageNew);
+                                Player.players.add(newestPlayer);
+                                populateProfileView();
+                                colors.clear();
+//                              Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+//                              toast.show();
+                                name.dismiss();
+                        }
+                });
 
                 cancel.setOnClickListener(new View.OnClickListener(){
-                                                   @Override
-                                                   public void onClick(View view) {
-                                                           name.dismiss();
-                                                   }
-                                           }
-                );
+                        @Override
+                        public void onClick(View view) {
+                                name.dismiss();
+                        }
+                });
         }
 
         private void toStatsPage() {
@@ -257,18 +236,21 @@ public class AddPlayersActivity extends AppCompatActivity {
         //create and add profile views dynamically from saved profiles
         //currently creates views from DEMO profiles made in MainActivity
         private void populateProfileView() {
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                params.setMargins(75, 0, 75, 45);
+                playerSelectionContentView.removeAllViews();
                 playerSelectionContentView.setColumnCount(3);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                params.setMargins(55, 0, 55, 45);
                 int index = 0;
 
-                if (!addingNewPlayer)
-                {
                         for (Player p : Player.players) {
                                 View exampleProfile = View.inflate(this, R.layout.player_profile_view, null);
                                 TextView nameView = exampleProfile.findViewById(R.id.playerNameView);
                                 final CircleImageView profilePictureView = exampleProfile.findViewById(R.id.playerImageView);
                                 nameView.setText(p.getName());
+
+                                if(p.getName().length() > 8)
+                                        nameView.setText(p.getName().substring(0, 8) + "...");
+
                                 profilePictureView.setImageDrawable(p.getPlayerProfileImage());
 
                                 profilePictureView.setTag(index);
@@ -284,59 +266,22 @@ public class AddPlayersActivity extends AppCompatActivity {
                                 flipped.add(false);
                                 index++;
                         }
-                }
 
-                else
-                {
-                                View exampleProfile = View.inflate(this, R.layout.player_profile_view, null);
-                                TextView nameView = exampleProfile.findViewById(R.id.playerNameView);
-                                final CircleImageView profilePictureView = exampleProfile.findViewById(R.id.playerImageView);
-                                nameView.setText(newestPlayer.getName());
-                                profilePictureView.setImageDrawable(newestPlayer.getPlayerProfileImage());
+                //create and add the "new player" button
+                View addPlayersView = View.inflate(this, R.layout.player_profile_view, null);
+                TextView nameView = addPlayersView.findViewById(R.id.playerNameView);
+                final CircleImageView addPlayerIcon = addPlayersView.findViewById(R.id.playerImageView);
+                nameView.setText("New");
+                addPlayerIcon.setImageDrawable(getDrawable(R.drawable.ic_add_player));
+                addPlayersView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                                AnimationController.buttonPress(AddPlayersActivity.this, view);
+                                createNewName();
 
-                                profilePictureView.setTag(indexNewPlayer);
-                                profilePictureView.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                                flipPlayerIcon((CircleImageView) view);
-                                                playAnimation(profilePictureView, R.anim.button_press_in, 0);
-                                                playAnimation(profilePictureView, R.anim.button_press_out, 100);
-                                        }
-                                });
-                                playerSelectionContentView.addView(exampleProfile, indexNewPlayer, params);
-                                flipped.add(false);
-                                indexNewPlayer++;
-                }
-        }
-
-        //create and add profile views dynamically from saved profiles
-        //currently creates views from DEMO profiles made in MainActivity
-        private void displayNewPlayer() {
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                params.setMargins(75, 0, 75, 45);
-                playerSelectionContentView.setColumnCount(3);
-                int index = 0;
-
-                for (Player p : Player.players) {
-                        View exampleProfile = View.inflate(this, R.layout.player_profile_view, null);
-                        TextView nameView = exampleProfile.findViewById(R.id.playerNameView);
-                        final CircleImageView profilePictureView = exampleProfile.findViewById(R.id.playerImageView);
-                        nameView.setText(p.getName());
-                        profilePictureView.setImageDrawable(p.getPlayerProfileImage());
-
-                        profilePictureView.setTag(index);
-                        profilePictureView.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                        flipPlayerIcon((CircleImageView) view);
-                                        playAnimation(profilePictureView, R.anim.button_press_in, 0);
-                                        playAnimation(profilePictureView, R.anim.button_press_out, 100);
-                                }
-                        });
-                        playerSelectionContentView.addView(exampleProfile, index, params);
-                        flipped.add(false);
-                        index++;
-                }
+                        }
+                });
+                playerSelectionContentView.addView(addPlayersView, index, params);
         }
 
         private void playAnimation(final View v, final int animationId, int delayMS) {
