@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -49,6 +50,9 @@ public class AddPlayersActivity extends AppCompatActivity {
         private ArrayList<Player> players;
         private int numPlayers = 0;
         private ImageButton newPlayer;
+        private boolean addingNewPlayer = false;
+        private Player newestPlayer;
+        private int indexNewPlayer = 4;
 
 
         @Override
@@ -178,11 +182,16 @@ public class AddPlayersActivity extends AppCompatActivity {
                                                          @Override
                                                          public void onClick(View view) {
                                                                  EditText confirmedName = (EditText) namePopupView.findViewById(R.id.enterNamePopup);
-                                                                 String message = confirmedName.getText().toString();
-                                                                 CharSequence text = message + " was added.";
-
-                                                                 Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
-                                                                 toast.show();
+                                                                 String playerName = confirmedName.getText().toString();
+//                                                                 CharSequence text = playerName + " was added.";
+                                                                 Drawable profileImageNew = getDrawable(R.drawable.ic_person);
+                                                                 newestPlayer = new Player(playerName, profileImageNew);
+                                                                 Player.players.add(newestPlayer);
+                                                                 addingNewPlayer = true;
+                                                                 populateProfileView();
+                                                                 addingNewPlayer = false;
+//                                                                 Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+//                                                                 toast.show();
                                                                  name.dismiss();
                                                          }
                                                  }
@@ -225,6 +234,61 @@ public class AddPlayersActivity extends AppCompatActivity {
                 playerSelectionContentView.setColumnCount(3);
                 int index = 0;
 
+                if (!addingNewPlayer)
+                {
+                        for (Player p : Player.players) {
+                                View exampleProfile = View.inflate(this, R.layout.player_profile_view, null);
+                                TextView nameView = exampleProfile.findViewById(R.id.playerNameView);
+                                final CircleImageView profilePictureView = exampleProfile.findViewById(R.id.playerImageView);
+                                nameView.setText(p.getName());
+                                profilePictureView.setImageDrawable(p.getPlayerProfileImage());
+
+                                profilePictureView.setTag(index);
+                                profilePictureView.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                                flipPlayerIcon((CircleImageView) view);
+                                                playAnimation(profilePictureView, R.anim.button_press_in, 0);
+                                                playAnimation(profilePictureView, R.anim.button_press_out, 100);
+                                        }
+                                });
+                                playerSelectionContentView.addView(exampleProfile, index, params);
+                                flipped.add(false);
+                                index++;
+                        }
+                }
+
+                else
+                {
+                                View exampleProfile = View.inflate(this, R.layout.player_profile_view, null);
+                                TextView nameView = exampleProfile.findViewById(R.id.playerNameView);
+                                final CircleImageView profilePictureView = exampleProfile.findViewById(R.id.playerImageView);
+                                nameView.setText(newestPlayer.getName());
+                                profilePictureView.setImageDrawable(newestPlayer.getPlayerProfileImage());
+
+                                profilePictureView.setTag(indexNewPlayer);
+                                profilePictureView.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                                flipPlayerIcon((CircleImageView) view);
+                                                playAnimation(profilePictureView, R.anim.button_press_in, 0);
+                                                playAnimation(profilePictureView, R.anim.button_press_out, 100);
+                                        }
+                                });
+                                playerSelectionContentView.addView(exampleProfile, indexNewPlayer, params);
+                                flipped.add(false);
+                                indexNewPlayer++;
+                }
+        }
+
+        //create and add profile views dynamically from saved profiles
+        //currently creates views from DEMO profiles made in MainActivity
+        private void displayNewPlayer() {
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.setMargins(75, 0, 75, 45);
+                playerSelectionContentView.setColumnCount(3);
+                int index = 0;
+
                 for (Player p : Player.players) {
                         View exampleProfile = View.inflate(this, R.layout.player_profile_view, null);
                         TextView nameView = exampleProfile.findViewById(R.id.playerNameView);
@@ -245,8 +309,6 @@ public class AddPlayersActivity extends AppCompatActivity {
                         flipped.add(false);
                         index++;
                 }
-
-
         }
 
         private void playAnimation(final View v, final int animationId, int delayMS) {
