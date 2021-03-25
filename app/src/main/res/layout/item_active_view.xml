@@ -29,7 +29,7 @@
         <ImageView
             android:id="@+id/currentHoleImageView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="left|center_vertical"
             android:layout_marginStart="5dp"
             app:srcCompat="@drawable/ic_hole" />
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="5dp"
-            android:layout_marginBottom="3dp"
+            android:layout_marginTop="5dp"
             android:fontFamily="@font/american_typerwriter"
             android:gravity="left|center_vertical"
             android:text="1"

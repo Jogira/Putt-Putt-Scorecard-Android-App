@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?android:attr/colorPrimary"
-    android:paddingRight="-20dp"
     tools:context=".MainActivity">
 
     <TextView
@@ -118,7 +117,7 @@
         android:id="@+id/gamesScrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -139,48 +138,33 @@
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
-        android:id="@+id/navBar2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="600dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginBottom="100dp"
-        android:layout_weight="1"
-        android:background="@drawable/nav_bar_background"
+    <Button
+        android:id="@+id/newGameButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/dialog_bg"
         android:backgroundTint="@color/colorTertiaryDark"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:translationZ="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:drawableRight="@drawable/ic_add"
+        android:drawablePadding="15dp"
+        android:drawableTint="#ffffff"
+        android:fontFamily="@font/american_typerwriter"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="10dp"
+        android:shadowColor="#FFF9F9"
+        android:text="@string/start_new_game_text"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:typeface="normal"
+        app:layout_constraintBottom_toTopOf="@+id/navBar"
         app:layout_constraintEnd_toEndOf="parent"
-        style="?android:attr/borderlessButtonStyle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <Button
-            android:id="@+id/newGameButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="0dp"
-            android:background="@drawable/dialog_bg"
-            android:backgroundTint="@color/colorTertiaryDark"
-            android:drawableRight="@drawable/ic_add"
-            android:drawablePadding="-40dp"
-            style="?android:attr/borderlessButtonStyle"
-            android:drawableTint="#03fc7f"
-            android:fontFamily="@font/american_typerwriter"
-            android:paddingStart="0dp"
-            android:paddingEnd="50dp"
-            android:shadowColor="#FFF9F9"
-            android:text="@string/start_new_game_text"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
         android:id="@+id/navBar"

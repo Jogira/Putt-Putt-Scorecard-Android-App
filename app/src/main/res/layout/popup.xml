@@ -35,7 +35,9 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/rounded_background"
             android:backgroundTint="@color/colorTertiaryDark"
+            android:fontFamily="@font/american_typerwriter"
             android:text="Edit"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="#ffffff"
             android:textStyle="bold" />
 
@@ -51,8 +53,10 @@
                 android:id="@+id/newPlayerNamePrompt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/american_typerwriter"
                 android:paddingEnd="8dp"
                 android:text="Name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="#ffffff"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -92,7 +96,9 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:text="Confirm"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="#ffffff"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
             <Button
@@ -107,7 +113,9 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:text="Cancel"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="#ffffff"
+                android:textSize="17sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
