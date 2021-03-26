@@ -219,8 +219,8 @@ public class AddPointsActivity extends AppCompatActivity {
             playerImageView.setTag(i);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
-            params.width = (int) dp*62; //200
-            params.height = (int) dp*62;
+            params.width = (int) dp*55; //200
+            params.height = (int) dp*55;
             params.setMarginStart(20);
             params.setMarginEnd(20);
             params.gravity = Gravity.CENTER_VERTICAL;
@@ -228,9 +228,9 @@ public class AddPointsActivity extends AppCompatActivity {
             playerImageView.setBorderWidth(0);
 
             if(i == Game.currentGame.currentPlayerTurn) {
-                playerImageView.setBorderWidth(8);
-                params.height = (int) dp*72; //225
-                params.width = (int) dp*72;
+                playerImageView.setBorderWidth(10);
+                params.height = (int) dp*62; //225
+                params.width = (int) dp*62;
             }
 
             playerImageView.setOnClickListener(new View.OnClickListener() {
@@ -262,14 +262,14 @@ public class AddPointsActivity extends AppCompatActivity {
                         scoreToAdd.setText("0");
 
                     AnimationController.playAnimation(this, playerProfile, R.anim.scale_up);
-                    playerProfile.getLayoutParams().height = (int) dp*72;
-                    playerProfile.getLayoutParams().width = (int) dp*72;
+                    playerProfile.getLayoutParams().height = (int) dp*62;
+                    playerProfile.getLayoutParams().width = (int) dp*62;
             }
             else {
                 playerProfile.setBorderWidth(0);
                 AnimationController.playAnimation(this, playerProfile, R.anim.scale_down);
-                playerProfile.getLayoutParams().height = (int) dp*62;
-                playerProfile.getLayoutParams().width = (int) dp*62;
+                playerProfile.getLayoutParams().height = (int) dp*55;
+                playerProfile.getLayoutParams().width = (int) dp*55;
             }
             playerProfile.requestLayout();
         }
