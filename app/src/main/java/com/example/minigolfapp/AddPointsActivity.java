@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ public class AddPointsActivity extends AppCompatActivity {
     private TextView currentPlayerName;
     private LinearLayout playerIconView;
     private boolean parsOn = false;
+    private float dp;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -160,6 +162,7 @@ public class AddPointsActivity extends AppCompatActivity {
             }
         });
 
+        dp = AddPointsActivity.this.getResources().getDimension(R.dimen.pixelsToDP);
         populatePlayerIconView();
     }
 
@@ -215,8 +218,9 @@ public class AddPointsActivity extends AppCompatActivity {
             playerImageView.setImageDrawable(Game.currentGame.getPlayers().get(i).getPlayerProfileImage());
             playerImageView.setTag(i);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            params.width = 200;
-            params.height = 200;
+
+            params.width = (int) dp*62; //200
+            params.height = (int) dp*62;
             params.setMarginStart(20);
             params.setMarginEnd(20);
             params.gravity = Gravity.CENTER_VERTICAL;
@@ -225,8 +229,8 @@ public class AddPointsActivity extends AppCompatActivity {
 
             if(i == Game.currentGame.currentPlayerTurn) {
                 playerImageView.setBorderWidth(8);
-                params.height = 225;
-                params.width = 225;
+                params.height = (int) dp*72; //225
+                params.width = (int) dp*72;
             }
 
             playerImageView.setOnClickListener(new View.OnClickListener() {
@@ -243,6 +247,7 @@ public class AddPointsActivity extends AppCompatActivity {
     //updates view of players in top, also updates currentPlayerTurn int and Game.currentPlayerTurn
     @SuppressLint("SetTextI18n")
     private void updatePlayerTurn(int index) {
+
         for(int i = 0; i < playerIconView.getChildCount(); i++) {
             CircleImageView playerProfile = (CircleImageView) playerIconView.getChildAt(i);
             if(i == index) {
@@ -257,14 +262,14 @@ public class AddPointsActivity extends AppCompatActivity {
                         scoreToAdd.setText("0");
 
                     AnimationController.playAnimation(this, playerProfile, R.anim.scale_up);
-                    playerProfile.getLayoutParams().height = 225;
-                    playerProfile.getLayoutParams().width = 225;
+                    playerProfile.getLayoutParams().height = (int) dp*72;
+                    playerProfile.getLayoutParams().width = (int) dp*72;
             }
             else {
                 playerProfile.setBorderWidth(0);
                 AnimationController.playAnimation(this, playerProfile, R.anim.scale_down);
-                playerProfile.getLayoutParams().height = 200;
-                playerProfile.getLayoutParams().width = 200;
+                playerProfile.getLayoutParams().height = (int) dp*62;
+                playerProfile.getLayoutParams().width = (int) dp*62;
             }
             playerProfile.requestLayout();
         }
