@@ -98,7 +98,7 @@
         android:layout_marginBottom="15dp"
         android:background="@drawable/rounded_background"
         android:backgroundTint="@color/colorAccentSecondary"
-        android:fontFamily="@font/american_typerwriter"
+        android:fontFamily="@font/bree_serif"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:text="End Game"
@@ -106,6 +106,7 @@
         android:textColor="#FFFFFF"
         android:textSize="22sp"
         android:textStyle="bold"
+        android:translationZ="5dp"
         app:layout_constraintBottom_toTopOf="@+id/navBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -125,6 +126,7 @@
         android:paddingTop="15dp"
         android:paddingEnd="10dp"
         android:paddingBottom="15dp"
+        android:translationZ="10dp"
         android:weightSum="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -133,14 +135,17 @@
         <TextView
             android:id="@+id/CurrentHole"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginStart="15dp"
-            android:layout_marginEnd="10dp"
-            android:layout_weight=".25"
+            android:layout_marginEnd="25dp"
+            android:layout_weight=".35"
+            android:background="@drawable/rounded_background"
+            android:backgroundTint="@color/colorTertiaryDark"
             android:drawableStart="@drawable/ic_hole"
             android:drawablePadding="6dp"
-            android:fontFamily="@font/american_typerwriter"
+            android:fontFamily="@font/bree_serif"
             android:gravity="center_vertical"
+            android:paddingStart="15dp"
             android:text="1"
             android:textAlignment="textStart"
             android:textColor="#FDFDFD"
@@ -151,8 +156,8 @@
             android:id="@+id/parView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginEnd="10dp"
-            android:layout_weight=".5"
+            android:layout_marginEnd="15dp"
+            android:layout_weight=".2"
             android:gravity="center_vertical"
             android:orientation="vertical"
             android:visibility="visible">
@@ -161,11 +166,11 @@
                 android:id="@+id/parText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/american_typerwriter"
+                android:fontFamily="@font/bree_serif"
                 android:text="Pars Off"
                 android:textAlignment="center"
                 android:textColor="#d9d9d9"
-                android:textSize="15dp"
+                android:textSize="17sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -173,21 +178,22 @@
             android:id="@+id/viewCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight=".25"
+            android:layout_weight=".35"
             android:background="@drawable/rounded_background"
-            android:fontFamily="@font/american_typerwriter"
+            android:fontFamily="@font/bree_serif"
             android:text="View card"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="#FFFFFF"
             android:textSize="17sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:translationZ="2dp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/gameViewMainContent"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
@@ -196,8 +202,9 @@
         android:backgroundTint="@color/colorSecondaryDark"
         android:gravity="center_horizontal|center_vertical"
         android:orientation="vertical"
-        android:paddingTop="18dp"
-        android:paddingBottom="22dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="28dp"
+        android:translationZ="10dp"
         app:layout_constraintBottom_toTopOf="@+id/endGame"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -209,12 +216,11 @@
             android:id="@+id/gameViewScoreTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:fontFamily="@font/american_typerwriter"
+            android:fontFamily="@font/bree_serif"
             android:text="Score"
             android:textAlignment="center"
-            android:textColor="#E8E8E8"
-            android:textSize="26sp"
+            android:textColor="#F8F8F8"
+            android:textSize="36sp"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -235,6 +241,7 @@
                 android:layout_marginBottom="0dp"
                 android:background="@drawable/circle"
                 android:backgroundTint="@color/colorAccentSecondary"
+                android:translationZ="2dp"
                 app:srcCompat="@drawable/ic_minus" />
 
             <TextView
@@ -243,14 +250,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="0dp"
                 android:layout_marginEnd="0dp"
-                android:layout_marginBottom="0dp"
+                android:layout_marginBottom="5dp"
                 android:layout_weight=".9"
-                android:fontFamily="@font/american_typerwriter"
+                android:autoSizeMinTextSize="35sp"
+                android:fontFamily="@font/bree_serif"
                 android:text="0"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="#FFFFFF"
-                android:textSize="100dp"
+                android:textSize="120dp"
                 android:textStyle="bold" />
 
             <ImageButton
@@ -261,6 +269,7 @@
                 android:layout_marginBottom="0dp"
                 android:background="@drawable/circle"
                 android:backgroundTint="@color/colorAccent"
+                android:translationZ="2dp"
                 app:srcCompat="@drawable/ic_add" />
         </LinearLayout>
 
@@ -268,16 +277,17 @@
             android:id="@+id/addScoreButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/rounded_background"
-            android:fontFamily="@font/american_typerwriter"
+            android:fontFamily="@font/bree_serif"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
             android:text="Add score to card"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:translationZ="5dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
