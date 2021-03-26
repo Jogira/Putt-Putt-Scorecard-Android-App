@@ -64,7 +64,7 @@ public class AddPointsActivity extends AppCompatActivity {
         currentPlayerName = findViewById(R.id.gameViewScoreTitle);
 
         currentHoleTextView.setText(String.valueOf(Game.currentGame.getCurrentHole()));
-        currentPlayerName.setText(Game.currentGame.getPlayers().get(currentPlayerTurn).getName() + "'s Score");
+        currentPlayerName.setText(Game.currentGame.getPlayers().get(currentPlayerTurn).getName() + "'s turn");
         currentPlayerTurn = Game.currentGame.currentPlayerTurn;
 
         increment.setOnClickListener(new View.OnClickListener() {
@@ -167,6 +167,7 @@ public class AddPointsActivity extends AppCompatActivity {
     public void incrementPlayerTurn() {
         int numPlayers = Game.currentGame.getPlayers().size();
 
+
         if(holeFinished()){
             if(Game.currentGame.getCurrentHole() == Game.currentGame.getNumHoles()) {
                 Game.currentGame.setActive(false);
@@ -182,11 +183,11 @@ public class AddPointsActivity extends AppCompatActivity {
             currentPlayerTurn++;
 
         else {
-            Context context = getApplicationContext();
-            CharSequence text = "A player is missing a score!";
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
+                Context context = getApplicationContext();
+                CharSequence text = "Must add score to card for ALL players!!!";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
             currentPlayerTurn = 0;
         }
 
@@ -199,12 +200,10 @@ public class AddPointsActivity extends AppCompatActivity {
         for(int x : currentHole){
             if(x == Integer.MIN_VALUE){
                 finished = false;
-                break;
             }
         }
         return finished;
     }
-
 
     //initial population of the player profile views in the top of the screen
     private void populatePlayerIconView(){
@@ -215,8 +214,8 @@ public class AddPointsActivity extends AppCompatActivity {
             playerImageView.setImageDrawable(Game.currentGame.getPlayers().get(i).getPlayerProfileImage());
             playerImageView.setTag(i);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            params.width = 200;
-            params.height = 200;
+            params.width = 140;
+            params.height = 140;
             params.setMarginStart(20);
             params.setMarginEnd(20);
             params.gravity = Gravity.CENTER_VERTICAL;
@@ -225,8 +224,8 @@ public class AddPointsActivity extends AppCompatActivity {
 
             if(i == Game.currentGame.currentPlayerTurn) {
                 playerImageView.setBorderWidth(8);
-                params.height = 225;
-                params.width = 225;
+                params.height = 170;
+                params.width = 170;
             }
 
             playerImageView.setOnClickListener(new View.OnClickListener() {
@@ -241,7 +240,6 @@ public class AddPointsActivity extends AppCompatActivity {
 
 
     //updates view of players in top, also updates currentPlayerTurn int and Game.currentPlayerTurn
-    @SuppressLint("SetTextI18n")
     private void updatePlayerTurn(int index) {
         for(int i = 0; i < playerIconView.getChildCount(); i++) {
             CircleImageView playerProfile = (CircleImageView) playerIconView.getChildAt(i);
@@ -249,22 +247,16 @@ public class AddPointsActivity extends AppCompatActivity {
                     playerProfile.setBorderWidth(8);
                     currentPlayerTurn = i;
                     Game.currentGame.currentPlayerTurn = currentPlayerTurn;
-                    currentPlayerName.setText(Game.currentGame.getPlayers().get(currentPlayerTurn).getName() + "'s Score");
-
-                    if(Game.currentGame.getPlayerScores().get(Game.currentGame.getCurrentHole()-1)[currentPlayerTurn] != Integer.MIN_VALUE)
-                        scoreToAdd.setText(Game.currentGame.getPlayerScores().get(Game.currentGame.getCurrentHole()-1)[currentPlayerTurn]+"");
-                    else
-                        scoreToAdd.setText("0");
-
+                    currentPlayerName.setText(Game.currentGame.getPlayers().get(currentPlayerTurn).getName() + "'s turn");
                     AnimationController.playAnimation(this, playerProfile, R.anim.scale_up);
-                    playerProfile.getLayoutParams().height = 225;
-                    playerProfile.getLayoutParams().width = 225;
+                    playerProfile.getLayoutParams().height = 170;
+                    playerProfile.getLayoutParams().width = 170;
             }
             else {
                 playerProfile.setBorderWidth(0);
                 AnimationController.playAnimation(this, playerProfile, R.anim.scale_down);
-                playerProfile.getLayoutParams().height = 200;
-                playerProfile.getLayoutParams().width = 200;
+                playerProfile.getLayoutParams().height = 140;
+                playerProfile.getLayoutParams().width = 140;
             }
             playerProfile.requestLayout();
         }
