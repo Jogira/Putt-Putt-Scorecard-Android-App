@@ -68,12 +68,12 @@
                 android:background="@drawable/rounded_background"
                 android:backgroundTint="@color/colorTertiaryDark"
                 android:fontFamily="@font/american_typerwriter"
-                android:hint="             "
+                android:hint="&quot;Bob&quot;'"
                 android:inputType="textVisiblePassword"
                 android:padding="10dp"
                 android:textAlignment="center"
                 android:textColor="#DADADA"
-                android:textColorHint="#D6D6D6"
+                android:textColorHint="#7E7D7D"
                 android:textStyle="italic" />
         </LinearLayout>
 

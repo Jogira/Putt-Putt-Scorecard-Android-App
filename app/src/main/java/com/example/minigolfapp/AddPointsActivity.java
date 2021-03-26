@@ -61,10 +61,10 @@ public class AddPointsActivity extends AppCompatActivity {
         Button endGame = findViewById(R.id.endGame);
         CircleImageView settingsPage = findViewById(R.id.settingsPageButton);
         playerIconView = findViewById(R.id.playerIconView);
-        currentPlayerName = findViewById(R.id.gameViewPlayerTurnTextView);
+        currentPlayerName = findViewById(R.id.gameViewScoreTitle);
 
         currentHoleTextView.setText(String.valueOf(Game.currentGame.getCurrentHole()));
-        currentPlayerName.setText(Game.currentGame.getPlayers().get(currentPlayerTurn).getName() + "'s turn");
+        currentPlayerName.setText(Game.currentGame.getPlayers().get(currentPlayerTurn).getName() + "'s Score");
         currentPlayerTurn = Game.currentGame.currentPlayerTurn;
 
         increment.setOnClickListener(new View.OnClickListener() {
@@ -215,8 +215,8 @@ public class AddPointsActivity extends AppCompatActivity {
             playerImageView.setImageDrawable(Game.currentGame.getPlayers().get(i).getPlayerProfileImage());
             playerImageView.setTag(i);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            params.width = 140;
-            params.height = 140;
+            params.width = 200;
+            params.height = 200;
             params.setMarginStart(20);
             params.setMarginEnd(20);
             params.gravity = Gravity.CENTER_VERTICAL;
@@ -225,8 +225,8 @@ public class AddPointsActivity extends AppCompatActivity {
 
             if(i == Game.currentGame.currentPlayerTurn) {
                 playerImageView.setBorderWidth(8);
-                params.height = 170;
-                params.width = 170;
+                params.height = 225;
+                params.width = 225;
             }
 
             playerImageView.setOnClickListener(new View.OnClickListener() {
@@ -249,17 +249,22 @@ public class AddPointsActivity extends AppCompatActivity {
                     playerProfile.setBorderWidth(8);
                     currentPlayerTurn = i;
                     Game.currentGame.currentPlayerTurn = currentPlayerTurn;
-                    currentPlayerName.setText(Game.currentGame.getPlayers().get(currentPlayerTurn).getName() + "'s turn");
-                    scoreToAdd.setText("0");
+                    currentPlayerName.setText(Game.currentGame.getPlayers().get(currentPlayerTurn).getName() + "'s Score");
+
+                    if(Game.currentGame.getPlayerScores().get(Game.currentGame.getCurrentHole()-1)[currentPlayerTurn] != Integer.MIN_VALUE)
+                        scoreToAdd.setText(Game.currentGame.getPlayerScores().get(Game.currentGame.getCurrentHole()-1)[currentPlayerTurn]+"");
+                    else
+                        scoreToAdd.setText("0");
+
                     AnimationController.playAnimation(this, playerProfile, R.anim.scale_up);
-                    playerProfile.getLayoutParams().height = 170;
-                    playerProfile.getLayoutParams().width = 170;
+                    playerProfile.getLayoutParams().height = 225;
+                    playerProfile.getLayoutParams().width = 225;
             }
             else {
                 playerProfile.setBorderWidth(0);
                 AnimationController.playAnimation(this, playerProfile, R.anim.scale_down);
-                playerProfile.getLayoutParams().height = 140;
-                playerProfile.getLayoutParams().width = 140;
+                playerProfile.getLayoutParams().height = 200;
+                playerProfile.getLayoutParams().width = 200;
             }
             playerProfile.requestLayout();
         }
