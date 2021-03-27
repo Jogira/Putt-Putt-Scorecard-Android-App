@@ -50,7 +50,7 @@ public class ScoreCardActivity extends AppCompatActivity {
         if(Game.currentGame.getCurrentHole() == Game.currentGame.getNumHoles()) {
             Game.currentGame.setCurrentHole(Game.currentGame.getCurrentHole()+1);
             currentHole = Game.currentGame.getCurrentHole();
-            holeNumberView.setText("Total");
+            holeNumberView.setText("Total  ");
         }
 
         holeSeekBar.setProgress(currentHole-1);
@@ -62,7 +62,7 @@ public class ScoreCardActivity extends AppCompatActivity {
                 if (i < Game.currentGame.getNumHoles())
                     holeNumberView.setText("Hole " + (i + 1));
                 else
-                    holeNumberView.setText("Total");
+                    holeNumberView.setText("Total  ");
 
                 viewTotals.setText("View Totals");
                 currentHole = seekBar.getProgress() + 1;
@@ -144,8 +144,6 @@ public class ScoreCardActivity extends AppCompatActivity {
         //below is an example on how to change the scores
         for (int i = 0; i < scorecard.getChildCount(); i++) {
             TextView score = scorecard.getChildAt(i).findViewById(R.id.scorecardRowPlayerScore);
-
-            //here, you will fetch scores from csv and update appropriately
             score.setText(setScore(currentHole, i));
         }
     }

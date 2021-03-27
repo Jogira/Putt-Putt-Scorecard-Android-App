@@ -37,14 +37,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class AddPlayersActivity extends AppCompatActivity {
+
         private AlertDialog name;
-        private EditText playerName;
         private static final String TAG = "AddPlayersActivity";
         private String mTimeStamp = new SimpleDateFormat("yyyyMMddHHmmss", Locale.US).format(new Date());
         private GridLayout playerSelectionContentView;
         private ArrayList<Boolean> flipped = new ArrayList<>();
         private ArrayList<Player> players;
         private int numPlayers = 0;
+        private static int profileColor = -1;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -150,11 +151,10 @@ public class AddPlayersActivity extends AppCompatActivity {
         public void createNewName() {
                 AlertDialog.Builder nameBuilder = new AlertDialog.Builder(this, R.style.CustomAlertDialog);
                 final View namePopupView = getLayoutInflater().inflate(R.layout.popup, null);
-                playerName = namePopupView.findViewById(R.id.enterNamePopup);
+                EditText playerName = namePopupView.findViewById(R.id.enterNamePopup);
                 Button cancel = namePopupView.findViewById(R.id.cancel_button);
                 Button confirm = namePopupView.findViewById(R.id.confirm_button);
                 nameBuilder.setView(namePopupView);
-                //name.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 name = nameBuilder.create();
                 name.show();
 
@@ -165,28 +165,24 @@ public class AddPlayersActivity extends AppCompatActivity {
                                 EditText confirmedName = namePopupView.findViewById(R.id.enterNamePopup);
                                 String playerName = confirmedName.getText().toString();
                                 List<String> colors = new ArrayList<>();
-                                colors.add("#e84e40"); //red
-                                colors.add("#ec407a"); //pink
-                                colors.add("#ab47bc"); //purple
-                                colors.add("#7e57c2"); //deep purple
-                                colors.add("#5c6bc0"); //indigo
-                                colors.add("#26a69a"); //teal
-                                colors.add("#2baf2b"); //green
-                                colors.add("#fc9c6b"); //sunset orange
-                                colors.add("#00f444"); //lime green
-                                colors.add("#fbff00"); //rubber duck yellow
-                                colors.add("#ffca28"); //amber
-                                colors.add("#53C2C3"); //sky blue
-                                colors.add("#DAAE19"); //gold
-                                colors.add("#A9D47C"); //dead grass
-                                colors.add("#D53046"); //rose red
-                                colors.add("#007eff"); //deep blue
-                                colors.add("#008c99"); //baja blast
+                                colors.add("#F53838"); //red
+                                colors.add("#E037F9"); //light purple
+                                colors.add("#1ACE65"); //green
+                                colors.add("#28A3EA"); //light blue
+                                colors.add("#F5EE3A"); //yellow
+                                colors.add("#1AD2D8"); //green-blue
+                                colors.add("#FD942A"); //orange
+                                colors.add("#8834F3"); //dark purple
+                                colors.add("#F93798"); //pink
+                                colors.add("#6256FF"); //indigo
 
-                                Random n= new Random();
-                                int color = n.nextInt(colors.size());
+                                if(profileColor >= colors.size()-1)
+                                        profileColor = 0;
+                                else
+                                        profileColor++;
+
                                 Drawable profileImageNew = getDrawable(R.drawable.ic_person);
-                                profileImageNew.setColorFilter(Color.parseColor(colors.get(color)), PorterDuff.Mode.MULTIPLY);
+                                profileImageNew.setColorFilter(Color.parseColor(colors.get(profileColor)), PorterDuff.Mode.MULTIPLY);
                                 Player newestPlayer = new Player(playerName, profileImageNew);
                                 Player.players.add(newestPlayer);
                                 populateProfileView();
