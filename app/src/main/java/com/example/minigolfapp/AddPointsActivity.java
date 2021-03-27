@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ public class AddPointsActivity extends AppCompatActivity {
     private TextView currentPlayerName;
     private LinearLayout playerIconView;
     private boolean parsOn = false;
+    private float dp;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -64,7 +66,7 @@ public class AddPointsActivity extends AppCompatActivity {
         currentPlayerName = findViewById(R.id.gameViewScoreTitle);
 
         currentHoleTextView.setText(String.valueOf(Game.currentGame.getCurrentHole()));
-        currentPlayerName.setText(Game.currentGame.getPlayers().get(currentPlayerTurn).getName() + "'s turn");
+        currentPlayerName.setText(Game.currentGame.getPlayers().get(currentPlayerTurn).getName() + "'s Score");
         currentPlayerTurn = Game.currentGame.currentPlayerTurn;
 
         increment.setOnClickListener(new View.OnClickListener() {
@@ -160,13 +162,13 @@ public class AddPointsActivity extends AppCompatActivity {
             }
         });
 
+        dp = AddPointsActivity.this.getResources().getDimension(R.dimen.pixelsToDP);
         populatePlayerIconView();
     }
 
 
     public void incrementPlayerTurn() {
         int numPlayers = Game.currentGame.getPlayers().size();
-
 
         if(holeFinished()){
             if(Game.currentGame.getCurrentHole() == Game.currentGame.getNumHoles()) {
@@ -183,11 +185,11 @@ public class AddPointsActivity extends AppCompatActivity {
             currentPlayerTurn++;
 
         else {
-                Context context = getApplicationContext();
-                CharSequence text = "Must add score to card for ALL players!!!";
-                int duration = Toast.LENGTH_SHORT;
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+            Context context = getApplicationContext();
+            CharSequence text = "A player is missing a score!";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
             currentPlayerTurn = 0;
         }
 
@@ -200,10 +202,12 @@ public class AddPointsActivity extends AppCompatActivity {
         for(int x : currentHole){
             if(x == Integer.MIN_VALUE){
                 finished = false;
+                break;
             }
         }
         return finished;
     }
+
 
     //initial population of the player profile views in the top of the screen
     private void populatePlayerIconView(){
@@ -214,8 +218,9 @@ public class AddPointsActivity extends AppCompatActivity {
             playerImageView.setImageDrawable(Game.currentGame.getPlayers().get(i).getPlayerProfileImage());
             playerImageView.setTag(i);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            params.width = 140;
-            params.height = 140;
+
+            params.width = (int) dp*55; //200
+            params.height = (int) dp*55;
             params.setMarginStart(20);
             params.setMarginEnd(20);
             params.gravity = Gravity.CENTER_VERTICAL;
@@ -223,9 +228,9 @@ public class AddPointsActivity extends AppCompatActivity {
             playerImageView.setBorderWidth(0);
 
             if(i == Game.currentGame.currentPlayerTurn) {
-                playerImageView.setBorderWidth(8);
-                params.height = 170;
-                params.width = 170;
+                playerImageView.setBorderWidth(10);
+                params.height = (int) dp*62; //225
+                params.width = (int) dp*62;
             }
 
             playerImageView.setOnClickListener(new View.OnClickListener() {
@@ -240,23 +245,31 @@ public class AddPointsActivity extends AppCompatActivity {
 
 
     //updates view of players in top, also updates currentPlayerTurn int and Game.currentPlayerTurn
+    @SuppressLint("SetTextI18n")
     private void updatePlayerTurn(int index) {
+
         for(int i = 0; i < playerIconView.getChildCount(); i++) {
             CircleImageView playerProfile = (CircleImageView) playerIconView.getChildAt(i);
             if(i == index) {
                     playerProfile.setBorderWidth(8);
                     currentPlayerTurn = i;
                     Game.currentGame.currentPlayerTurn = currentPlayerTurn;
-                    currentPlayerName.setText(Game.currentGame.getPlayers().get(currentPlayerTurn).getName() + "'s turn");
+                    currentPlayerName.setText(Game.currentGame.getPlayers().get(currentPlayerTurn).getName() + "'s Score");
+
+                    if(Game.currentGame.getPlayerScores().get(Game.currentGame.getCurrentHole()-1)[currentPlayerTurn] != Integer.MIN_VALUE)
+                        scoreToAdd.setText(Game.currentGame.getPlayerScores().get(Game.currentGame.getCurrentHole()-1)[currentPlayerTurn]+"");
+                    else
+                        scoreToAdd.setText("0");
+
                     AnimationController.playAnimation(this, playerProfile, R.anim.scale_up);
-                    playerProfile.getLayoutParams().height = 170;
-                    playerProfile.getLayoutParams().width = 170;
+                    playerProfile.getLayoutParams().height = (int) dp*62;
+                    playerProfile.getLayoutParams().width = (int) dp*62;
             }
             else {
                 playerProfile.setBorderWidth(0);
                 AnimationController.playAnimation(this, playerProfile, R.anim.scale_down);
-                playerProfile.getLayoutParams().height = 140;
-                playerProfile.getLayoutParams().width = 140;
+                playerProfile.getLayoutParams().height = (int) dp*55;
+                playerProfile.getLayoutParams().width = (int) dp*55;
             }
             playerProfile.requestLayout();
         }
