@@ -4,11 +4,15 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -16,10 +20,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -41,9 +47,12 @@ public class AddPointsActivity extends AppCompatActivity {
     private final String fileName = Game.currentGame.getFileName();
     private int currentPlayerTurn = Game.currentGame.currentPlayerTurn;
     private TextView currentPlayerName;
+    private TextView parText;
     private LinearLayout playerIconView;
-    private boolean parsOn = false;
+    private boolean parsOn;
     private float dp;
+    private Button editParButton;
+    private int currentPar = 2;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -51,6 +60,9 @@ public class AddPointsActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_points);
+
+        UserPreferencesManager manager = new UserPreferencesManager(this);
+        parsOn = manager.parsOn();
 
         currentHoleTextView = findViewById(R.id.CurrentHole);
         ImageButton increment = findViewById(R.id.incrementButton);
@@ -64,10 +76,26 @@ public class AddPointsActivity extends AppCompatActivity {
         CircleImageView settingsPage = findViewById(R.id.settingsPageButton);
         playerIconView = findViewById(R.id.playerIconView);
         currentPlayerName = findViewById(R.id.gameViewScoreTitle);
+        editParButton = findViewById(R.id.editParButton);
+        parText = findViewById(R.id.parText);
+
+        if(parsOn) {
+            editParButton.setVisibility(View.VISIBLE);
+            parText.setText("Par " + currentPar);
+        }
+        else
+            editParButton.setVisibility(View.GONE);
 
         currentHoleTextView.setText(String.valueOf(Game.currentGame.getCurrentHole()));
         currentPlayerName.setText(Game.currentGame.getPlayers().get(currentPlayerTurn).getName() + "'s Score");
         currentPlayerTurn = Game.currentGame.currentPlayerTurn;
+
+        editParButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openParPopup();
+            }
+        });
 
         increment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +140,18 @@ public class AddPointsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AnimationController.buttonPressSubtle(AddPointsActivity.this, view);
-                Game.currentGame.setPlayerScore(currentPlayerTurn, Integer.parseInt((String) scoreToAdd.getText()));
+
+                int score = Integer.parseInt((String) scoreToAdd.getText());
+
+                if(parsOn) {
+                    Game.currentGame.setParAtHole(Game.currentGame.getCurrentHole()-1, currentPar);
+                    score -= currentPar;
+
+                    currentPar = 2;
+                    parText.setText("Par " + currentPar);
+                }
+
+                Game.currentGame.setPlayerScore(currentPlayerTurn, score);
 
 //                String lines = "";
 //                StringBuilder newStr = new StringBuilder();
@@ -298,6 +337,59 @@ public class AddPointsActivity extends AppCompatActivity {
         scorecard.putExtra("gameFinished", gameFinished);
         startActivity(scorecard);
         this.overridePendingTransition(R.anim.slide_up, R.anim.fade_in);
+    }
+
+    private void openParPopup() {
+        AnimationController.buttonPressSubtle(this, editParButton);
+        LinearLayout viewGroup =  this
+                .findViewById(R.id.parPopupView);
+
+        LayoutInflater layoutInflater = (LayoutInflater) this
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        View layout = layoutInflater.inflate(R.layout.popup_par_edit, viewGroup);
+        final PopupWindow popup = new PopupWindow(this);
+
+        popup.setContentView(layout);
+        popup.setWidth((int) (dp*175));
+        popup.setHeight((int) (dp*150));
+        popup.setFocusable(true);
+        popup.setBackgroundDrawable(new ColorDrawable(
+                android.graphics.Color.TRANSPARENT));
+
+        popup.showAsDropDown(editParButton, -((popup.getWidth()/3)), 10);
+        Button closePopup = layout.findViewById(R.id.parPopupDoneButton);
+        final ImageButton decrementPar = layout.findViewById(R.id.decrementPar);
+        final ImageButton incrementPar = layout.findViewById(R.id.incrementPar);
+        final TextView parNum = layout.findViewById(R.id.parPopupParNumber);
+
+        decrementPar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AnimationController.buttonPressSubtle(AddPointsActivity.this, decrementPar);
+                if(Integer.parseInt((String) parNum.getText()) != 0) {
+                    currentPar--;
+                    parNum.setText(currentPar + "");
+                }
+            }
+        });
+
+        incrementPar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AnimationController.buttonPressSubtle(AddPointsActivity.this, incrementPar);
+                currentPar++;
+                parNum.setText(currentPar + "");
+            }
+        });
+
+        closePopup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popup.dismiss();
+                parText.setText("Par " + currentPar);
+            }
+        });
     }
 
 

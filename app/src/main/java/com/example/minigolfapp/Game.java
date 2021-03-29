@@ -18,15 +18,14 @@ public class Game {
     private int currentHole;
     private int numHoles;
     public int currentPlayerTurn = 0;
-    private int[] pars = null;
+    private int[] pars;
 
     //holds the current game object. It is used to keep track of all information about the most relevant game at the time
     //current game object is either a newly created game, or a past game that a user is viewing
     public static Game currentGame = null;
 
     public Game(ArrayList<Player> players, int numHoles, int[] pars, String fileName){
-        if(parsActive)
-            this.pars = pars;
+        this.pars = pars;
 
         this.gameID = CURRENT_GAME_ID + 1;
         CURRENT_GAME_ID = gameID;
@@ -47,8 +46,8 @@ public class Game {
     }
 
     public Game(ArrayList<Player> players, int numHoles, String fileName){
-        if(parsActive)
-            pars = new int[numHoles];
+
+        pars = new int[numHoles];
 
         this.gameID = CURRENT_GAME_ID + 1;
         CURRENT_GAME_ID = gameID;
@@ -120,6 +119,10 @@ public class Game {
 
     public void setPars(int[] pars) {
         this.pars = pars;
+    }
+
+    public void setParAtHole(int hole, int par) {
+        this.pars[hole] = par;
     }
 
     public int[] getPars() {

@@ -214,6 +214,9 @@ public class AddPlayersActivity extends AppCompatActivity {
         private void openPointsPage() {
                 Intent addPointsPage = new Intent(this, AddPointsActivity.class);
                 Game.currentGame = new Game(players, 18, "score" + mTimeStamp + ".csv");
+                UserPreferencesManager manager = new UserPreferencesManager(this);
+                Game.currentGame.setParsActive(manager.parsOn());
+
                 createNewFile();
                 startActivity(addPointsPage);
                 this.overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
