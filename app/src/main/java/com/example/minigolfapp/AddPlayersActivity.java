@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -150,8 +149,8 @@ public class AddPlayersActivity extends AppCompatActivity {
 
         public void createNewName() {
                 AlertDialog.Builder nameBuilder = new AlertDialog.Builder(this, R.style.CustomAlertDialog);
-                final View namePopupView = getLayoutInflater().inflate(R.layout.popup, null);
-                EditText playerName = namePopupView.findViewById(R.id.enterNamePopup);
+                final View namePopupView = getLayoutInflater().inflate(R.layout.popup_new_player, null);
+                EditText playerName = namePopupView.findViewById(R.id.newProfileNameEntry);
                 Button cancel = namePopupView.findViewById(R.id.cancel_button);
                 Button confirm = namePopupView.findViewById(R.id.confirm_button);
                 nameBuilder.setView(namePopupView);
@@ -162,7 +161,7 @@ public class AddPlayersActivity extends AppCompatActivity {
 
                         @Override
                         public void onClick(View view) {
-                                EditText confirmedName = namePopupView.findViewById(R.id.enterNamePopup);
+                                EditText confirmedName = namePopupView.findViewById(R.id.newProfileNameEntry);
                                 String playerName = confirmedName.getText().toString();
                                 List<String> colors = new ArrayList<>();
                                 colors.add("#F53838"); //red
