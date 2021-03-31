@@ -198,6 +198,7 @@ public class AddPointsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 AnimationController.buttonPressSubtle(AddPointsActivity.this, view);
                 openScorecard(true);
+                //openWinnerScreen();
             }
         });
 
@@ -213,6 +214,7 @@ public class AddPointsActivity extends AppCompatActivity {
             if(Game.currentGame.getCurrentHole() == Game.currentGame.getNumHoles()) {
                 Game.currentGame.setActive(false);
                 openScorecard(true);
+                //openWinnerScreen();
             }
             else {
                 Game.currentGame.setCurrentHole(Game.currentGame.getCurrentHole() + 1);
@@ -336,6 +338,12 @@ public class AddPointsActivity extends AppCompatActivity {
         Intent scorecard = new Intent(this, ScoreCardActivity.class);
         scorecard.putExtra("gameFinished", gameFinished);
         startActivity(scorecard);
+        this.overridePendingTransition(R.anim.slide_up, R.anim.fade_in);
+    }
+
+    private void openWinnerScreen(){
+        Intent winnerScreen = new Intent(this, WinnerScreen.class);
+        startActivity(winnerScreen);
         this.overridePendingTransition(R.anim.slide_up, R.anim.fade_in);
     }
 
