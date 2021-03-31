@@ -18,18 +18,38 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        UserPreferencesManager manager = new UserPreferencesManager(this);
+
         final Handler handler = new Handler();
-        final Runnable r = new Runnable() {
-            public void run() {
-                toHome();
-            }
-        };
+        final Runnable r;
+
+        if(manager.isFirstLaunch()) {
+            manager.updateFirstLaunch(false);
+            r = new Runnable() {
+                public void run() {
+                    toFirstLaunch();
+                }
+            };
+        }
+        else {
+            r = new Runnable() {
+                public void run() {
+                    toHome();
+                }
+            };
+        }
         handler.postDelayed(r, 1200);
     }
 
     public void toHome(){
         Intent homeScreen = new Intent(this, MainActivity.class);
         startActivity(homeScreen);
+        this.overridePendingTransition(R.anim.activity_fade_out, R.anim.activity_fade_in);
+    }
+
+    public void toFirstLaunch(){
+        Intent firstLaunch = new Intent(this, FirstLaunchActivity.class);
+        startActivity(firstLaunch);
         this.overridePendingTransition(R.anim.activity_fade_out, R.anim.activity_fade_in);
     }
 

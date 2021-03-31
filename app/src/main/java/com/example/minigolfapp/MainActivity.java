@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout noGamesView;
     private TextView noGamesText;
     private static boolean playersCreated = false;
-    private Button newGameButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,26 +121,17 @@ public class MainActivity extends AppCompatActivity {
     //just for demo purposes until we have save functionality
     public void createDefaultPlayers() {
         playersCreated = true;
-        Drawable profileImage = getDrawable(R.drawable.sean_kingston_profile);
-        String playerName = "Sean";
-        Player sean = new Player(playerName, profileImage);
 
-        Drawable profileImage2 = getDrawable(R.drawable.sage_thompson_profile);
-        String playerName2 = "Sage";
-        Player sage = new Player(playerName2, profileImage2);
+        Drawable profileImage = getDrawable(R.drawable.avatar4);
+        String playerName = "Wanda";
+        Player player1 = new Player(playerName, profileImage);
 
-        Drawable profileImage3 = getDrawable(R.drawable.ic_person);
-        String playerName3 = "John";
-        Player john = new Player(playerName3, profileImage3);
+        Drawable profileImage2 = getDrawable(R.drawable.avatar1);
+        String playerName2 = "John";
+        Player player2 = new Player(playerName2, profileImage2);
 
-        Drawable profileImage4 = getDrawable(R.drawable.doge);
-        String playerName4 = "Glue";
-        Player doge = new Player(playerName4, profileImage4);
-
-        Player.players.add(sean);
-        Player.players.add(sage);
-        Player.players.add(john);
-        Player.players.add(doge);
+        Player.players.add(player1);
+        Player.players.add(player2);
     }
 
     private void populateGamesScrollView(int pageType){

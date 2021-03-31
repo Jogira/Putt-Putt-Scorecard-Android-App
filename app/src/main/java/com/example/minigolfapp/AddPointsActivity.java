@@ -251,6 +251,7 @@ public class AddPointsActivity extends AppCompatActivity {
     //initial population of the player profile views in the top of the screen
     private void populatePlayerIconView(){
         playerIconView.removeAllViews();
+
         for(int i = 0; i < Game.currentGame.getPlayers().size(); i++) {
 
             final CircleImageView playerImageView = new CircleImageView(this);
@@ -258,8 +259,8 @@ public class AddPointsActivity extends AppCompatActivity {
             playerImageView.setTag(i);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
-            params.width = (int) dp*55; //200
-            params.height = (int) dp*55;
+            params.width = (int) dp * 60;
+            params.height = (int) dp * 60;
             params.setMarginStart(20);
             params.setMarginEnd(20);
             params.gravity = Gravity.CENTER_VERTICAL;
@@ -267,9 +268,9 @@ public class AddPointsActivity extends AppCompatActivity {
             playerImageView.setBorderWidth(0);
 
             if(i == Game.currentGame.currentPlayerTurn) {
-                playerImageView.setBorderWidth(10);
-                params.height = (int) dp*62; //225
-                params.width = (int) dp*62;
+                playerImageView.setBorderWidth((int) (3 * dp));
+                params.height = (int) dp * 67;
+                params.width = (int) dp * 67;
             }
 
             playerImageView.setOnClickListener(new View.OnClickListener() {
@@ -290,7 +291,7 @@ public class AddPointsActivity extends AppCompatActivity {
         for(int i = 0; i < playerIconView.getChildCount(); i++) {
             CircleImageView playerProfile = (CircleImageView) playerIconView.getChildAt(i);
             if(i == index) {
-                    playerProfile.setBorderWidth(8);
+                    playerProfile.setBorderWidth((int) (3*dp));
                     currentPlayerTurn = i;
                     Game.currentGame.currentPlayerTurn = currentPlayerTurn;
                     currentPlayerName.setText(Game.currentGame.getPlayers().get(currentPlayerTurn).getName() + "'s Score");
@@ -301,14 +302,14 @@ public class AddPointsActivity extends AppCompatActivity {
                         scoreToAdd.setText("0");
 
                     AnimationController.playAnimation(this, playerProfile, R.anim.scale_up);
-                    playerProfile.getLayoutParams().height = (int) dp*62;
-                    playerProfile.getLayoutParams().width = (int) dp*62;
+                    playerProfile.getLayoutParams().height = (int) dp * 67;
+                    playerProfile.getLayoutParams().width = (int) dp * 67;
             }
             else {
                 playerProfile.setBorderWidth(0);
                 AnimationController.playAnimation(this, playerProfile, R.anim.scale_down);
-                playerProfile.getLayoutParams().height = (int) dp*55;
-                playerProfile.getLayoutParams().width = (int) dp*55;
+                playerProfile.getLayoutParams().height = (int) dp * 60;
+                playerProfile.getLayoutParams().width = (int) dp * 60;
             }
             playerProfile.requestLayout();
         }

@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +46,7 @@ public class AddPlayersActivity extends AppCompatActivity {
         private ArrayList<Boolean> flipped = new ArrayList<>();
         private ArrayList<Player> players;
         private int numPlayers = 0;
-        private static int profileColor = -1;
+        private Drawable playerImage;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -151,11 +153,33 @@ public class AddPlayersActivity extends AppCompatActivity {
                 AlertDialog.Builder nameBuilder = new AlertDialog.Builder(this, R.style.CustomAlertDialog);
                 final View namePopupView = getLayoutInflater().inflate(R.layout.popup_new_player, null);
                 EditText playerName = namePopupView.findViewById(R.id.newProfileNameEntry);
+                final CircleImageView avatarPreview = namePopupView.findViewById(R.id.addNewProfileImageView);
                 Button cancel = namePopupView.findViewById(R.id.cancel_button);
                 Button confirm = namePopupView.findViewById(R.id.confirm_button);
                 nameBuilder.setView(namePopupView);
                 name = nameBuilder.create();
                 name.show();
+
+                TableLayout table = namePopupView.findViewById(R.id.playerAvatarImages);
+
+                for(int i = 0; i < table.getChildCount(); i++) {
+                        View view = table.getChildAt(i);
+                        if (view instanceof TableRow) {
+                                final TableRow row = (TableRow) view;
+
+                                for(int j = 0; j < row.getChildCount(); j++){
+                                        row.getChildAt(j).setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                        CircleImageView v = (CircleImageView) view;
+                                                        AnimationController.buttonPressSubtle(AddPlayersActivity.this, view);
+                                                        avatarPreview.setImageDrawable(v.getDrawable());
+                                                }
+                                        });
+                                }
+
+                        }
+                }
 
                 confirm.setOnClickListener(new View.OnClickListener(){
 
@@ -163,29 +187,11 @@ public class AddPlayersActivity extends AppCompatActivity {
                         public void onClick(View view) {
                                 EditText confirmedName = namePopupView.findViewById(R.id.newProfileNameEntry);
                                 String playerName = confirmedName.getText().toString();
-                                List<String> colors = new ArrayList<>();
-                                colors.add("#F53838"); //red
-                                colors.add("#E037F9"); //light purple
-                                colors.add("#1ACE65"); //green
-                                colors.add("#28A3EA"); //light blue
-                                colors.add("#F5EE3A"); //yellow
-                                colors.add("#1AD2D8"); //green-blue
-                                colors.add("#FD942A"); //orange
-                                colors.add("#8834F3"); //dark purple
-                                colors.add("#F93798"); //pink
-                                colors.add("#6256FF"); //indigo
 
-                                if(profileColor >= colors.size()-1)
-                                        profileColor = 0;
-                                else
-                                        profileColor++;
-
-                                Drawable profileImageNew = getDrawable(R.drawable.ic_person);
-                                profileImageNew.setColorFilter(Color.parseColor(colors.get(profileColor)), PorterDuff.Mode.MULTIPLY);
-                                Player newestPlayer = new Player(playerName, profileImageNew);
+                                playerImage = avatarPreview.getDrawable();
+                                Player newestPlayer = new Player(playerName, playerImage);
                                 Player.players.add(newestPlayer);
                                 populateProfileView();
-                                colors.clear();
                                 name.dismiss();
                         }
                 });

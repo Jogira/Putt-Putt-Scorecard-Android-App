@@ -23,41 +23,117 @@
         android:layout_width="85dp"
         android:layout_height="85dp"
         android:layout_marginTop="20dp"
-        android:src="@drawable/ic_person"
+        android:src="@drawable/avatar1"
         android:translationZ="3dp" />
 
-    <LinearLayout
-        android:id="@+id/newProfileImageLayout"
+    <TableLayout
+        android:id="@+id/playerAvatarImages"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="6dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:layout_marginTop="15dp">
 
-        <Button
-            android:id="@+id/takePhotoButton"
-            android:layout_width="60dp"
-            android:layout_height="35dp"
-            android:layout_marginHorizontal="3dp"
-            android:background="@drawable/rounded_background"
-            android:backgroundTint="@color/colorTertiaryDark"
-            android:fontFamily="@font/bree_serif"
-            android:foreground="@drawable/ic_camera"
-            android:foregroundGravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="#ffffff"
-            android:textStyle="bold" />
+        <TableRow
+            android:id="@+id/avatarImagesRow1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_horizontal">
 
-        <Button
-            android:id="@+id/uploadImageButton"
-            android:layout_width="60dp"
-            android:layout_height="35dp"
-            android:layout_marginHorizontal="3dp"
-            android:background="@drawable/rounded_background"
-            android:backgroundTint="@color/colorTertiaryDark"
-            android:foreground="@drawable/ic_gallery"
-            android:foregroundGravity="center" />
-    </LinearLayout>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImage1"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/avatar1"
+                android:translationZ="3dp"
+                app:civ_border_color="@color/colorAccent"
+                app:civ_border_overlay="false"
+                app:civ_border_width="0dp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImage2"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/avatar0"
+                android:translationZ="3dp"
+                app:civ_border_color="@color/colorAccent"
+                app:civ_border_overlay="false"
+                app:civ_border_width="0dp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImage3"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/avatar2"
+                android:translationZ="3dp"
+                app:civ_border_color="@color/colorAccent"
+                app:civ_border_overlay="false"
+                app:civ_border_width="0dp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImage4"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/avatar3"
+                android:translationZ="3dp"
+                app:civ_border_color="@color/colorAccent"
+                app:civ_border_overlay="false"
+                app:civ_border_width="0dp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/avatarImagesRow2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImage5"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/avatar4"
+                android:translationZ="3dp"
+                app:civ_border_color="@color/colorAccent"
+                app:civ_border_overlay="false"
+                app:civ_border_width="0dp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImage6"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/avatar5"
+                android:translationZ="3dp"
+                app:civ_border_color="@color/colorAccent"
+                app:civ_border_overlay="false"
+                app:civ_border_width="0dp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImage7"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/avatar6"
+                android:translationZ="3dp"
+                app:civ_border_color="@color/colorAccent"
+                app:civ_border_overlay="false"
+                app:civ_border_width="0dp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImage8"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/avatar7"
+                android:translationZ="3dp"
+                app:civ_border_color="@color/colorAccent"
+                app:civ_border_overlay="false"
+                app:civ_border_width="0dp" />
+        </TableRow>
+
+    </TableLayout>
 
     <LinearLayout
         android:id="@+id/newProfileNameLayout"
@@ -90,6 +166,7 @@
             android:hint="&quot;Bob&quot;'"
             android:inputType="textVisiblePassword"
             android:padding="10dp"
+            android:selectAllOnFocus="true"
             android:textAlignment="center"
             android:textColor="#DADADA"
             android:textColorHint="#7E7D7D"

@@ -65,7 +65,7 @@
             android:layout_height="55dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/sage_thompson_profile"
+            android:src="@drawable/avatar1"
             android:translationZ="3dp" />
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -73,7 +73,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="-30dp"
-            android:src="@drawable/sean_kingston_profile"
+            android:src="@drawable/avatar0"
             android:translationZ="3dp" />
 
         <TextView
