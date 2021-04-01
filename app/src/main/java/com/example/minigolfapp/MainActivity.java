@@ -20,8 +20,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MainActivity extends AppCompatActivity {
 
     private int currentGamePage = 0;
-    private int numActiveGames = 2;
-    private int numPastGames = 6;
+    private int numActiveGames = 0;
+    private int numPastGames = 0;
     private static final int PAST_GAMES = 1;
     private static final int ACTIVE_GAMES = 0;
     private Button activeGamesButton;
@@ -30,11 +30,14 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout noGamesView;
     private TextView noGamesText;
     private static boolean playersCreated = false;
+    private float dp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        dp = this.getResources().getDimension(R.dimen.pixelsToDP);
 
         ImageButton statsButton = findViewById(R.id.statsPageButton);
         CircleImageView settingsButton = findViewById(R.id.settingsPageButton);
@@ -144,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
             noGamesView.setVisibility(View.VISIBLE);
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.bottomMargin = 25;
+        params.bottomMargin = (int)dp * 10;
 
         int delay = 0;
         if(pageType == ACTIVE_GAMES) {

@@ -29,6 +29,11 @@ public class SettingsActivity extends AppCompatActivity {
         parsText = findViewById(R.id.parToggleText);
 
         parsToggle.setChecked(manager.parsOn());
+        if(manager.parsOn())
+            parsText.setText("Pars On");
+        else
+            parsText.setText("Pars Off");
+
         parsToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton view, boolean isChecked) {
