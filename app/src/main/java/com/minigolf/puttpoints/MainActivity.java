@@ -1,4 +1,4 @@
-package com.example.minigolfapp;
+package com.minigolf.puttpoints;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -1,6 +1,4 @@
-package com.example.minigolfapp;
-
-import android.util.Log;
+package com.minigolf.puttpoints;
 
 import java.util.ArrayList;
 

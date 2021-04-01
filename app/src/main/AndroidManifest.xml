@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.minigolfapp">
+    package="com.minigolf.puttpoints">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -12,25 +12,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FirstLaunchActivity"></activity>
-        <activity android:name=".WinnerScreen"></activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name="com.minigolf.puttpoints.FirstLaunchActivity" />
+        <activity android:name="com.minigolf.puttpoints.WinnerScreen" />
+        <activity android:name="com.minigolf.puttpoints.MainActivity" />
 
-        <activity android:name=".SplashScreenActivity">
+        <activity android:name="com.minigolf.puttpoints.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StatsActivity" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".AddPlayersActivity" />
-        <activity android:name=".AddPointsActivity" />
-        <activity android:name=".ScoreCardActivity" />
+        <activity android:name="com.minigolf.puttpoints.StatsActivity" />
+        <activity android:name="com.minigolf.puttpoints.SettingsActivity" />
+        <activity android:name="com.minigolf.puttpoints.AddPlayersActivity" />
+        <activity android:name="com.minigolf.puttpoints.AddPointsActivity" />
+        <activity android:name="com.minigolf.puttpoints.ScoreCardActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.minigolfapp.FileProvider"
+            android:authorities="com.minigolf.puttpoints.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

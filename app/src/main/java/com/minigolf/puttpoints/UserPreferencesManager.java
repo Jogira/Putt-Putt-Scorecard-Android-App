@@ -1,10 +1,7 @@
-package com.example.minigolfapp;
+package com.minigolf.puttpoints;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 
 import static android.content.Context.MODE_PRIVATE;
