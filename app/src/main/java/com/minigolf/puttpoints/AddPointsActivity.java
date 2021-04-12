@@ -181,8 +181,8 @@ public class AddPointsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AnimationController.buttonPressSubtle(AddPointsActivity.this, view);
-                openScorecard(true);
-                //openWinnerScreen();
+                //openScorecard(true);
+                openWinnerScreen();
             }
         });
 
@@ -197,8 +197,8 @@ public class AddPointsActivity extends AppCompatActivity {
         if(holeFinished()){
             if(Game.currentGame.getCurrentHole() == Game.currentGame.getNumHoles()) {
                 Game.currentGame.setActive(false);
-                openScorecard(true);
-                //openWinnerScreen();
+                //openScorecard(true);
+                openWinnerScreen();
             }
             else {
                 Game.currentGame.setCurrentHole(Game.currentGame.getCurrentHole() + 1);

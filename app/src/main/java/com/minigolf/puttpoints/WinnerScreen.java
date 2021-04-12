@@ -1,12 +1,13 @@
 package com.minigolf.puttpoints;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
@@ -14,19 +15,37 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class WinnerScreen extends AppCompatActivity {
 
-    int currentHole = Game.currentGame.getCurrentHole();
     private final ArrayList<Player> players = Game.currentGame.getPlayers();
     private LinearLayout scorecard;
+    private CircleImageView playerIcon;
+    int currentHole = Game.currentGame.getCurrentHole();
+    private boolean gameFinished;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_winner_screen);
+        scorecard = findViewById(R.id.scorecardPlayerView);
+        playerIcon = findViewById(R.id.playerImageView);
+
+        gameFinished = getIntent().getBooleanExtra("gameFinished", false);
+
         populateScoreCardView();
         updateScoreCard();
+
     }
 
-    //initial population of scorecard
+    public void updateScoreCard() {
+
+        //the SeekBar calls this method when its value is changed.
+        //this method should get current hole value, and pull score info from csv file (or preferably the game object) and update it
+        //below is an example on how to change the scores
+        for (int i = 0; i < scorecard.getChildCount(); i++) {
+            TextView score = scorecard.getChildAt(i).findViewById(R.id.scorecardRowPlayerScore);
+            score.setText(setScore(currentHole, i));
+        }
+    }
+
     public void populateScoreCardView() {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 0, 0, 25);
@@ -47,25 +66,14 @@ public class WinnerScreen extends AppCompatActivity {
         }
     }
 
-    public void updateScoreCard() {
-
-        //the SeekBar calls this method when its value is changed.
-        //this method should get current hole value, and pull score info from csv file (or preferably the game object) and update it
-        //below is an example on how to change the scores
-        for (int i = 0; i < scorecard.getChildCount(); i++) {
-            TextView score = scorecard.getChildAt(i).findViewById(R.id.scorecardRowPlayerScore);
-            score.setText(setScore(currentHole, i));
-        }
-    }
-
     private String setScore(int currentHole, int player) {
         String gameFile = "";
 
-        if (currentHole <= Game.currentGame.getNumHoles()) {
-            if (currentHole > Game.currentGame.getCurrentHole())
+        if(currentHole <= Game.currentGame.getNumHoles()) {
+            if(currentHole > Game.currentGame.getCurrentHole())
                 return "--";
 
-            int[] playerScores = Game.currentGame.getPlayerScores().get(currentHole - 1);
+            int[] playerScores = Game.currentGame.getPlayerScores().get(currentHole-1);
 
             if (playerScores[player] != Integer.MIN_VALUE)
                 return playerScores[player] + "";
@@ -76,13 +84,15 @@ public class WinnerScreen extends AppCompatActivity {
         else {
             int total = 0;
 
-            for (int i = 0; i < Game.currentGame.getNumHoles() - 1; i++) {
+            for(int i = 0; i < Game.currentGame.getNumHoles()-1; i++){
                 int[] playerScores = Game.currentGame.getPlayerScores().get(i);
 
                 if (playerScores[player] != Integer.MIN_VALUE)
                     total += playerScores[player];
             }
-            return total + "";
+            return total+"";
         }
+
     }
+
 }

@@ -11,14 +11,14 @@
         android:id="@+id/scorecardScrollView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="15dp"
         android:background="@drawable/rounded_background"
         android:backgroundTint="@color/colorSecondaryDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exitScorecardButton">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat">
 
         <LinearLayout
             android:id="@+id/scorecardScrollViewContent"
@@ -32,9 +32,47 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="2dp"
-                android:background="#FFFFFF"
-                android:orientation="vertical"></LinearLayout>
+                android:background="@color/colorSecondaryDark"
+                android:orientation="vertical" />
 
         </LinearLayout>
     </ScrollView>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearLayoutCompat"
+        android:layout_width="wrap_content"
+
+
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="120dp"
+        android:background="#00FFFFFF"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_anchorGravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/playerImageView"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:src="@drawable/avatar1" />
+
+        <TextView
+            android:id="@+id/playerNameView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/bree_serif"
+            android:text="heee"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
