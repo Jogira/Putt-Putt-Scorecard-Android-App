@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static java.lang.String.valueOf;
@@ -31,6 +33,9 @@ public class AddPointsActivity extends AppCompatActivity {
     private final String fileName = Game.currentGame.getFileName();
     private int currentPlayerTurn = Game.currentGame.currentPlayerTurn;
     private TextView currentPlayerName;
+    private ArrayList<int[]> playerScores = Game.currentGame.getPlayerScores();
+
+    private ArrayList<Player> players = Game.currentGame.getPlayers();
     private TextView parText;
     private LinearLayout playerIconView;
     private boolean parsOn;

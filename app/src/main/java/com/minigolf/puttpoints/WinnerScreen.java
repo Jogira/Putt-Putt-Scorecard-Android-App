@@ -15,84 +15,52 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class WinnerScreen extends AppCompatActivity {
 
-    private final ArrayList<Player> players = Game.currentGame.getPlayers();
-    private LinearLayout scorecard;
+    private ArrayList<Player> players = Game.currentGame.getPlayers();
     private CircleImageView playerIcon;
-    int currentHole = Game.currentGame.getCurrentHole();
-    private boolean gameFinished;
+    private TextView winnerOfGame;
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_winner_screen);
-        scorecard = findViewById(R.id.scorecardPlayerView);
+
         playerIcon = findViewById(R.id.playerImageView);
+        winnerOfGame = findViewById(R.id.winnerOfGame);
 
-        gameFinished = getIntent().getBooleanExtra("gameFinished", false);
+        int winner = getWinnerIndex();
 
-        populateScoreCardView();
-        updateScoreCard();
+        winnerOfGame.setText(players.get(winner).getName() + " Wins!!!");
+        playerIcon.setImageDrawable(players.get(winner).getPlayerProfileImage());
+
+
 
     }
 
-    public void updateScoreCard() {
+    public int getWinnerIndex() {
+        int total = 0;
+        ArrayList<Integer> playerTotals = new ArrayList<>();
 
-        //the SeekBar calls this method when its value is changed.
-        //this method should get current hole value, and pull score info from csv file (or preferably the game object) and update it
-        //below is an example on how to change the scores
-        for (int i = 0; i < scorecard.getChildCount(); i++) {
-            TextView score = scorecard.getChildAt(i).findViewById(R.id.scorecardRowPlayerScore);
-            score.setText(setScore(currentHole, i));
-        }
-    }
-
-    public void populateScoreCardView() {
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMargins(0, 0, 0, 25);
-
-        for (int i = 0; i < players.size(); i++) {
-            View examplePlayerRow = View.inflate(this, R.layout.scorecard_row, null);
-            CircleImageView playerProfile = examplePlayerRow.findViewById(R.id.scorecardRowPlayerImageView);
-            playerProfile.setImageDrawable(players.get(i).getPlayerProfileImage());
-            TextView playerName = examplePlayerRow.findViewById(R.id.scorecardRowPlayerName);
-            TextView playerScore = examplePlayerRow.findViewById(R.id.scorecardRowPlayerScore);
-
-            if (i == 0)
-                params.setMargins(0, 20, 0, 25);
-
-            playerName.setText(" " + players.get(i).getName());
-            playerScore.setText("N/A");
-            scorecard.addView(examplePlayerRow, params);
-        }
-    }
-
-    private String setScore(int currentHole, int player) {
-        String gameFile = "";
-
-        if(currentHole <= Game.currentGame.getNumHoles()) {
-            if(currentHole > Game.currentGame.getCurrentHole())
-                return "--";
-
-            int[] playerScores = Game.currentGame.getPlayerScores().get(currentHole-1);
-
-            if (playerScores[player] != Integer.MIN_VALUE)
-                return playerScores[player] + "";
-            else
-                return "--";
-        }
-        //for the "total" page
-        else {
-            int total = 0;
-
-            for(int i = 0; i < Game.currentGame.getNumHoles()-1; i++){
-                int[] playerScores = Game.currentGame.getPlayerScores().get(i);
+        for(int player = 0; player < Player.players.size(); player++) {
+            for (int hole = 0; hole < Game.currentGame.getNumHoles() - 1;  hole++) {
+                int[] playerScores = Game.currentGame.getPlayerScores().get(hole);
 
                 if (playerScores[player] != Integer.MIN_VALUE)
                     total += playerScores[player];
+
             }
-            return total+"";
+            playerTotals.add(total);
+            total = 0;
         }
 
+        int lowestScore = Integer.MAX_VALUE;
+        int winnerIndex = 0;
+        for(int i = 0; i < playerTotals.size(); i++){
+            if(playerTotals.get(i) < lowestScore)
+                lowestScore = playerTotals.get(i);
+                winnerIndex = i;
+        }
+
+        return winnerIndex;
     }
 
 }

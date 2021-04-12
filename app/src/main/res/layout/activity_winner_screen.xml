@@ -7,36 +7,18 @@
     android:background="@color/colorPrimaryDark"
     tools:context=".WinnerScreen">
 
-    <ScrollView
-        android:id="@+id/scorecardScrollView"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/winnerOfGame"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="15dp"
-        android:background="@drawable/rounded_background"
-        android:backgroundTint="@color/colorSecondaryDark"
+        android:layout_marginTop="64dp"
+        android:fontFamily="@font/bree_serif"
+        android:text="SAGE WINS!!!"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat">
-
-        <LinearLayout
-            android:id="@+id/scorecardScrollViewContent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/scorecardPlayerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
-                android:background="@color/colorSecondaryDark"
-                android:orientation="vertical" />
-
-        </LinearLayout>
-    </ScrollView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearLayoutCompat"
@@ -45,15 +27,16 @@
 
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="32dp"
         android:background="#00FFFFFF"
         android:gravity="center_horizontal"
         android:orientation="vertical"
+        android:scaleX="2"
+        android:scaleY="2"
         app:layout_anchorGravity="center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/crownImage">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/playerImageView"
@@ -61,18 +44,54 @@
             android:layout_height="75dp"
             android:src="@drawable/avatar1" />
 
-        <TextView
-            android:id="@+id/playerNameView"
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <ImageView
+        android:id="@+id/crownImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:scaleX="3.75"
+        android:scaleY="3.75"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/winnerOfGame"
+        app:srcCompat="@drawable/ic_crown" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="164dp"
+        android:layout_marginTop="64dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat">
+
+        <Button
+            android:id="@+id/viewScoreCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_background"
+            android:backgroundTint="@color/colorAccent"
             android:fontFamily="@font/bree_serif"
-            android:text="heee"
-            android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:text="View Card"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    <Button
+        android:id="@+id/exitToHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="@color/colorTertiaryDark"
+        android:fontFamily="@font/bree_serif"
+        android:text="DONE"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
