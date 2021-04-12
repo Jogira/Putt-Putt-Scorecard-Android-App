@@ -55,9 +55,10 @@ public class WinnerScreen extends AppCompatActivity {
         int lowestScore = Integer.MAX_VALUE;
         int winnerIndex = 0;
         for(int i = 0; i < playerTotals.size(); i++){
-            if(playerTotals.get(i) < lowestScore)
+            if(playerTotals.get(i) < lowestScore) {
                 lowestScore = playerTotals.get(i);
                 winnerIndex = i;
+            }
         }
 
         return winnerIndex;
