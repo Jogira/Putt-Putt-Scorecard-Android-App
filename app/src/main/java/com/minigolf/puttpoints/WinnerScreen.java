@@ -1,9 +1,11 @@
 package com.minigolf.puttpoints;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +20,8 @@ public class WinnerScreen extends AppCompatActivity {
     private ArrayList<Player> players = Game.currentGame.getPlayers();
     private CircleImageView playerIcon;
     private TextView winnerOfGame;
+    private Button viewScoreCard;
+    private Button done;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -26,12 +30,30 @@ public class WinnerScreen extends AppCompatActivity {
 
         playerIcon = findViewById(R.id.playerImageView);
         winnerOfGame = findViewById(R.id.winnerOfGame);
+        viewScoreCard = findViewById(R.id.viewScoreCard);
+        done = findViewById(R.id.exitToHome);
+
 
         int winner = getWinnerIndex();
 
         winnerOfGame.setText(players.get(winner).getName() + " Wins!!!");
         playerIcon.setImageDrawable(players.get(winner).getPlayerProfileImage());
 
+        viewScoreCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AnimationController.buttonPress(WinnerScreen.this, view);
+                openScorecard(true);
+            }
+        });
+
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AnimationController.buttonPress(WinnerScreen.this, view);
+                goHome();
+            }
+        });
 
 
     }
@@ -62,6 +84,19 @@ public class WinnerScreen extends AppCompatActivity {
         }
 
         return winnerIndex;
+    }
+
+    private void openScorecard(boolean gameFinished) {
+        Intent scorecard = new Intent(this, ScoreCardActivity.class);
+        scorecard.putExtra("gameFinished", gameFinished);
+        startActivity(scorecard);
+        this.overridePendingTransition(R.anim.slide_up, R.anim.fade_in);
+    }
+
+    private void goHome(){
+        Intent home = new Intent(this, MainActivity.class);
+        startActivity(home);
+        this.overridePendingTransition(R.anim.slide_up, R.anim.fade_in);
     }
 
 }
