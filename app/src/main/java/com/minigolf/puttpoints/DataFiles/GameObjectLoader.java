@@ -27,6 +27,11 @@ import java.util.ArrayList;
 class GameObjectLoader {
     public String filename;
 
+    public String gameObjectLoader(Context context, Game game) { //stores the game object into a json and then gives back the json's address
+        String json = convertToString(game);
+        loadIntoFile(context, game, json);
+        return game.getFileName();
+    }
 
     public String convertToString(Game game) {
         String json = "";
@@ -35,18 +40,17 @@ class GameObjectLoader {
         return json;
     }
 
-    public boolean loadIntoFile(Context context, Game game, String json) {
+    public void loadIntoFile(Context context, Game game, String json) {
         filename = game.getFileName();
         try {
-            FileOutputStream fos = context.openFileOutput(filename,Context.MODE_PRIVATE);
+            FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE);
             if (json != null) {
                 fos.write(json.getBytes());
             }
             fos.close();
-            return true;
-        } catch (IOException fileNotFound) {
-            return false;
-        }
 
+        } catch (IOException fileNotFound) {
+           return;
+        }
     }
 }

@@ -10,6 +10,7 @@ public class Player {
     private final int playerID;
     private Drawable playerProfileImage;
     private String name;
+    private String filename;
 
 
     //just for demo purposes until we have save functionality
@@ -53,4 +54,11 @@ public class Player {
         return (this.getPlayerID() == p.playerID);
     }
 
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
 }
