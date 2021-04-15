@@ -108,7 +108,7 @@ public class AddPlayersActivity extends AppCompatActivity {
         }
 
         private String createNewFile() {
-                String directory = "/scores";
+//                String directory = "/scores";
                 String timestamped = mTimeStamp;
 
                 StringBuilder header = new StringBuilder();
@@ -215,7 +215,7 @@ public class AddPlayersActivity extends AppCompatActivity {
 
         private void openPointsPage() {
                 Intent addPointsPage = new Intent(this, AddPointsActivity.class);
-                Game.currentGame = new Game(players, 18, "score" + mTimeStamp + ".csv");
+                Game.currentGame = new Game(players, 18, "score" + mTimeStamp + ".json");
                 UserPreferencesManager manager = new UserPreferencesManager(this);
                 Game.currentGame.setParsActive(manager.parsOn());
 

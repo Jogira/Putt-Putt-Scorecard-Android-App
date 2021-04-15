@@ -11,6 +11,7 @@ public class Player {
     private Drawable playerProfileImage;
     private String name;
 
+
     //just for demo purposes until we have save functionality
     static ArrayList<Player> players = new ArrayList<>();
 
