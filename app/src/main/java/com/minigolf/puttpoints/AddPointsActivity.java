@@ -332,7 +332,7 @@ public class AddPointsActivity extends AppCompatActivity {
     }
 
     private void openWinnerScreen(){
-        Intent winnerScreen = new Intent(this, WinnerScreen.class);
+        Intent winnerScreen = new Intent(this, WinnerScreenActivity.class);
         startActivity(winnerScreen);
         this.overridePendingTransition(R.anim.slide_up, R.anim.fade_in);
     }

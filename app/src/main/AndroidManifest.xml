@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.minigolf.puttpoints.FirstLaunchActivity" />
-        <activity android:name="com.minigolf.puttpoints.WinnerScreen" />
+        <activity android:name="com.minigolf.puttpoints.WinnerScreenActivity" />
         <activity android:name="com.minigolf.puttpoints.MainActivity" />
 
         <activity android:name="com.minigolf.puttpoints.SplashScreenActivity">
