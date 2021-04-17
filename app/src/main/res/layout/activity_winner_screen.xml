@@ -7,91 +7,72 @@
     android:background="@color/colorPrimaryDark"
     tools:context=".WinnerScreen">
 
-    <TextView
-        android:id="@+id/winnerOfGame"
+    <LinearLayout
+        android:id="@+id/winnerContentView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:fontFamily="@font/bree_serif"
-        android:text="SAGE WINS!!!"
-        android:textColor="#FFFFFF"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/linearLayoutCompat"
-        android:layout_width="wrap_content"
-
-
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:background="#00FFFFFF"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:scaleX="2"
-        android:scaleY="2"
-        app:layout_anchorGravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/crownImage">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.26">
+
+        <TextView
+            android:id="@+id/winnerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="@font/bree_serif"
+            android:text="Sage Won!"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#FFFFFF"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/crownImage"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginBottom="-20dp"
+            android:translationZ="5dp"
+            app:srcCompat="@drawable/ic_crown" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/playerImageView"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:src="@drawable/avatar1" />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <ImageView
-        android:id="@+id/crownImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:scaleX="3.75"
-        android:scaleY="3.75"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/winnerOfGame"
-        app:srcCompat="@drawable/ic_crown" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat">
 
         <Button
             android:id="@+id/viewScoreCard"
-            android:layout_width="0dp"
+            android:layout_width="175dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginTop="35dp"
             android:background="@drawable/rounded_background"
             android:backgroundTint="@color/colorAccent"
             android:fontFamily="@font/bree_serif"
             android:text="View Card"
-            android:textColor="#FFFFFF" />
-    </LinearLayout>
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/exitToHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/rounded_background"
-        android:backgroundTint="@color/colorTertiaryDark"
-        android:fontFamily="@font/bree_serif"
-        android:text="DONE"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        <Button
+            android:id="@+id/exitToHome"
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_background"
+            android:backgroundTint="@color/colorTertiaryDark"
+            android:fontFamily="@font/bree_serif"
+            android:text="Done"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

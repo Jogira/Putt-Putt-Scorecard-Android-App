@@ -1,12 +1,9 @@
 package com.minigolf.puttpoints;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,14 +26,14 @@ public class WinnerScreen extends AppCompatActivity {
         setContentView(R.layout.activity_winner_screen);
 
         playerIcon = findViewById(R.id.playerImageView);
-        winnerOfGame = findViewById(R.id.winnerOfGame);
+        winnerOfGame = findViewById(R.id.winnerText);
         viewScoreCard = findViewById(R.id.viewScoreCard);
         done = findViewById(R.id.exitToHome);
 
 
         int winner = getWinnerIndex();
 
-        winnerOfGame.setText(players.get(winner).getName() + " Wins!!!");
+        winnerOfGame.setText(players.get(winner).getName() + " Won!!!");
         playerIcon.setImageDrawable(players.get(winner).getPlayerProfileImage());
 
         viewScoreCard.setOnClickListener(new View.OnClickListener() {
