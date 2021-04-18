@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -73,6 +74,25 @@ public class ScoreCardActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+
+
+        scoreCardEditButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AnimationController.buttonPress(ScoreCardActivity.this, view);
+
+                if (inEditMode) {
+                    inEditMode = false;
+                    scoreCardEditButton.setText("Edit");
+                    doneButton.setVisibility(View.VISIBLE);
+                }
+                else {
+                    inEditMode = true;
+                    scoreCardEditButton.setText("Editing");
+                    doneButton.setVisibility(View.INVISIBLE);
+                }
+            }
         });
 
         scoreCardEditButton.setOnClickListener(new View.OnClickListener() {

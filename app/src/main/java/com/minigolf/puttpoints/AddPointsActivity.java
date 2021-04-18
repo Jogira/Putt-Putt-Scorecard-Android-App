@@ -43,6 +43,7 @@ public class AddPointsActivity extends AppCompatActivity {
     private Button editParButton;
     private int currentPar = 2;
 
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,10 @@ public class AddPointsActivity extends AppCompatActivity {
         ImageButton increment = findViewById(R.id.incrementButton);
         ImageButton decrement = findViewById(R.id.decrementButton);
         ImageButton home = findViewById(R.id.homePageButton);
+        ImageButton backOneHole = findViewById(R.id.previousHole);
+        ImageButton forwardOneHole = findViewById(R.id.nextHole);
         ImageButton statsPage = findViewById(R.id.statsPageButton);
+
         Button addScore = findViewById(R.id.addScoreButton);
         scoreToAdd = findViewById(R.id.scoreToAdd);
         Button openCard = findViewById(R.id.viewCard);
@@ -99,6 +103,34 @@ public class AddPointsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 decrementScore();
                 AnimationController.buttonPress(AddPointsActivity.this, view);
+            }
+        });
+
+        backOneHole.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AnimationController.buttonPress(AddPointsActivity.this, view);
+                if (Game.currentGame.getCurrentHole() > 1)
+                {
+                    Game.currentGame.setCurrentHole(Game.currentGame.getCurrentHole() - 1);
+                    currentHoleTextView.setText(String.valueOf(Game.currentGame.getCurrentHole()));
+                    currentPlayerTurn = 0;
+                }
+            }
+        });
+
+
+
+        forwardOneHole.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AnimationController.buttonPress(AddPointsActivity.this, view);
+                if (Game.currentGame.getCurrentHole() < 18)
+                {
+                    Game.currentGame.setCurrentHole(Game.currentGame.getCurrentHole() + 1);
+                    currentHoleTextView.setText(String.valueOf(Game.currentGame.getCurrentHole()));
+                    currentPlayerTurn = 0;
+                }
             }
         });
 
@@ -194,6 +226,8 @@ public class AddPointsActivity extends AppCompatActivity {
         dp = AddPointsActivity.this.getResources().getDimension(R.dimen.pixelsToDP);
         populatePlayerIconView();
     }
+
+
 
 
     public void incrementPlayerTurn() {
@@ -388,6 +422,7 @@ public class AddPointsActivity extends AppCompatActivity {
                 parText.setText("Par " + currentPar);
             }
         });
+
     }
 
 
