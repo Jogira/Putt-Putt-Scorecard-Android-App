@@ -115,6 +115,7 @@ public class AddPointsActivity extends AppCompatActivity {
                     Game.currentGame.setCurrentHole(Game.currentGame.getCurrentHole() - 1);
                     currentHoleTextView.setText(String.valueOf(Game.currentGame.getCurrentHole()));
                     currentPlayerTurn = 0;
+                    updatePlayerTurn(currentPlayerTurn);
                 }
             }
         });
@@ -130,6 +131,7 @@ public class AddPointsActivity extends AppCompatActivity {
                     Game.currentGame.setCurrentHole(Game.currentGame.getCurrentHole() + 1);
                     currentHoleTextView.setText(String.valueOf(Game.currentGame.getCurrentHole()));
                     currentPlayerTurn = 0;
+                    updatePlayerTurn(currentPlayerTurn);
                 }
             }
         });
