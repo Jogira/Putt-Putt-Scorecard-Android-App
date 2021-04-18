@@ -42,7 +42,8 @@ public class AddPointsActivity extends AppCompatActivity {
     private float dp;
     private Button editParButton;
     private int currentPar = 2;
-
+    private boolean finished;
+    private boolean editingMode;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -112,6 +113,7 @@ public class AddPointsActivity extends AppCompatActivity {
                 AnimationController.buttonPress(AddPointsActivity.this, view);
                 if (Game.currentGame.getCurrentHole() > 1)
                 {
+                    editingMode = true;
                     Game.currentGame.setCurrentHole(Game.currentGame.getCurrentHole() - 1);
                     currentHoleTextView.setText(String.valueOf(Game.currentGame.getCurrentHole()));
                     currentPlayerTurn = 0;
@@ -128,6 +130,7 @@ public class AddPointsActivity extends AppCompatActivity {
                 AnimationController.buttonPress(AddPointsActivity.this, view);
                 if (Game.currentGame.getCurrentHole() < 18)
                 {
+                    editingMode = true;
                     Game.currentGame.setCurrentHole(Game.currentGame.getCurrentHole() + 1);
                     currentHoleTextView.setText(String.valueOf(Game.currentGame.getCurrentHole()));
                     currentPlayerTurn = 0;
@@ -232,21 +235,33 @@ public class AddPointsActivity extends AppCompatActivity {
 
 
 
-    public void incrementPlayerTurn() {
+    public void incrementPlayerTurn()
+    {
         int numPlayers = Game.currentGame.getPlayers().size();
+        if(holeFinished() == false)
+        {
+            System.out.print("EDITING MODE ON.");
+            currentPlayerTurn = 0;
+            //editingMode = false;
+        }
 
-        if(holeFinished()){
+        if(holeFinished() == true)
+        {
             if(Game.currentGame.getCurrentHole() == Game.currentGame.getNumHoles()) {
                 Game.currentGame.setActive(false);
                 //openScorecard(true);
                 openWinnerScreen();
             }
-            else {
+
+            else
+            {
                 Game.currentGame.setCurrentHole(Game.currentGame.getCurrentHole() + 1);
                 currentHoleTextView.setText(String.valueOf(Game.currentGame.getCurrentHole()));
                 currentPlayerTurn = 0;
             }
         }
+
+
         else if(currentPlayerTurn < numPlayers - 1)
             currentPlayerTurn++;
 
@@ -260,16 +275,22 @@ public class AddPointsActivity extends AppCompatActivity {
         }
 
         updatePlayerTurn(currentPlayerTurn);
+        editingMode = false;
     }
 
     public boolean holeFinished(){
-        boolean finished = true;
+        finished = true;
         int[] currentHole = Game.currentGame.getPlayerScores().get(Game.currentGame.getCurrentHole() - 1);
         for(int x : currentHole){
             if(x == Integer.MIN_VALUE){
                 finished = false;
                 break;
             }
+        }
+
+        if(editingMode == true)
+        {
+            finished = false;
         }
         return finished;
     }
