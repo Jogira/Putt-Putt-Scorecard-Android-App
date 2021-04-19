@@ -34,7 +34,6 @@ public class AddPointsActivity extends AppCompatActivity {
     private int currentPlayerTurn = Game.currentGame.currentPlayerTurn;
     private TextView currentPlayerName;
     private ArrayList<int[]> playerScores = Game.currentGame.getPlayerScores();
-
     private ArrayList<Player> players = Game.currentGame.getPlayers();
     private TextView parText;
     private LinearLayout playerIconView;
@@ -42,7 +41,6 @@ public class AddPointsActivity extends AppCompatActivity {
     private float dp;
     private Button editParButton;
     private int currentPar = 2;
-    private boolean finished;
     private boolean editingMode;
 
     @SuppressLint("SetTextI18n")
@@ -56,12 +54,14 @@ public class AddPointsActivity extends AppCompatActivity {
         parsOn = manager.parsOn();
 
         currentHoleTextView = findViewById(R.id.CurrentHole);
+        LinearLayout parView = findViewById(R.id.parView);
         ImageButton increment = findViewById(R.id.incrementButton);
         ImageButton decrement = findViewById(R.id.decrementButton);
         ImageButton home = findViewById(R.id.homePageButton);
         ImageButton backOneHole = findViewById(R.id.previousHole);
         ImageButton forwardOneHole = findViewById(R.id.nextHole);
         ImageButton statsPage = findViewById(R.id.statsPageButton);
+        Button pauseGame = findViewById(R.id.puaseGameButton);
 
         Button addScore = findViewById(R.id.addScoreButton);
         scoreToAdd = findViewById(R.id.scoreToAdd);
@@ -74,11 +74,11 @@ public class AddPointsActivity extends AppCompatActivity {
         parText = findViewById(R.id.parText);
 
         if(parsOn) {
-            editParButton.setVisibility(View.VISIBLE);
+            parView.setVisibility(View.VISIBLE);
             parText.setText("Par " + currentPar);
         }
         else
-            editParButton.setVisibility(View.GONE);
+            parView.setVisibility(View.GONE);
 
         currentHoleTextView.setText(String.valueOf(Game.currentGame.getCurrentHole()));
         currentPlayerName.setText(Game.currentGame.getPlayers().get(currentPlayerTurn).getName() + "'s Score");
@@ -228,6 +228,14 @@ public class AddPointsActivity extends AppCompatActivity {
             }
         });
 
+        pauseGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AnimationController.buttonPressSubtle(AddPointsActivity.this, view);
+                toHomeScreen();
+            }
+        });
+
         dp = AddPointsActivity.this.getResources().getDimension(R.dimen.pixelsToDP);
         populatePlayerIconView();
     }
@@ -238,14 +246,14 @@ public class AddPointsActivity extends AppCompatActivity {
     public void incrementPlayerTurn()
     {
         int numPlayers = Game.currentGame.getPlayers().size();
-        if(holeFinished() == false)
+        if(!holeFinished())
         {
             System.out.print("EDITING MODE ON.");
             currentPlayerTurn = 0;
             //editingMode = false;
         }
 
-        if(holeFinished() == true)
+        if(holeFinished())
         {
             if(Game.currentGame.getCurrentHole() == Game.currentGame.getNumHoles()) {
                 Game.currentGame.setActive(false);
@@ -279,7 +287,7 @@ public class AddPointsActivity extends AppCompatActivity {
     }
 
     public boolean holeFinished(){
-        finished = true;
+        boolean finished = true;
         int[] currentHole = Game.currentGame.getPlayerScores().get(Game.currentGame.getCurrentHole() - 1);
         for(int x : currentHole){
             if(x == Integer.MIN_VALUE){
@@ -288,10 +296,9 @@ public class AddPointsActivity extends AppCompatActivity {
             }
         }
 
-        if(editingMode == true)
-        {
+        if(editingMode)
             finished = false;
-        }
+
         return finished;
     }
 
