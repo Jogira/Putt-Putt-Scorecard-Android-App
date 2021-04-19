@@ -35,7 +35,6 @@ public class ScoreCardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scorecard_activity);
 
-        filename = Game.currentGame.getFileName();
         final Button scoreCardEditButton = findViewById(R.id.scorecardEditButton);
         final Button doneButton = findViewById(R.id.exitScorecardButton);
         final Button viewTotals = findViewById(R.id.viewTotalsButton);

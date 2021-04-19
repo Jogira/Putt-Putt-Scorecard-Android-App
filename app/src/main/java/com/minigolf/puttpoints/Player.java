@@ -1,12 +1,12 @@
 package com.minigolf.puttpoints;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 
 import java.util.ArrayList;
 
 public class Player {
 
-    private static final int currentID = 0;
     private final int playerID;
     private Drawable playerProfileImage;
     private String name;
@@ -16,15 +16,19 @@ public class Player {
     //just for demo purposes until we have save functionality
     static ArrayList<Player> players = new ArrayList<>();
 
-    public Player(String name) {
+    public Player(Context c, String name) {
+        UserPreferencesManager manager = new UserPreferencesManager(c);
         this.name = name;
-        playerID = currentID + 1;
+        playerID = manager.getLastPlayerID();
+        manager.updateLastPlayerID(playerID+1);
     }
 
-    public Player(String name, Drawable playerProfileImage) {
+    public Player(Context c, String name, Drawable playerProfileImage) {
+        UserPreferencesManager manager = new UserPreferencesManager(c);
         this.name = name;
         this.playerProfileImage = playerProfileImage;
-        playerID = currentID + 1;
+        playerID = manager.getLastPlayerID();
+        manager.updateLastPlayerID(playerID+1);
     }
 
 

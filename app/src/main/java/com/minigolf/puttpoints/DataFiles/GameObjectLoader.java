@@ -30,7 +30,7 @@ class GameObjectLoader {
     public String gameObjectLoader(Context context, Game game) { //stores the game object into a json and then gives back the json's address
         String json = convertToString(game);
         loadIntoFile(context, game, json);
-        return game.getFileName();
+        return "";
     }
 
     public String convertToString(Game game) {
@@ -41,7 +41,7 @@ class GameObjectLoader {
     }
 
     public void loadIntoFile(Context context, Game game, String json) {
-        filename = game.getFileName();
+        filename = "";
         try {
             FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE);
             if (json != null) {

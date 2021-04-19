@@ -75,7 +75,7 @@ public class FirstLaunchActivity extends AppCompatActivity {
                 String playerName = confirmedName.getText().toString();
 
                 playerImage = avatarPreview.getDrawable();
-                Player newestPlayer = new Player(playerName, playerImage);
+                Player newestPlayer = new Player(FirstLaunchActivity.this, playerName, playerImage);
                 Player.players.add(newestPlayer);
                 name.dismiss();
                 goHome();

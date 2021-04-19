@@ -127,11 +127,11 @@ public class MainActivity extends AppCompatActivity {
 
         Drawable profileImage = getDrawable(R.drawable.avatar4);
         String playerName = "Wanda";
-        Player player1 = new Player(playerName, profileImage);
+        Player player1 = new Player(this, playerName, profileImage);
 
         Drawable profileImage2 = getDrawable(R.drawable.avatar1);
         String playerName2 = "John";
-        Player player2 = new Player(playerName2, profileImage2);
+        Player player2 = new Player(this, playerName2, profileImage2);
 
         Player.players.add(player1);
         Player.players.add(player2);

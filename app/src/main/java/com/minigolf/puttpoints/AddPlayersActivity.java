@@ -23,8 +23,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.gridlayout.widget.GridLayout;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,12 +31,9 @@ import java.util.Locale;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-
 public class AddPlayersActivity extends AppCompatActivity {
 
         private AlertDialog name;
-        private static final String TAG = "AddPlayersActivity";
-        private String mTimeStamp = new SimpleDateFormat("yyyyMMddHHmmss", Locale.US).format(new Date());
         private GridLayout playerSelectionContentView;
         private ArrayList<Boolean> flipped = new ArrayList<>();
         private ArrayList<Player> players;
@@ -50,20 +45,12 @@ public class AddPlayersActivity extends AppCompatActivity {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.add_players);
                 Game.currentGame = null;
-                //Button backX = findViewById(R.id.backX);
                 Button createGame = findViewById(R.id.createGameButton);
                 ImageButton home = findViewById(R.id.homePageButton);
                 ImageButton statsPage = findViewById(R.id.statsPageButton);
                 CircleImageView settingsPage = findViewById(R.id.settingsPageButton);
                 playerSelectionContentView = findViewById(R.id.playerSelectionContentView);
                 players = new ArrayList<>();
-
-//                backX.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                                goBackPage();
-//                        }
-//                });
 
                 createGame.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -105,37 +92,6 @@ public class AddPlayersActivity extends AppCompatActivity {
                         }
                 });
                 populateProfileView();
-        }
-
-        private String createNewFile() {
-//                String directory = "/scores";
-                String timestamped = mTimeStamp;
-
-                StringBuilder header = new StringBuilder();
-                header.append("Hole,Sean\n");
-
-//                for(int i = 0; i < Game.currentGame.getPlayers().size(); i++){
-//                        header.append(Game.currentGame.getPlayers().get(i));
-//                        if(i < Game.currentGame.getPlayers().size()-1)
-//                                header.append(",");
-//                }
-
-                Log.d(TAG, "Please lemme know what is happening here?");
-                try {
-                        FileOutputStream out = openFileOutput("score"+ timestamped + ".csv", Context.MODE_PRIVATE);
-                        out.write(header.toString().getBytes());
-                        out.close();
-//            CSVWriter writer = new CSVWriter(new FileWriter("score" + timestamped + ".csv"));
-//            List<String[]> h = new ArrayList<>();
-//            String[] header = new String[]{"hole", "Sean"};
-//            h.add(header);
-//            Log.d(TAG, "Please lemme know what is happening here?");
-//            writer.writeAll(h);
-//            writer.close();
-                } catch (IOException e) {
-                        e.printStackTrace();
-                }
-                return ("score" + timestamped + ".csv");
         }
 
 
@@ -186,7 +142,7 @@ public class AddPlayersActivity extends AppCompatActivity {
                                 String playerName = confirmedName.getText().toString();
 
                                 playerImage = avatarPreview.getDrawable();
-                                Player newestPlayer = new Player(playerName, playerImage);
+                                Player newestPlayer = new Player(AddPlayersActivity.this, playerName, playerImage);
                                 Player.players.add(newestPlayer);
                                 populateProfileView();
                                 name.dismiss();
@@ -215,11 +171,10 @@ public class AddPlayersActivity extends AppCompatActivity {
 
         private void openPointsPage() {
                 Intent addPointsPage = new Intent(this, AddPointsActivity.class);
-                Game.currentGame = new Game(players, 18, "score" + mTimeStamp + ".json");
+                Game.currentGame = new Game(AddPlayersActivity.this, players, 18);
                 UserPreferencesManager manager = new UserPreferencesManager(this);
                 Game.currentGame.setParsActive(manager.parsOn());
 
-                createNewFile();
                 startActivity(addPointsPage);
                 this.overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
         }

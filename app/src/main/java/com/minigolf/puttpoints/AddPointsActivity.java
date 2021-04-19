@@ -33,7 +33,6 @@ public class AddPointsActivity extends AppCompatActivity {
 
     private TextView scoreToAdd;
     private TextView currentHoleTextView;
-    //private final String fileName = Game.currentGame.getFileName();
     private int currentPlayerTurn = Game.currentGame.currentPlayerTurn;
     private TextView currentPlayerName;
     private ArrayList<int[]> playerScores = Game.currentGame.getPlayerScores();
@@ -44,7 +43,6 @@ public class AddPointsActivity extends AppCompatActivity {
     private float dp;
     private Button editParButton;
     private int currentPar = 2;
-    private boolean editingMode;
     private Button addScore;
 
     @SuppressLint("SetTextI18n")
@@ -117,9 +115,7 @@ public class AddPointsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AnimationController.buttonPress(AddPointsActivity.this, view);
-                if (Game.currentGame.getCurrentHole() > 1)
-                {
-                    editingMode = true;
+                if (Game.currentGame.getCurrentHole() > 1) {
                     Game.currentGame.setCurrentHole(Game.currentGame.getCurrentHole() - 1);
                     currentHoleTextView.setText(String.valueOf(Game.currentGame.getCurrentHole()));
                     currentPlayerTurn = 0;
@@ -134,10 +130,7 @@ public class AddPointsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 AnimationController.buttonPress(AddPointsActivity.this, view);
                 if (Game.currentGame.getCurrentHole() < 18)
-                {
-                    editingMode = true;
                     incrementHole();
-                }
             }
         });
 
@@ -229,7 +222,6 @@ public class AddPointsActivity extends AppCompatActivity {
         updateAddScoreButton();
 
         updatePlayerTurn(currentPlayerTurn);
-        editingMode = false;
     }
 
 

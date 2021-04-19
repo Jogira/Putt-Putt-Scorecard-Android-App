@@ -1,18 +1,18 @@
 package com.minigolf.puttpoints;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 
 public class Game {
 
-    private static int CURRENT_GAME_ID = 0;
-    private int gameID;
+    private final int gameID;
     private boolean isActive;
     private boolean parsActive;
     private ArrayList<Player> players;
 
     //index = (hole number - 1), each int[] stores all player scores for that hole
     private ArrayList<int[]> playerScores;
-    private String fileName;
     private int currentHole;
     private int numHoles;
     public int currentPlayerTurn = 0;
@@ -22,11 +22,13 @@ public class Game {
     //current game object is either a newly created game, or a past game that a user is viewing
     public static Game currentGame = null;
 
-    public Game(ArrayList<Player> players, int numHoles, int[] pars, String fileName){
+    public Game(Context c, ArrayList<Player> players, int numHoles, int[] pars){
         this.pars = pars;
 
-        this.gameID = CURRENT_GAME_ID + 1;
-        CURRENT_GAME_ID = gameID;
+        UserPreferencesManager manager = new UserPreferencesManager(c);
+
+        this.gameID = manager.getLastGameID();
+        manager.updateLastGameID(gameID+1);
         this.playerScores = new ArrayList<>(players.size());
 
         int[] playerRow = new int[players.size()];
@@ -38,17 +40,17 @@ public class Game {
 
         this.players = players;
         this.numHoles = numHoles;
-        this.fileName = fileName;
         isActive = true;
         currentHole = 1;
     }
 
-    public Game(ArrayList<Player> players, int numHoles, String fileName){
-
+    public Game(Context c, ArrayList<Player> players, int numHoles){
         pars = new int[numHoles];
 
-        this.gameID = CURRENT_GAME_ID + 1;
-        CURRENT_GAME_ID = gameID;
+        UserPreferencesManager manager = new UserPreferencesManager(c);
+
+        this.gameID = manager.getLastGameID();
+        manager.updateLastGameID(gameID+1);
 
         this.players = players;
         this.playerScores = new ArrayList<>(players.size());
@@ -57,7 +59,6 @@ public class Game {
             playerScores.add(newPlayerRow());
 
         this.numHoles = numHoles;
-        this.fileName = fileName;
         isActive = true;
         currentHole = 1;
     }
@@ -88,7 +89,7 @@ public class Game {
 
     public void setActive(boolean active) {
         isActive = active;
-        //if active = false, save game as csv file
+        //if active = false, save game to userPrefs
     }
 
     public ArrayList<int[]> getPlayerScores(){
@@ -98,21 +99,10 @@ public class Game {
     public void setPlayerScore(int player, int playerScore) {
         int[] score = playerScores.get(getCurrentHole()-1);
         score[player] = playerScore;
-        for(int i = 0; i < getCurrentHole(); i++) {
-            for(int j = 0; j < players.size(); j++) {
-
-                System.out.println("Hole " + (i+1) + " player " + (j+1) + ": " + playerScores.get(i)[j]);
-            }
-        }
-        //Log.d("Score Entered", Game.currentGame.getPlayers().get(player).getName() + " scored " + playerScore + " on hole " + currentHole);
     }
 
     public boolean getActive() {
         return isActive;
-    }
-
-    public String getFileName(){
-        return this.fileName;
     }
 
     public void setPars(int[] pars) {
