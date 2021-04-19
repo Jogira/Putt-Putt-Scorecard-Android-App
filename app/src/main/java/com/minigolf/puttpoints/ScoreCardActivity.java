@@ -186,7 +186,7 @@ public class ScoreCardActivity extends AppCompatActivity {
         else {
             int total = 0;
 
-            for(int i = 0; i < Game.currentGame.getNumHoles()-1; i++){
+            for(int i = 0; i < Game.currentGame.getNumHoles(); i++){
                 int[] playerScores = Game.currentGame.getPlayerScores().get(i);
 
                 if (playerScores[player] != Integer.MIN_VALUE)

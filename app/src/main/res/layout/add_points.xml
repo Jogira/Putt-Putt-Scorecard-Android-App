@@ -85,7 +85,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.04000002">
+        app:layout_constraintVertical_bias="0.050000012">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -127,8 +127,8 @@
                     android:drawablePadding="6dp"
                     android:fontFamily="@font/bree_serif"
                     android:gravity="center_vertical"
-                    android:scaleX="1.13"
-                    android:scaleY="1.13"
+                    android:scaleX="1.1"
+                    android:scaleY="1.1"
                     android:text="1"
                     android:textAlignment="textStart"
                     android:textColor="#FDFDFD"
@@ -178,7 +178,7 @@
             android:orientation="vertical"
             android:paddingHorizontal="8dp"
             android:paddingVertical="7dp"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/parText"
@@ -221,10 +221,12 @@
         android:paddingTop="15dp"
         android:paddingBottom="5dp"
         android:translationZ="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gameViewTopBar">
+        app:layout_constraintTop_toBottomOf="@+id/gameViewTopBar"
+        app:layout_constraintVertical_bias="0.060000002">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -308,7 +310,7 @@
                 android:fontFamily="@font/bree_serif"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
-                android:text="Add score to card"
+                android:text="Next Player"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
@@ -345,10 +347,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/gameDelagationButtons"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="5dp"
         android:gravity="center_horizontal"
@@ -358,7 +361,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gameViewMainContent"
-        app:layout_constraintVertical_bias="0.060000002">
+        app:layout_constraintVertical_bias="0.04000002">
 
         <Button
             android:id="@+id/puaseGameButton"

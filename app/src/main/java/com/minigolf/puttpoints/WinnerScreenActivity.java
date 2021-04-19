@@ -37,7 +37,7 @@ public class WinnerScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AnimationController.buttonPress(WinnerScreenActivity.this, view);
-                openScorecard(true);
+                openScorecard();
             }
         });
 
@@ -56,13 +56,12 @@ public class WinnerScreenActivity extends AppCompatActivity {
         int total = 0;
         ArrayList<Integer> playerTotals = new ArrayList<>();
 
-        for(int player = 0; player < Player.players.size(); player++) {
-            for (int hole = 0; hole < Game.currentGame.getNumHoles() - 1;  hole++) {
+        for(int player = 0; player < Game.currentGame.getPlayers().size(); player++) {
+            for (int hole = 0; hole < Game.currentGame.getNumHoles();  hole++) {
                 int[] playerScores = Game.currentGame.getPlayerScores().get(hole);
 
                 if (playerScores[player] != Integer.MIN_VALUE)
                     total += playerScores[player];
-
             }
             playerTotals.add(total);
             total = 0;
@@ -75,15 +74,16 @@ public class WinnerScreenActivity extends AppCompatActivity {
                 lowestScore = playerTotals.get(i);
                 winnerIndex = i;
             }
+            System.out.println(winnerIndex + " " +  Game.currentGame.getPlayers().get(winnerIndex).getName());
         }
 
         return winnerIndex;
     }
 
 
-    private void openScorecard(boolean gameFinished) {
+    private void openScorecard() {
         Intent scorecard = new Intent(this, ScoreCardActivity.class);
-        scorecard.putExtra("gameFinished", gameFinished);
+        scorecard.putExtra("gameFinished", true);
         startActivity(scorecard);
         this.overridePendingTransition(R.anim.slide_up, R.anim.fade_in);
     }
