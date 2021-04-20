@@ -17,8 +17,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class FirstLaunchActivity extends AppCompatActivity {
 
     private AlertDialog name;
-
     private Drawable playerImage;
+    private int selectedAvatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +54,18 @@ public class FirstLaunchActivity extends AppCompatActivity {
                 final TableRow row = (TableRow) view;
 
                 for(int j = 0; j < row.getChildCount(); j++){
+                    int index = j;
+                    if(i == 1)
+                        index += row.getChildCount();
+
+                    final int id = index;
                     row.getChildAt(j).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             CircleImageView v = (CircleImageView) view;
                             AnimationController.buttonPressSubtle(FirstLaunchActivity.this, view);
                             avatarPreview.setImageDrawable(v.getDrawable());
+                            selectedAvatar = id;
                         }
                     });
                 }
@@ -74,9 +80,12 @@ public class FirstLaunchActivity extends AppCompatActivity {
                 EditText confirmedName = namePopupView.findViewById(R.id.newProfileNameEntry);
                 String playerName = confirmedName.getText().toString();
 
-                playerImage = avatarPreview.getDrawable();
-                Player newestPlayer = new Player(FirstLaunchActivity.this, playerName, playerImage);
-                Player.players.add(newestPlayer);
+                UserPreferencesManager manager = new UserPreferencesManager(FirstLaunchActivity.this);
+                int playerID = manager.getLastPlayerID();
+                manager.updateLastPlayerID(playerID+1);
+                Player user = new Player(playerName, selectedAvatar, playerID);
+                manager.addPlayer(user);
+
                 name.dismiss();
                 goHome();
             }

@@ -20,8 +20,11 @@ public class StatsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
 
+        UserPreferencesManager manager = new UserPreferencesManager(this);
+
         homeButton = findViewById(R.id.homePageButton);
         settingsButton = findViewById(R.id.settingsPageButton);
+        settingsButton.setImageDrawable(manager.getPlayers().get(0).getPlayerProfileImage(this));
 
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override

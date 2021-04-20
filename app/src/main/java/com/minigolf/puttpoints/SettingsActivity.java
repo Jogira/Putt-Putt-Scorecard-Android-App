@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class SettingsActivity extends AppCompatActivity {
 
     private TextView parsText;
@@ -23,6 +25,8 @@ public class SettingsActivity extends AppCompatActivity {
 
         ImageButton statsButton = findViewById(R.id.statsPageButton);
         ImageButton homeButton = findViewById(R.id.homePageButton);
+        CircleImageView settingsButton = findViewById(R.id.settingsPageButton);
+        settingsButton.setImageDrawable(manager.getPlayers().get(0).getPlayerProfileImage(this));
         Switch parsToggle = findViewById(R.id.parToggle);
         parsText = findViewById(R.id.parToggleText);
 

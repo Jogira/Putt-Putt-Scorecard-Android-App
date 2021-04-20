@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -23,10 +22,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.gridlayout.widget.GridLayout;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -38,7 +34,8 @@ public class AddPlayersActivity extends AppCompatActivity {
         private ArrayList<Boolean> flipped = new ArrayList<>();
         private ArrayList<Player> players;
         private int numPlayers = 0;
-        private Drawable playerImage;
+        private UserPreferencesManager manager;
+        private int selectedAvatar = 0;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +48,8 @@ public class AddPlayersActivity extends AppCompatActivity {
                 CircleImageView settingsPage = findViewById(R.id.settingsPageButton);
                 playerSelectionContentView = findViewById(R.id.playerSelectionContentView);
                 players = new ArrayList<>();
+                manager = new UserPreferencesManager(this);
+                settingsPage.setImageDrawable(manager.getPlayers().get(0).getPlayerProfileImage(this));
 
                 createGame.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -102,7 +101,7 @@ public class AddPlayersActivity extends AppCompatActivity {
         }
 
 
-        public void createNewName() {
+        public void createNewPlayer() {
                 AlertDialog.Builder nameBuilder = new AlertDialog.Builder(this, R.style.CustomAlertDialog);
                 final View namePopupView = getLayoutInflater().inflate(R.layout.popup_new_player, null);
                 EditText playerName = namePopupView.findViewById(R.id.newProfileNameEntry);
@@ -115,18 +114,25 @@ public class AddPlayersActivity extends AppCompatActivity {
 
                 TableLayout table = namePopupView.findViewById(R.id.playerAvatarImages);
 
+
                 for(int i = 0; i < table.getChildCount(); i++) {
                         View view = table.getChildAt(i);
                         if (view instanceof TableRow) {
                                 final TableRow row = (TableRow) view;
 
                                 for(int j = 0; j < row.getChildCount(); j++){
+                                        int index = j;
+                                        if(i == 1)
+                                                index += row.getChildCount();
+
+                                        final int id = index;
                                         row.getChildAt(j).setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
                                                         CircleImageView v = (CircleImageView) view;
                                                         AnimationController.buttonPressSubtle(AddPlayersActivity.this, view);
                                                         avatarPreview.setImageDrawable(v.getDrawable());
+                                                        selectedAvatar = id;
                                                 }
                                         });
                                 }
@@ -139,11 +145,16 @@ public class AddPlayersActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                                 EditText confirmedName = namePopupView.findViewById(R.id.newProfileNameEntry);
+
                                 String playerName = confirmedName.getText().toString();
 
-                                playerImage = avatarPreview.getDrawable();
-                                Player newestPlayer = new Player(AddPlayersActivity.this, playerName, playerImage);
-                                Player.players.add(newestPlayer);
+                                UserPreferencesManager manager = new UserPreferencesManager(AddPlayersActivity.this);
+                                int playerID = manager.getLastPlayerID();
+                                manager.updateLastPlayerID(playerID+1);
+                                Player newestPlayer = new Player(playerName, selectedAvatar, playerID);
+
+                                manager.addPlayer(newestPlayer);
+
                                 populateProfileView();
                                 name.dismiss();
                         }
@@ -188,19 +199,19 @@ public class AddPlayersActivity extends AppCompatActivity {
                 params.setMargins(55, 0, 55, 45);
                 int index = 0;
 
-                for (Player p : Player.players) {
+                for (Player p : manager.getPlayers()) {
                         View exampleProfile = View.inflate(this, R.layout.player_profile_view, null);
                         TextView nameView = exampleProfile.findViewById(R.id.playerNameView);
                         final CircleImageView profilePictureView = exampleProfile.findViewById(R.id.playerImageView);
                         nameView.setText(p.getName());
 
-                        if(p.getName().length() > 6)
-                                nameView.setText(p.getName().substring(0, 6) + "...");
+                        if(p.getName().length() > 7)
+                                nameView.setText(p.getName().substring(0, 7) + "...");
 
                         if(flipped.size() > index && flipped.get(index))
                                 profilePictureView.setImageDrawable(getDrawable(R.drawable.ic_checked_profile));
                         else
-                                profilePictureView.setImageDrawable(p.getPlayerProfileImage());
+                                profilePictureView.setImageDrawable(p.getPlayerProfileImage(this));
 
                         profilePictureView.setTag(index);
 
@@ -227,7 +238,7 @@ public class AddPlayersActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                                 AnimationController.buttonPress(AddPlayersActivity.this, view);
-                                createNewName();
+                                createNewPlayer();
 
                         }
                 });
@@ -254,13 +265,13 @@ public class AddPlayersActivity extends AppCompatActivity {
                 if (!flipped.get(buttonIndex)) {
                         v.setImageResource(R.drawable.ic_checked_profile);
                         flipped.set(buttonIndex, true);
-                        players.add(Player.players.get(buttonIndex));
+                        players.add(manager.getPlayers().get(buttonIndex));
                         numPlayers++;
 
                 } else {
-                        v.setImageDrawable(Player.players.get(buttonIndex).getPlayerProfileImage());
+                        v.setImageDrawable(manager.getPlayers().get(buttonIndex).getPlayerProfileImage(this));
                         flipped.set(buttonIndex, false);
-                        players.remove(Player.players.get(buttonIndex));
+                        players.remove(manager.getPlayers().get(buttonIndex));
                         numPlayers--;
                 }
         }

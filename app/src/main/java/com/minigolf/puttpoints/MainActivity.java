@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView noGamesText;
     private static boolean playersCreated = false;
     private float dp;
+    private UserPreferencesManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
         noGamesView = findViewById(R.id.noGamesView);
         noGamesText = findViewById(R.id.noGamesText);
         Button newGameButton = findViewById(R.id.newGameButton);
+        manager = new UserPreferencesManager(this);
+        settingsButton.setImageDrawable(manager.getPlayers().get(0).getPlayerProfileImage(this));
 
         newGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,8 +102,6 @@ public class MainActivity extends AppCompatActivity {
         });
         populateGamesScrollView(ACTIVE_GAMES);
 
-        if(!playersCreated)
-            createDefaultPlayers();
     }
 
     private void openStatsPage(){
@@ -121,21 +122,6 @@ public class MainActivity extends AppCompatActivity {
         this.overridePendingTransition(R.anim.slide_up, R.anim.fade_in);
     }
 
-    //just for demo purposes until we have save functionality
-    public void createDefaultPlayers() {
-        playersCreated = true;
-
-        Drawable profileImage = getDrawable(R.drawable.avatar4);
-        String playerName = "Wanda";
-        Player player1 = new Player(this, playerName, profileImage);
-
-        Drawable profileImage2 = getDrawable(R.drawable.avatar1);
-        String playerName2 = "John";
-        Player player2 = new Player(this, playerName2, profileImage2);
-
-        Player.players.add(player1);
-        Player.players.add(player2);
-    }
 
     private void populateGamesScrollView(int pageType){
 

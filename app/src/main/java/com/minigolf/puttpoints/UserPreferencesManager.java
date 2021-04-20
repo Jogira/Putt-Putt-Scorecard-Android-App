@@ -30,10 +30,10 @@ class UserPreferencesManager {
 
     UserPreferencesManager(Context c) {
         userPrefs = c.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        usePars = userPrefs.getBoolean(PREFS_PARS, false);
-        firstLaunch = userPrefs.getBoolean(PREFS_FIRST_LAUNCH, true);
         lastPlayerID = userPrefs.getInt(PREFS_LAST_PLAYER_ID, 0);
         lastGameID = userPrefs.getInt(PREFS_LAST_GAME_ID, 0);
+        usePars = userPrefs.getBoolean(PREFS_PARS, false);
+        firstLaunch = userPrefs.getBoolean(PREFS_FIRST_LAUNCH, true);
         players = getPlayers();
     }
 
@@ -88,6 +88,7 @@ class UserPreferencesManager {
         editor.putString(PREFS_PLAYERS, playersJson);
         editor.apply();
         players = getPlayers();
+        System.out.println("added player");
     }
 
 
@@ -105,12 +106,13 @@ class UserPreferencesManager {
         return lastGameID;
     }
 
-    //Retrieves user's unlocked achievements
+    //Retrieves user's player profiles
     ArrayList<Player> getPlayers(){
         Gson gson = new Gson();
         String playersJson = userPrefs.getString(PREFS_PLAYERS, null);
-        Type type = new TypeToken<ArrayList<Integer>>() {}.getType();
+        Type type = new TypeToken<ArrayList<Player>>() {}.getType();
         players = gson.fromJson(playersJson, type);
+
         if (players == null)
             players = new ArrayList<>();
 

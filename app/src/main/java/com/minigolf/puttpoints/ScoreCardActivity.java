@@ -244,7 +244,7 @@ public class ScoreCardActivity extends AppCompatActivity {
         for (int i = 0; i < players.size(); i++) {
             View examplePlayerRow = View.inflate(this, R.layout.scorecard_row, null);
             CircleImageView playerProfile = examplePlayerRow.findViewById(R.id.scorecardRowPlayerImageView);
-            playerProfile.setImageDrawable(players.get(i).getPlayerProfileImage());
+            playerProfile.setImageDrawable(players.get(i).getPlayerProfileImage(this));
             TextView playerName = examplePlayerRow.findViewById(R.id.scorecardRowPlayerName);
             TextView playerScore = examplePlayerRow.findViewById(R.id.scorecardRowPlayerScore);
 

@@ -298,7 +298,7 @@ public class AddPointsActivity extends AppCompatActivity {
             params.gravity = Gravity.CENTER_VERTICAL;
 
             CircleImageView playerImageView = playerProfileView.findViewById(R.id.playerImageView);
-            playerImageView.setImageDrawable(Game.currentGame.getPlayers().get(i).getPlayerProfileImage());
+            playerImageView.setImageDrawable(Game.currentGame.getPlayers().get(i).getPlayerProfileImage(this));
             LinearLayoutCompat.LayoutParams imageParams = new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT);
             playerImageView.setLayoutParams(imageParams);
             imageParams.height = (int) dp * 60;

@@ -31,7 +31,7 @@ public class WinnerScreenActivity extends AppCompatActivity {
         int winner = getWinnerIndex();
 
         winnerOfGame.setText(players.get(winner).getName() + " Won!!!");
-        playerIcon.setImageDrawable(players.get(winner).getPlayerProfileImage());
+        playerIcon.setImageDrawable(players.get(winner).getPlayerProfileImage(this));
 
         viewScoreCard.setOnClickListener(new View.OnClickListener() {
             @Override
