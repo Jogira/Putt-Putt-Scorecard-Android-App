@@ -8,10 +8,13 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,7 +34,7 @@ import static java.lang.String.valueOf;
 
 public class AddPointsActivity extends AppCompatActivity {
 
-    private TextView scoreToAdd;
+    private EditText scoreToAdd;
     private TextView currentHoleTextView;
     private int currentPlayerTurn = Game.currentGame.currentPlayerTurn;
     private TextView currentPlayerName;
@@ -66,7 +69,7 @@ public class AddPointsActivity extends AppCompatActivity {
         Button pauseGame = findViewById(R.id.puaseGameButton);
 
         addScore = findViewById(R.id.addScoreButton);
-        scoreToAdd = findViewById(R.id.scoreToAdd);
+        scoreToAdd = findViewById(R.id.typeToAdd);
         Button openCard = findViewById(R.id.viewCard);
         Button endGame = findViewById(R.id.endGame);
         CircleImageView settingsPage = findViewById(R.id.settingsPageButton);
@@ -74,6 +77,13 @@ public class AddPointsActivity extends AppCompatActivity {
         currentPlayerName = findViewById(R.id.gameViewScoreTitle);
         editParButton = findViewById(R.id.editParButton);
         parText = findViewById(R.id.parText);
+
+        Context context = getApplicationContext();
+        CharSequence text = "Tap the score to edit with the keyboard!";
+        int duration = Toast.LENGTH_LONG;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
 
         if(parsOn) {
             parView.setVisibility(View.VISIBLE);
@@ -103,9 +113,18 @@ public class AddPointsActivity extends AppCompatActivity {
             }
         });
 
+        scoreToAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AnimationController.buttonPress(AddPointsActivity.this, view);
+            }
+        });
+
+
         decrement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                scoreToAdd.clearFocus();
                 decrementScore();
                 AnimationController.buttonPress(AddPointsActivity.this, view);
             }
@@ -115,6 +134,7 @@ public class AddPointsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AnimationController.buttonPress(AddPointsActivity.this, view);
+                scoreToAdd.clearFocus();
                 if (Game.currentGame.getCurrentHole() > 1) {
                     Game.currentGame.setCurrentHole(Game.currentGame.getCurrentHole() - 1);
                     currentHoleTextView.setText(String.valueOf(Game.currentGame.getCurrentHole()));
@@ -128,6 +148,7 @@ public class AddPointsActivity extends AppCompatActivity {
         forwardOneHole.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                scoreToAdd.clearFocus();
                 AnimationController.buttonPress(AddPointsActivity.this, view);
                 if (Game.currentGame.getCurrentHole() < 18)
                     incrementHole();
@@ -158,6 +179,7 @@ public class AddPointsActivity extends AppCompatActivity {
         addScore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                scoreToAdd.clearFocus();
                 AnimationController.buttonPressSubtle(AddPointsActivity.this, view);
                 recordPlayerScore();
                 incrementPlayerTurn();
@@ -197,7 +219,7 @@ public class AddPointsActivity extends AppCompatActivity {
 
 
     private void recordPlayerScore(){
-        int score = Integer.parseInt((String) scoreToAdd.getText());
+        int score = Integer.parseInt(scoreToAdd.getText().toString());
 
         if(parsOn) {
             Game.currentGame.setParAtHole(Game.currentGame.getCurrentHole()-1, currentPar);
@@ -369,6 +391,7 @@ public class AddPointsActivity extends AppCompatActivity {
 
 
     private void incrementScore() {
+        scoreToAdd.clearFocus();
         int score = Integer.parseInt(scoreToAdd.getText().toString().trim());
         if((score + 1) <= 99)
             score++;
@@ -378,6 +401,7 @@ public class AddPointsActivity extends AppCompatActivity {
 
 
     private void decrementScore() {
+        scoreToAdd.clearFocus();
         int score = Integer.parseInt(scoreToAdd.getText().toString().trim());
         if((score - 1) >= 1 || parsOn)
             score--;
