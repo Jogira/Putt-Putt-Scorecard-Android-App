@@ -20,12 +20,14 @@ class UserPreferencesManager {
     private boolean usePars;
     private boolean firstLaunch;
     public ArrayList<Player> players;
+    public ArrayList<Game> games;
     private static final String PREFS_NAME = "prefs";
     private static final String PREFS_PARS = "pars";
     private static final String PREFS_FIRST_LAUNCH = "first_launch";
     private static final String PREFS_PLAYERS = "players";
     private static final String PREFS_LAST_PLAYER_ID = "last_player_id";
     private static final String PREFS_LAST_GAME_ID = "last_game_id";
+    private static final String PREFS_GAMES = "games";
 
 
     UserPreferencesManager(Context c) {
@@ -35,6 +37,17 @@ class UserPreferencesManager {
         usePars = userPrefs.getBoolean(PREFS_PARS, false);
         firstLaunch = userPrefs.getBoolean(PREFS_FIRST_LAUNCH, true);
         players = getPlayers();
+        games = getGames();
+    }
+
+    void addGames(Game newGame) {
+        SharedPreferences.Editor editor = userPrefs.edit();
+        Gson gson = new Gson();
+        games.add(newGame);
+        String gamesJson = gson.toJson(games);
+        editor.putString(PREFS_GAMES, gamesJson);
+        editor.apply();
+        games = getGames();
     }
 
     public void updatePars(boolean usePars) {
@@ -53,7 +66,7 @@ class UserPreferencesManager {
     }
 
 
-    public void updateLastPlayerID(int id){
+    public void updateLastPlayerID(int id) {
         SharedPreferences.Editor editor = userPrefs.edit();
         editor.putInt(PREFS_LAST_PLAYER_ID, id);
         editor.apply();
@@ -61,7 +74,7 @@ class UserPreferencesManager {
     }
 
 
-    public void updateLastGameID(int id){
+    public void updateLastGameID(int id) {
         SharedPreferences.Editor editor = userPrefs.edit();
         editor.putInt(PREFS_LAST_GAME_ID, id);
         editor.apply();
@@ -69,7 +82,7 @@ class UserPreferencesManager {
     }
 
 
-    void removePlayer(Player player){
+    void removePlayer(Player player) {
         SharedPreferences.Editor editor = userPrefs.edit();
         Gson gson = new Gson();
         players.remove(player);
@@ -80,7 +93,7 @@ class UserPreferencesManager {
     }
 
 
-    void addPlayer(Player newPlayer){
+    void addPlayer(Player newPlayer) {
         SharedPreferences.Editor editor = userPrefs.edit();
         Gson gson = new Gson();
         players.add(newPlayer);
@@ -92,7 +105,9 @@ class UserPreferencesManager {
     }
 
 
-    public boolean isFirstLaunch() { return firstLaunch;}
+    public boolean isFirstLaunch() {
+        return firstLaunch;
+    }
 
     public boolean parsOn() {
         return usePars;
@@ -107,16 +122,29 @@ class UserPreferencesManager {
     }
 
     //Retrieves user's player profiles
-    ArrayList<Player> getPlayers(){
+    ArrayList<Player> getPlayers() {
         Gson gson = new Gson();
         String playersJson = userPrefs.getString(PREFS_PLAYERS, null);
-        Type type = new TypeToken<ArrayList<Player>>() {}.getType();
+        Type type = new TypeToken<ArrayList<Player>>() {
+        }.getType();
         players = gson.fromJson(playersJson, type);
 
         if (players == null)
             players = new ArrayList<>();
 
         return players;
+    }
+
+    ArrayList<Game> getGames() {
+        Gson gson = new Gson();
+        String gameJson = userPrefs.getString(PREFS_GAMES, null);
+        Type type = new TypeToken<ArrayList<Game>>() {
+        }.getType();
+        games = gson.fromJson(gameJson, type);
+        if (games == null) {
+            games = new ArrayList<>();
+        }
+        return games;
     }
 
 }
