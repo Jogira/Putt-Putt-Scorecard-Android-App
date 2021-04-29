@@ -15,13 +15,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import java.util.ArrayList;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
     private int currentGamePage = 0;
-    private int numActiveGames = 2;
-    private int numPastGames = 3;
+    private int numActiveGames = 0;
+    private int numPastGames = 0;
     private static final int PAST_GAMES = 1;
     private static final int ACTIVE_GAMES = 0;
     private Button activeGamesButton;
@@ -40,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
 
         dp = this.getResources().getDimension(R.dimen.pixelsToDP);
 
+        if(Game.currentGame != null) {
+            Game.currentGame.setActive(false);
+            manager.addGame(Game.currentGame);
+        }
+        Game.currentGame = null;
         ImageButton statsButton = findViewById(R.id.statsPageButton);
         CircleImageView settingsButton = findViewById(R.id.settingsPageButton);
         activeGamesButton = findViewById(R.id.activeGamesButton);
@@ -122,10 +129,24 @@ public class MainActivity extends AppCompatActivity {
         this.overridePendingTransition(R.anim.slide_up, R.anim.fade_in);
     }
 
+    private void openPointsPage(){
+        Intent addPointsPage = new Intent(this, AddPointsActivity.class);
+        startActivity(addPointsPage);
+        this.overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+    }
 
-    private void populateGamesScrollView(int pageType){
+
+    private void populateGamesScrollView(final int pageType) {
 
         gamesScrollViewContent.removeAllViews();
+        final ArrayList<Game> games = manager.getGames();
+
+        for(int i = 0; i < games.size(); i++) {
+            if(games.get(i).getActive())
+                numActiveGames++;
+            else
+                numPastGames++;
+        }
 
         if(pageType == ACTIVE_GAMES && numActiveGames != 0 || pageType == PAST_GAMES && numPastGames != 0)
             noGamesView.setVisibility(View.GONE);
@@ -139,24 +160,49 @@ public class MainActivity extends AppCompatActivity {
         if(pageType == ACTIVE_GAMES) {
             //example active game
             for (int i = 0; i < numActiveGames; i++) {
-                View exampleActiveGame = View.inflate(this, R.layout.item_active_view, null);
-                exampleActiveGame.setLayoutParams(params);
-                final ImageButton resumeGameButton = exampleActiveGame.findViewById(R.id.resumeActiveGameButton);
-                final ImageButton deleteGameButton = exampleActiveGame.findViewById(R.id.deleteActiveGameButton);
+                final int index = i;
+                final View activeGame = View.inflate(this, R.layout.item_active_view, null);
+                activeGame.setLayoutParams(params);
+                final ImageButton resumeGameButton = activeGame.findViewById(R.id.resumeActiveGameButton);
+                final ImageButton deleteGameButton = activeGame.findViewById(R.id.deleteActiveGameButton);
+
+                int numPlayers = games.get(i).getPlayers().size();
+
+                CircleImageView playerOneImage = activeGame.findViewById(R.id.activeGamePlayerImage);
+                CircleImageView playerTwoImage = activeGame.findViewById(R.id.activeGamePlayer2Image);
+                TextView morePlayersView = activeGame.findViewById(R.id.morePlayersView);
+
+                playerOneImage.setImageDrawable(games.get(i).getPlayers().get(0).getPlayerProfileImage(this));
+
+                if(numPlayers < 3)
+                    morePlayersView.setVisibility(View.INVISIBLE);
+                if(numPlayers < 2)
+                    playerTwoImage.setVisibility(View.INVISIBLE);
+                else
+                    playerTwoImage.setImageDrawable(games.get(i).getPlayers().get(1).getPlayerProfileImage(this));
+
                 resumeGameButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         AnimationController.buttonPress(MainActivity.this, view);
+                        openPointsPage();
+                        Game.currentGame = games.get(index);
                     }
                 });
                 deleteGameButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         AnimationController.buttonPress(MainActivity.this, view);
+                        manager.removeGame(games.get(index));
+                        gamesScrollViewContent.removeView(activeGame);
+                        numActiveGames--;
+
+                        if(numActiveGames == 0)
+                            noGamesView.setVisibility(View.GONE);
                     }
                 });
-                gamesScrollViewContent.addView(exampleActiveGame);
-                AnimationController.playAnimation(MainActivity.this, exampleActiveGame, R.anim.quick_zoom, delay);
+                gamesScrollViewContent.addView(activeGame);
+                AnimationController.playAnimation(MainActivity.this, activeGame, R.anim.quick_zoom, delay);
                 delay += 25;
             }
         }

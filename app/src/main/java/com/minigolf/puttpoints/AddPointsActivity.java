@@ -8,11 +8,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -47,6 +45,10 @@ public class AddPointsActivity extends AppCompatActivity {
     private Button editParButton;
     private int currentPar = 2;
     private Button addScore;
+    private TextView scoreNotification;
+    private int previousScore = Integer.MIN_VALUE;
+    private int newScore = Integer.MIN_VALUE;
+    private UserPreferencesManager manager;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -55,7 +57,7 @@ public class AddPointsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_points);
 
-        UserPreferencesManager manager = new UserPreferencesManager(this);
+        manager = new UserPreferencesManager(this);
         parsOn = manager.parsOn();
 
         currentHoleTextView = findViewById(R.id.CurrentHole);
@@ -67,6 +69,7 @@ public class AddPointsActivity extends AppCompatActivity {
         ImageButton forwardOneHole = findViewById(R.id.nextHole);
         ImageButton statsPage = findViewById(R.id.statsPageButton);
         Button pauseGame = findViewById(R.id.puaseGameButton);
+        scoreNotification = findViewById(R.id.scoreNotificationView);
 
         addScore = findViewById(R.id.addScoreButton);
         scoreToAdd = findViewById(R.id.typeToAdd);
@@ -198,7 +201,9 @@ public class AddPointsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AnimationController.buttonPressSubtle(AddPointsActivity.this, view);
-                //openScorecard(true);
+                Game.currentGame.setActive(false);
+                manager.addGame(Game.currentGame);
+                Game.currentGame = null;
                 openWinnerScreen();
             }
         });
@@ -207,6 +212,8 @@ public class AddPointsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AnimationController.buttonPressSubtle(AddPointsActivity.this, view);
+                manager.addGame(Game.currentGame);
+                Game.currentGame = null;
                 toHomeScreen();
             }
         });
@@ -323,8 +330,8 @@ public class AddPointsActivity extends AppCompatActivity {
             playerImageView.setImageDrawable(Game.currentGame.getPlayers().get(i).getPlayerProfileImage(this));
             LinearLayoutCompat.LayoutParams imageParams = new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT);
             playerImageView.setLayoutParams(imageParams);
-            imageParams.height = (int) dp * 60;
-            imageParams.width = (int) dp * 60;
+            imageParams.height = (int) dp * 58;
+            imageParams.width = (int) dp * 58;
 
             ImageView checkImage = playerProfileView.findViewById(R.id.check);
             if(Game.currentGame.getPlayerScores().get(Game.currentGame.getCurrentHole()-1)[i] == Integer.MIN_VALUE)
@@ -334,8 +341,8 @@ public class AddPointsActivity extends AppCompatActivity {
 
             if(i == Game.currentGame.currentPlayerTurn) {
                 playerImageView.setBorderWidth((int) (3 * dp));
-                imageParams.height = (int) dp * 67;
-                imageParams.width = (int) dp * 67;
+                imageParams.height = (int) dp * 65;
+                imageParams.width = (int) dp * 65;
             }
 
             playerProfileView.setOnClickListener(new View.OnClickListener() {
@@ -376,14 +383,14 @@ public class AddPointsActivity extends AppCompatActivity {
 
                     updateAddScoreButton();
                     AnimationController.playAnimation(this, playerProfile, R.anim.scale_up);
-                    playerProfile.getLayoutParams().height = (int) dp * 67;
-                    playerProfile.getLayoutParams().width = (int) dp * 67;
+                    playerProfile.getLayoutParams().height = (int) dp * 65;
+                    playerProfile.getLayoutParams().width = (int) dp * 65;
             }
             else {
                 playerProfile.setBorderWidth(0);
                 AnimationController.playAnimation(this, playerProfile, R.anim.scale_down);
-                playerProfile.getLayoutParams().height = (int) dp * 60;
-                playerProfile.getLayoutParams().width = (int) dp * 60;
+                playerProfile.getLayoutParams().height = (int) dp * 58;
+                playerProfile.getLayoutParams().width = (int) dp * 58;
             }
             player.requestLayout();
         }

@@ -168,7 +168,6 @@ public class ScoreCardActivity extends AppCompatActivity {
 
 
     private String setScore(int currentHole, int player) {
-        String gameFile = "";
 
         if(currentHole <= Game.currentGame.getNumHoles()) {
             if(currentHole > Game.currentGame.getCurrentHole())
@@ -193,47 +192,6 @@ public class ScoreCardActivity extends AppCompatActivity {
             }
             return total+"";
         }
-
-//        try {
-//            String lines = "";
-//            FileInputStream fileInputStream = openFileInput(filename);
-//            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-//            StringBuilder stringBuffer = new StringBuilder();
-//            BufferedReader bufferedReader = new BufferedReader((inputStreamReader));
-//
-//            while ((lines = bufferedReader.readLine()) != null)
-//                stringBuffer.append(lines).append("\n");
-//
-//            Log.d(TAG, "setScore:" + stringBuffer.toString());
-//            inputStreamReader.close();
-//            gameFile = stringBuffer.toString();
-//
-//        }
-//        catch (IOException e) { e.printStackTrace(); }
-//
-//        String[] finder = gameFile.split("\n"); //parses the csv and grabs the number hole it is looking for
-//
-//        if (currentHole >= finder.length && (currentHole > Game.currentGame.getNumHoles())) {
-//            int total = 0;
-//            for(int i = 1; i < finder.length; i++) {
-//                String score = finder[i];
-//                String[] stuff = score.split(",");
-//                int scoreValue = Integer.parseInt(stuff[1]);
-//                total += scoreValue;
-//            }
-//            return String.valueOf(total);
-//        }
-//
-//        if (currentHole >= finder.length)
-//            return "N/A";
-//
-//        String score = finder[currentHole];
-//        String[] stuff = score.split(",");
-//        Log.d(TAG, "number Being inputted:" + currentHole);
-//        Log.d(TAG, "The line there:" + finder[currentHole]);
-//        score = stuff[1];
-//        Log.d(TAG, "The val that is being returned:" + score);
-//        return score;
     }
 
     //initial population of scorecard

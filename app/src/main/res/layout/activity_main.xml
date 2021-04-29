@@ -95,7 +95,7 @@
             android:fontFamily="@font/bree_serif"
             android:text="@string/no_games_text"
             android:textAlignment="center"
-            android:textColor="#E6E6E6"
+            android:textColor="#8E8E8E"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -149,6 +149,7 @@
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:translationZ="15dp"
         android:typeface="normal"
         app:layout_constraintBottom_toTopOf="@+id/navBar"
         app:layout_constraintEnd_toEndOf="parent"

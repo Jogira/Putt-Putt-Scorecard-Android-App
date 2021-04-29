@@ -136,4 +136,14 @@ public class Game {
     public void setPlayers(ArrayList<Player> players) {
         this.players = players;
     }
+
+    public int getGameID() {
+        return this.gameID;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        Game g = (Game)o;
+        return (this.getGameID() == g.getGameID());
+    }
 }

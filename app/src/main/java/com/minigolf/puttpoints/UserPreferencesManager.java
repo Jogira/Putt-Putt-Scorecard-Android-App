@@ -40,10 +40,22 @@ class UserPreferencesManager {
         games = getGames();
     }
 
-    void addGames(Game newGame) {
+    void addGame(Game newGame) {
         SharedPreferences.Editor editor = userPrefs.edit();
         Gson gson = new Gson();
+
+        games.remove(newGame);
         games.add(newGame);
+        String gamesJson = gson.toJson(games);
+        editor.putString(PREFS_GAMES, gamesJson);
+        editor.apply();
+        games = getGames();
+    }
+
+    void removeGame(Game game) {
+        SharedPreferences.Editor editor = userPrefs.edit();
+        Gson gson = new Gson();
+        games.remove(game);
         String gamesJson = gson.toJson(games);
         editor.putString(PREFS_GAMES, gamesJson);
         editor.apply();
@@ -101,7 +113,6 @@ class UserPreferencesManager {
         editor.putString(PREFS_PLAYERS, playersJson);
         editor.apply();
         players = getPlayers();
-        System.out.println("added player");
     }
 
 

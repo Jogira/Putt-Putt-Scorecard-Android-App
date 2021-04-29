@@ -2,7 +2,6 @@ package com.minigolf.puttpoints;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -57,7 +56,7 @@ public class AddPlayersActivity extends AppCompatActivity {
                                 AnimationController.buttonPressSubtle(AddPlayersActivity.this, view);
                                 if(numPlayers < 1) {
                                         Context context = getApplicationContext();
-                                        CharSequence text = "Must select at least one player to create game.";
+                                        CharSequence text = "Must select at least one player to create a game!";
                                         int duration = Toast.LENGTH_SHORT;
 
                                         Toast toast = Toast.makeText(context, text, duration);
