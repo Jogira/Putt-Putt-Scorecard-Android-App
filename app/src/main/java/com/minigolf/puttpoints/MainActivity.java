@@ -171,13 +171,16 @@ public class MainActivity extends AppCompatActivity {
                 final ImageButton resumeGameButton = activeGame.findViewById(R.id.resumeActiveGameButton);
                 final ImageButton deleteGameButton = activeGame.findViewById(R.id.deleteActiveGameButton);
 
-                int numPlayers = games.get(i).getPlayers().size();
+                TextView currentHole = activeGame.findViewById(R.id.activeGameCurrentHoleTextView);
+                currentHole.setText(String.valueOf(activeGames.get(i).getCurrentHole()));
+
+                int numPlayers = activeGames.get(i).getPlayers().size();
 
                 CircleImageView playerOneImage = activeGame.findViewById(R.id.activeGamePlayerImage);
                 CircleImageView playerTwoImage = activeGame.findViewById(R.id.activeGamePlayer2Image);
                 TextView morePlayersView = activeGame.findViewById(R.id.morePlayersView);
 
-                playerOneImage.setImageDrawable(games.get(i).getPlayers().get(0).getPlayerProfileImage(this));
+                playerOneImage.setImageDrawable(activeGames.get(i).getPlayers().get(0).getPlayerProfileImage(this));
 
                 if(numPlayers < 3)
                     morePlayersView.setVisibility(View.INVISIBLE);
@@ -204,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
                         activeGames.remove(index);
 
                         if(activeGames.size() == 0)
-                            noGamesView.setVisibility(View.GONE);
+                            noGamesView.setVisibility(View.VISIBLE);
                     }
                 });
                 gamesScrollViewContent.addView(activeGame);
@@ -233,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         AnimationController.buttonPress(MainActivity.this, viewScoreCardButton);
-                        Game.currentGame = games.get(index);
+                        Game.currentGame = pastGames.get(index);
                         openScorecardPage();
                     }
                 });
