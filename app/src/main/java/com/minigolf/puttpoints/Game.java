@@ -101,6 +101,46 @@ public class Game {
         score[player] = playerScore;
     }
 
+    public int getPlayerTotal(int player){
+        int total = 0;
+            for (int hole = 0; hole < getNumHoles();  hole++) {
+                int[] playerScores = getPlayerScores().get(hole);
+
+                if (playerScores[player] != Integer.MIN_VALUE)
+                    total += playerScores[player];
+            }
+
+        return total;
+    }
+
+
+    public int getWinnerIndex(){
+        int total = 0;
+        ArrayList<Integer> playerTotals = new ArrayList<>();
+
+        for(int player = 0; player < getPlayers().size(); player++) {
+            for (int hole = 0; hole < getNumHoles();  hole++) {
+                int[] playerScores = getPlayerScores().get(hole);
+
+                if (playerScores[player] != Integer.MIN_VALUE)
+                    total += playerScores[player];
+            }
+            playerTotals.add(total);
+            total = 0;
+        }
+
+        int lowestScore = Integer.MAX_VALUE;
+        int winnerIndex = 0;
+        for(int i = 0; i < playerTotals.size(); i++){
+            if(playerTotals.get(i) < lowestScore) {
+                lowestScore = playerTotals.get(i);
+                winnerIndex = i;
+            }
+        }
+
+        return winnerIndex;
+    }
+
     public boolean getActive() {
         return isActive;
     }

@@ -34,10 +34,8 @@ public class AddPointsActivity extends AppCompatActivity {
 
     private EditText scoreToAdd;
     private TextView currentHoleTextView;
-    private int currentPlayerTurn = Game.currentGame.currentPlayerTurn;
+    private int currentPlayerTurn;
     private TextView currentPlayerName;
-    private ArrayList<int[]> playerScores = Game.currentGame.getPlayerScores();
-    private ArrayList<Player> players = Game.currentGame.getPlayers();
     private TextView parText;
     private LinearLayout playerIconView;
     private boolean parsOn;
@@ -83,7 +81,7 @@ public class AddPointsActivity extends AppCompatActivity {
 
         Context context = getApplicationContext();
         CharSequence text = "Tap the score to edit with the keyboard!";
-        int duration = Toast.LENGTH_LONG;
+        int duration = Toast.LENGTH_SHORT;
 
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
@@ -97,6 +95,7 @@ public class AddPointsActivity extends AppCompatActivity {
             parView.setVisibility(View.GONE);
         }
 
+        currentPlayerTurn = Game.currentGame.currentPlayerTurn;
         currentHoleTextView.setText(String.valueOf(Game.currentGame.getCurrentHole()));
         currentPlayerName.setText(Game.currentGame.getPlayers().get(currentPlayerTurn).getName() + "'s Score");
         currentPlayerTurn = Game.currentGame.currentPlayerTurn;
@@ -201,9 +200,6 @@ public class AddPointsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AnimationController.buttonPressSubtle(AddPointsActivity.this, view);
-                Game.currentGame.setActive(false);
-                manager.addGame(Game.currentGame);
-                Game.currentGame = null;
                 openWinnerScreen();
             }
         });
@@ -213,7 +209,6 @@ public class AddPointsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 AnimationController.buttonPressSubtle(AddPointsActivity.this, view);
                 manager.addGame(Game.currentGame);
-                Game.currentGame = null;
                 toHomeScreen();
             }
         });
