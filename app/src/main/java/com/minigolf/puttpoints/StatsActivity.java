@@ -3,8 +3,13 @@ package com.minigolf.puttpoints;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -14,7 +19,6 @@ public class StatsActivity extends AppCompatActivity {
 
     private ImageButton homeButton;
     private CircleImageView settingsButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,4 +57,5 @@ public class StatsActivity extends AppCompatActivity {
         startActivity(settingsPage);
         this.overridePendingTransition(R.anim.fade_out, R.anim.fade_in);
     }
+
 }

@@ -30,6 +30,7 @@
                 android:id="@+id/parToggleView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -40,7 +41,7 @@
                     android:fontFamily="@font/bree_serif"
                     android:text="Pars Off"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textColor="#F1F1F1"
+                    android:textColor="@android:color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -51,6 +52,26 @@
                     android:checked="false"
                     android:trackTint="@color/colorAccent" />
             </LinearLayout>
+
+            <Button
+                android:id="@+id/editProfileButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-2dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="7dp"
+                android:background="#00FFFFFF"
+                android:drawableEnd="@drawable/avatar1"
+                android:fontFamily="@font/bree_serif"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Edit My Profile"
+                android:textAlignment="viewStart"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
         </LinearLayout>
     </ScrollView>
 

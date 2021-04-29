@@ -208,7 +208,7 @@
             android:fontFamily="@font/bree_serif"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:text="Confirm"
+            android:text="Add"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="#ffffff"
             android:textSize="17sp"

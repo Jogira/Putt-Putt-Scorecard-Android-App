@@ -116,6 +116,20 @@ class UserPreferencesManager {
     }
 
 
+    void updateProfile(String name, int avatar) {
+        SharedPreferences.Editor editor = userPrefs.edit();
+        Gson gson = new Gson();
+        Player user = players.get(0);
+        user.setName(name);
+        user.setPlayerProfileImage(avatar);
+        players.set(0, user);
+        String playersJson = gson.toJson(players);
+        editor.putString(PREFS_PLAYERS, playersJson);
+        editor.apply();
+        players = getPlayers();
+    }
+
+
     public boolean isFirstLaunch() {
         return firstLaunch;
     }
