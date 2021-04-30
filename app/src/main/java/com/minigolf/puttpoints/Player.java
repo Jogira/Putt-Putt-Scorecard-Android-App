@@ -10,12 +10,20 @@ public class Player {
     private final int playerID;
     private int imageID;
     private String name;
+    private int wins;
+    private int losses;
+    private int pointsScored;
+    private int gamesPlayed;
 
 
     public Player(String name, int imageID, int id) {
         this.name = name;
         this.imageID = imageID;
         playerID = id;
+        this.losses = 0;
+        this.wins = 0;
+        this.gamesPlayed = 0;
+        this.pointsScored = 0;
     }
 
     public int getPlayerID() {
@@ -28,6 +36,38 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getWins() {
+        return this.wins;
+    }
+
+    public int getLosses() {
+        return this.losses;
+    }
+
+    public void incrementWins() {
+        this.wins += 1;
+    }
+
+    public void incrementLosses() {
+        this.losses += 1;
+    }
+
+    public int getGamesPlayed() {
+        return this.gamesPlayed;
+    }
+
+    public void incrementGamesPlayed(){
+        this.gamesPlayed += 1;
+    }
+
+    public int getPointsScored(){
+        return this.pointsScored;
+    }
+
+    public void addToPointsScored(int numPoints) {
+        this.pointsScored += numPoints;
     }
 
     public Drawable getPlayerProfileImage(Context c) {

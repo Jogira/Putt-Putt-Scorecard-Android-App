@@ -24,7 +24,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         final Runnable r;
 
         if(manager.isFirstLaunch()) {
-            manager.updateFirstLaunch(false);
             r = new Runnable() {
                 public void run() {
                     toFirstLaunch();

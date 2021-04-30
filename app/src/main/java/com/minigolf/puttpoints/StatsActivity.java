@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,9 +27,11 @@ public class StatsActivity extends AppCompatActivity {
 
         UserPreferencesManager manager = new UserPreferencesManager(this);
 
+        Player user = manager.getPlayers().get(0);
+
         homeButton = findViewById(R.id.homePageButton);
         settingsButton = findViewById(R.id.settingsPageButton);
-        settingsButton.setImageDrawable(manager.getPlayers().get(0).getPlayerProfileImage(this));
+        settingsButton.setImageDrawable(user.getPlayerProfileImage(this));
 
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,7 +39,6 @@ public class StatsActivity extends AppCompatActivity {
                 openHomePage();
             }
         });
-
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,6 +46,43 @@ public class StatsActivity extends AppCompatActivity {
             }
         });
 
+        TextView userWins = findViewById(R.id.userWinsStat);
+        TextView userLosses = findViewById(R.id.userLossesStat);
+        CircleImageView highestWinsPlayerImage = findViewById(R.id.playerWithMostWinsImage);
+        TextView highestWinsPlayerName = findViewById(R.id.playerWithMostWinsName);
+        TextView gamesPlayed = findViewById(R.id.gamesPlayedStat);
+        TextView userPPG = findViewById(R.id.userPPGStat);
+
+        String wins = "Wins\n" + user.getWins();
+        userWins.setText(wins);
+
+        String losses = "Losses\n" + user.getLosses();
+        userLosses.setText(losses);
+
+        String games = "Games\n" + manager.getNumGamesPlayed();
+        gamesPlayed.setText(games);
+
+        if(user.getGamesPlayed() > 0) {
+            int PPG = user.getPointsScored() / user.getGamesPlayed();
+            String ppgString = "PPG\n" + PPG;
+            userPPG.setText(ppgString);
+        }
+
+        int highestWins = 0;
+        int highestWinsIndex = -1;
+        for(int i = 0; i < manager.getPlayers().size(); i++){
+            if(manager.getPlayers().get(i).getWins() > highestWins) {
+                highestWins = manager.getPlayers().get(i).getWins();
+                highestWinsIndex = i;
+            }
+        }
+
+        if(highestWinsIndex != -1) {
+            highestWinsPlayerImage.setImageDrawable(manager.getPlayers().get(highestWinsIndex).getPlayerProfileImage(this));
+            highestWinsPlayerName.setText(manager.getPlayers().get(highestWinsIndex).getName());
+        }
+        else
+            highestWinsPlayerImage.setVisibility(View.GONE);
     }
 
     private void openHomePage(){

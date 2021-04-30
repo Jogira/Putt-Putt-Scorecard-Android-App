@@ -24,6 +24,7 @@ public class WinnerScreenActivity extends AppCompatActivity {
         Game.currentGame.setActive(false);
         UserPreferencesManager manager = new UserPreferencesManager(this);
         manager.addGame(Game.currentGame);
+        manager.incrementNumGamesPlayed();
 
         CircleImageView playerIcon = findViewById(R.id.playerImageView);
         TextView winnerOfGame = findViewById(R.id.winnerText);
@@ -31,6 +32,21 @@ public class WinnerScreenActivity extends AppCompatActivity {
         Button done = findViewById(R.id.exitToHome);
         ArrayList<Player> players = Game.currentGame.getPlayers();
         int winner = Game.currentGame.getWinnerIndex();
+
+        for(int i = 0; i < Game.currentGame.getPlayers().size(); i++) {
+            Player p = Game.currentGame.getPlayers().get(i);
+            int playerTotal = Game.currentGame.getPlayerTotal(i);
+
+            if(i == winner)
+                p.incrementWins();
+            else
+                p.incrementLosses();
+
+            p.addToPointsScored(playerTotal);
+            p.incrementGamesPlayed();
+
+            manager.updatePlayer(p);
+        }
 
         winnerOfGame.setText(players.get(winner).getName() + " Won!!!");
         playerIcon.setImageDrawable(players.get(winner).getPlayerProfileImage(this));

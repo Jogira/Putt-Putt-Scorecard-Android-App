@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView noGamesText;
     private float dp;
     private UserPreferencesManager manager;
-    private ArrayList<Game> games;
     private ArrayList<Game> activeGames;
     private ArrayList<Game> pastGames;
 
@@ -104,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         populateGamesScrollView(ACTIVE_GAMES);
-
     }
 
     private void openStatsPage(){
@@ -142,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
     private void populateGamesScrollView(final int pageType) {
 
         gamesScrollViewContent.removeAllViews();
-        games = manager.getGames();
+        ArrayList<Game> games = manager.getGames();
         activeGames = new ArrayList<>();
         pastGames = new ArrayList<>();
 

@@ -21,6 +21,7 @@ class UserPreferencesManager {
     private boolean firstLaunch;
     public ArrayList<Player> players;
     public ArrayList<Game> games;
+    private int numGamesPlayed;
     private static final String PREFS_NAME = "prefs";
     private static final String PREFS_PARS = "pars";
     private static final String PREFS_FIRST_LAUNCH = "first_launch";
@@ -28,6 +29,7 @@ class UserPreferencesManager {
     private static final String PREFS_LAST_PLAYER_ID = "last_player_id";
     private static final String PREFS_LAST_GAME_ID = "last_game_id";
     private static final String PREFS_GAMES = "games";
+    private static final String PREFS_GAMES_PLAYED = "games_played";
 
 
     UserPreferencesManager(Context c) {
@@ -38,6 +40,7 @@ class UserPreferencesManager {
         firstLaunch = userPrefs.getBoolean(PREFS_FIRST_LAUNCH, true);
         players = getPlayers();
         games = getGames();
+        numGamesPlayed = userPrefs.getInt(PREFS_GAMES_PLAYED, 0);
     }
 
     void addGame(Game newGame) {
@@ -116,6 +119,28 @@ class UserPreferencesManager {
     }
 
 
+    void updatePlayer(Player player) {
+        SharedPreferences.Editor editor = userPrefs.edit();
+        Gson gson = new Gson();
+
+        int insertIndex = -1;
+
+        try {
+            insertIndex = players.indexOf(player);
+        }
+        catch (Exception ignored){}
+
+        if(insertIndex != -1) {
+            players.remove(player);
+            players.add(insertIndex, player);
+            String playersJson = gson.toJson(players);
+            editor.putString(PREFS_PLAYERS, playersJson);
+            editor.apply();
+            players = getPlayers();
+        }
+    }
+
+
     void updateProfile(String name, int avatar) {
         SharedPreferences.Editor editor = userPrefs.edit();
         Gson gson = new Gson();
@@ -129,6 +154,17 @@ class UserPreferencesManager {
         players = getPlayers();
     }
 
+    public void incrementNumGamesPlayed() {
+        SharedPreferences.Editor editor = userPrefs.edit();
+        numGamesPlayed += 1;
+        editor.putInt(PREFS_GAMES_PLAYED, numGamesPlayed);
+        editor.apply();
+        numGamesPlayed = userPrefs.getInt(PREFS_GAMES_PLAYED, 0);
+    }
+
+    public int getNumGamesPlayed(){
+        return numGamesPlayed;
+    }
 
     public boolean isFirstLaunch() {
         return firstLaunch;

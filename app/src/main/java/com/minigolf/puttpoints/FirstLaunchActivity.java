@@ -17,7 +17,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class FirstLaunchActivity extends AppCompatActivity {
 
     private AlertDialog name;
-    private Drawable playerImage;
     private int selectedAvatar;
 
     @Override
@@ -26,14 +25,12 @@ public class FirstLaunchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_first_launch);
 
         Button createProfile = findViewById(R.id.firstLaunchProfile);
-
         createProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openProfileCreator();
             }
         });
-
     }
 
     public void openProfileCreator(){
@@ -87,6 +84,7 @@ public class FirstLaunchActivity extends AppCompatActivity {
                 manager.addPlayer(user);
 
                 name.dismiss();
+                manager.updateFirstLaunch(false);
                 goHome();
             }
         });
