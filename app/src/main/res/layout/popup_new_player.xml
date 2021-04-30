@@ -165,6 +165,7 @@
             android:fontFamily="@font/bree_serif"
             android:hint="&quot;Bob&quot;'"
             android:inputType="textVisiblePassword"
+            android:maxLength="15"
             android:padding="10dp"
             android:selectAllOnFocus="true"
             android:textAlignment="center"

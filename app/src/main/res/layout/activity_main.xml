@@ -83,19 +83,19 @@
         <ImageView
             android:id="@+id/puttPointsLogo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="115dp"
             android:contentDescription="@string/putt_points_logo_desc"
-            app:srcCompat="@drawable/putt_points_logo" />
+            app:srcCompat="@drawable/ic_no_games_image" />
 
         <TextView
             android:id="@+id/noGamesText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="15dp"
             android:fontFamily="@font/bree_serif"
-            android:text="@string/no_games_text"
+            android:text="You have no active\n games :/"
             android:textAlignment="center"
-            android:textColor="#8E8E8E"
+            android:textColor="#DAD8D8"
             android:textSize="20sp"
             android:textStyle="bold" />
 

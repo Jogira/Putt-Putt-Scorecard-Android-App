@@ -71,7 +71,9 @@ public class MainActivity extends AppCompatActivity {
                 currentGamePage = ACTIVE_GAMES;
                 activeGamesButton.getBackground().setTint(Color.parseColor("#2F2F2F"));
                 pastGamesButton.getBackground().setTint(Color.parseColor("#141414"));
-                noGamesText.setText("You have no active games :/");
+                noGamesText.setText("You have no active\n games :/");
+                AnimationController.playAnimation(MainActivity.this, view, R.anim.quick_zoom, 10);
+                AnimationController.playAnimation(MainActivity.this, noGamesText, R.anim.quick_zoom, 10);
             }
         });
 
@@ -85,7 +87,9 @@ public class MainActivity extends AppCompatActivity {
                 currentGamePage = PAST_GAMES;
                 activeGamesButton.getBackground().setTint(Color.parseColor("#141414"));
                 pastGamesButton.getBackground().setTint(Color.parseColor("#2F2F2F"));
-                noGamesText.setText("Your history is empty :/");
+                noGamesText.setText("Your game history is\n empty :/");
+                AnimationController.playAnimation(MainActivity.this, view, R.anim.quick_zoom, 10);
+                AnimationController.playAnimation(MainActivity.this, noGamesText, R.anim.quick_zoom, 10);
             }
         });
 
@@ -103,6 +107,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         populateGamesScrollView(ACTIVE_GAMES);
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        AnimationController.playAnimation(MainActivity.this, noGamesText, R.anim.quick_zoom, 10);
     }
 
     private void openStatsPage(){
@@ -244,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
 
                     CircleImageView playerProfileImage = playerScoreView.findViewById(R.id.historyPlayerProfile);
                     TextView playerScore = playerScoreView.findViewById(R.id.historyPlayerScore);
-                    playerScore.setText(String.valueOf(pastGames.get(i).getPlayerTotal(j)) + "  ");
+                    playerScore.setText(pastGames.get(i).getPlayerTotal(j) + "  ");
                     playerProfileImage.setImageDrawable(pastGames.get(i).getPlayers().get(j).getPlayerProfileImage(this));
 
                     if(j < 4)

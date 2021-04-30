@@ -79,26 +79,22 @@ public class AddPointsActivity extends AppCompatActivity {
         editParButton = findViewById(R.id.editParButton);
         parText = findViewById(R.id.parText);
 
-        Context context = getApplicationContext();
-        CharSequence text = "Tap the score to edit with the keyboard!";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-
         if(parsOn) {
             parView.setVisibility(View.VISIBLE);
             parText.setText("Par " + currentPar);
+            scoreToAdd.setText("0");
         }
-        else {
-            scoreToAdd.setText("1");
+        else
             parView.setVisibility(View.GONE);
-        }
 
         currentPlayerTurn = Game.currentGame.currentPlayerTurn;
         currentHoleTextView.setText(String.valueOf(Game.currentGame.getCurrentHole()));
         currentPlayerName.setText(Game.currentGame.getPlayers().get(currentPlayerTurn).getName() + "'s Score");
         currentPlayerTurn = Game.currentGame.currentPlayerTurn;
+
+        int curPlayerScore = Game.currentGame.getPlayerScores().get(Game.currentGame.getCurrentHole()-1)[currentPlayerTurn];
+        if(curPlayerScore != Integer.MIN_VALUE)
+            scoreToAdd.setText(String.valueOf(curPlayerScore));
 
         editParButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -275,6 +271,7 @@ public class AddPointsActivity extends AppCompatActivity {
                 currentPlayerTurn = 0;
                 updatePlayerTurn(currentPlayerTurn);
                 updatePlayerProfileCheckMarks();
+                AnimationController.playAnimation(this, currentHoleTextView, R.anim.quick_zoom);
             }
         }
     }
@@ -366,6 +363,7 @@ public class AddPointsActivity extends AppCompatActivity {
                     currentPlayerTurn = i;
                     Game.currentGame.currentPlayerTurn = currentPlayerTurn;
                     currentPlayerName.setText(Game.currentGame.getPlayers().get(currentPlayerTurn).getName() + "'s Score");
+                    AnimationController.playAnimation(this, currentPlayerName, R.anim.quick_zoom);
 
                     if(Game.currentGame.getPlayerScores().get(Game.currentGame.getCurrentHole()-1)[currentPlayerTurn] != Integer.MIN_VALUE)
                         scoreToAdd.setText(Game.currentGame.getPlayerScores().get(Game.currentGame.getCurrentHole()-1)[currentPlayerTurn]+"");
@@ -448,14 +446,15 @@ public class AddPointsActivity extends AppCompatActivity {
         final ImageButton decrementPar = layout.findViewById(R.id.decrementPar);
         final ImageButton incrementPar = layout.findViewById(R.id.incrementPar);
         final TextView parNum = layout.findViewById(R.id.parPopupParNumber);
+        parNum.setText(String.valueOf(currentPar));
 
         decrementPar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AnimationController.buttonPressSubtle(AddPointsActivity.this, decrementPar);
-                if(Integer.parseInt((String) parNum.getText()) != 0) {
+                if(currentPar != 0) {
                     currentPar--;
-                    parNum.setText(currentPar + "");
+                    parNum.setText(String.valueOf(currentPar));
                 }
             }
         });
@@ -465,7 +464,7 @@ public class AddPointsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 AnimationController.buttonPressSubtle(AddPointsActivity.this, incrementPar);
                 currentPar++;
-                parNum.setText(currentPar + "");
+                parNum.setText(String.valueOf(currentPar));
             }
         });
 
@@ -473,7 +472,8 @@ public class AddPointsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 popup.dismiss();
-                parText.setText("Par " + currentPar);
+                String par = "Par " + currentPar;
+                parText.setText(par);
             }
         });
 

@@ -44,6 +44,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:background="@drawable/ic_decrement_points"
+            android:backgroundTint="@color/colorTertiaryDark"
             app:srcCompat="@drawable/ic_minus" />
 
         <TextView
@@ -66,6 +67,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:background="@drawable/ic_increment_points"
+            android:backgroundTint="@color/colorTertiaryDark"
             app:srcCompat="@drawable/ic_add" />
 
     </LinearLayout>
@@ -76,8 +78,8 @@
         android:layout_height="30dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="15dp"
-        android:background="@drawable/outline_rounded_background"
-        android:backgroundTint="#E1E1E1"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="@color/colorTertiaryDark"
         android:fontFamily="@font/bree_serif"
         android:text="Done"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -18,8 +19,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class StatsActivity extends AppCompatActivity {
 
-    private ImageButton homeButton;
-    private CircleImageView settingsButton;
+
+    private TableLayout statsPageContent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,9 +31,10 @@ public class StatsActivity extends AppCompatActivity {
 
         Player user = manager.getPlayers().get(0);
 
-        homeButton = findViewById(R.id.homePageButton);
-        settingsButton = findViewById(R.id.settingsPageButton);
+        ImageButton homeButton = findViewById(R.id.homePageButton);
+        CircleImageView settingsButton = findViewById(R.id.settingsPageButton);
         settingsButton.setImageDrawable(user.getPlayerProfileImage(this));
+        statsPageContent = findViewById(R.id.statsPageContent);
 
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +86,17 @@ public class StatsActivity extends AppCompatActivity {
         }
         else
             highestWinsPlayerImage.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        int delay = 25;
+
+        for(int i = 0; i < statsPageContent.getChildCount(); i++) {
+            AnimationController.playAnimation(StatsActivity.this, statsPageContent.getChildAt(i), R.anim.quick_zoom, delay);
+            delay += 55;
+        }
     }
 
     private void openHomePage(){
