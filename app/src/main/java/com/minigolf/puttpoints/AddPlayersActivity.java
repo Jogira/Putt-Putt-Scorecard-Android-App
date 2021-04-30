@@ -35,6 +35,7 @@ public class AddPlayersActivity extends AppCompatActivity {
         private int numPlayers = 0;
         private UserPreferencesManager manager;
         private int selectedAvatar = 0;
+        private float dp;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class AddPlayersActivity extends AppCompatActivity {
                 players = new ArrayList<>();
                 manager = new UserPreferencesManager(this);
                 settingsPage.setImageDrawable(manager.getPlayers().get(0).getPlayerProfileImage(this));
+                dp = AddPlayersActivity.this.getResources().getDimension(R.dimen.pixelsToDP);
 
                 createGame.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -195,7 +197,7 @@ public class AddPlayersActivity extends AppCompatActivity {
                 playerSelectionContentView.removeAllViews();
                 playerSelectionContentView.setColumnCount(3);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                params.setMargins(55, 0, 55, 45);
+                params.setMargins((int)(15*dp), 0, (int)(15*dp), (int)(15*dp));
                 int index = 0;
 
                 for (Player p : manager.getPlayers()) {
@@ -204,8 +206,8 @@ public class AddPlayersActivity extends AppCompatActivity {
                         final CircleImageView profilePictureView = exampleProfile.findViewById(R.id.playerImageView);
                         nameView.setText(p.getName());
 
-                        if(p.getName().length() > 7)
-                                nameView.setText(p.getName().substring(0, 7) + "...");
+                        if(p.getName().length() > 9)
+                                nameView.setText(p.getName().substring(0, 9) + "...");
 
                         if(flipped.size() > index && flipped.get(index))
                                 profilePictureView.setImageDrawable(getDrawable(R.drawable.ic_checked_profile));

@@ -85,7 +85,6 @@
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="-10dp"
         android:fadingEdge="horizontal"
-        android:paddingBottom="30dp"
         android:requiresFadingEdge="vertical"
         app:layout_constraintBottom_toTopOf="@+id/createGameButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -95,7 +94,7 @@
         <androidx.gridlayout.widget.GridLayout
             android:id="@+id/playerSelectionContentView"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|top|center_vertical"
             android:layout_marginTop="50dp"
             android:foregroundGravity="center_horizontal"
